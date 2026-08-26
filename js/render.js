@@ -260,8 +260,10 @@ function renderOverview() {
       var daysBadge  = s.days || s.daysBadge || { en: 'Stop ' + (idx + 1) };
       var enTitle = s.nameEn || s.nameNative || (s.name && s.name.en) || s.nameRomaji || '';
       var zhTitle = s.nameZh || (s.name && s.name.zh) || s.nameNative || enTitle;
+      var cnTitle = (s.name && s.name['zh-cn']) || s.nameZhCn || zhTitle;
       var enSub   = s.nameRomaji || (s.name && s.name.en) || s.nameEn || '';
       var zhSub   = (s.name && s.name.zh) || s.nameZh || s.nameRomaji || enSub;
+      var cnSub   = (s.name && s.name['zh-cn']) || s.nameZhCn || zhSub;
       return '<div class="route-stop-item" data-stop="' + (s.label || s.code || idx) + '">' +
                '<div class="route-stop-top">' +
                  '<div class="stop-code-badge" style="--code-color: ' + dotColor + ';">' +
@@ -275,8 +277,8 @@ function renderOverview() {
                  '</div>' +
                '</div>' +
                '<div class="route-stop-bottom">' +
-                 '<div class="stop-name-native">' + renderBilingualText({ en: enTitle, zh: zhTitle }) + '</div>' +
-                 '<div class="stop-name-romaji">' + renderBilingualText({ en: enSub, zh: zhSub }) + '</div>' +
+                 '<div class="stop-name-native">' + renderBilingualText({ en: enTitle, zh: zhTitle, 'zh-cn': cnTitle }) + '</div>' +
+                 '<div class="stop-name-romaji">' + renderBilingualText({ en: enSub, zh: zhSub, 'zh-cn': cnSub }) + '</div>' +
                  '<div class="stop-days-badge">' + renderBilingualText(daysBadge) + '</div>' +
                '</div>' +
              '</div>';
@@ -315,16 +317,16 @@ function renderOverview() {
 
     profileGrid.innerHTML =
       '<div class="card profile-item-card">' +
-        '<h4>👥 <span class="lang-primary lang-en">Travelers</span><span class="lang-secondary lang-zh">成員人數</span></h4>' +
+        '<h4>👥 <span class="lang-primary lang-en">Travelers</span><span class="lang-secondary lang-zh">成員人數</span><span class="lang-tertiary lang-zh-cn">成员人数</span></h4>' +
         '<p><strong>' + (party.size || 2) + ' Adults</strong></p>' +
         '<p style="font-size:0.85rem; color:var(--text-secondary);">' + memberRoles + '</p>' +
       '</div>' +
       '<div class="card profile-item-card">' +
-        '<h4>🛂 <span class="lang-primary lang-en">Passports &amp; Entry</span><span class="lang-secondary lang-zh">護照與簽證</span></h4>' +
+        '<h4>🛂 <span class="lang-primary lang-en">Passports &amp; Entry</span><span class="lang-secondary lang-zh">護照與簽證</span><span class="lang-tertiary lang-zh-cn">护照与签证</span></h4>' +
         '<p><strong>' + (party.visaStatus ? renderBilingualText(party.visaStatus) : '90-Day Visa Free') + '</strong></p>' +
       '</div>' +
       '<div class="card profile-item-card">' +
-        '<h4>🚗 <span class="lang-primary lang-en">Driver &amp; Transit</span><span class="lang-secondary lang-zh">駕駛資格與通票</span></h4>' +
+        '<h4>🚗 <span class="lang-primary lang-en">Driver &amp; Transit</span><span class="lang-secondary lang-zh">駕駛資格與通票</span><span class="lang-tertiary lang-zh-cn">驾驶资格与通票</span></h4>' +
         '<p><strong>' + (party.drivingLicence ? renderBilingualText(party.drivingLicence) : 'National Rail / Transit Ready') + '</strong></p>' +
       '</div>';
   }
@@ -386,10 +388,12 @@ function renderTips() {
             '<h4 style="font-size: 1.05rem; font-weight: 800; color: #EB2226; margin: 0;">' +
               '<span class="lang-primary lang-en">Emergency Hotlines</span>' +
               '<span class="lang-secondary lang-zh">緊急求助熱線</span>' +
+              '<span class="lang-tertiary lang-zh-cn">紧急求助热线</span>' +
             '</h4>' +
             '<p style="font-size: 0.85rem; color: var(--text-secondary); margin: 2px 0 0;">' +
               '<span class="lang-primary lang-en">Keep these numbers saved on your phone</span>' +
               '<span class="lang-secondary lang-zh">建議將熱線電話預先儲存至手機通訊錄</span>' +
+              '<span class="lang-tertiary lang-zh-cn">建议将热线电话预先储存至手机通讯录</span>' +
             '</p>' +
           '</div>' +
         '</div>' +
@@ -457,13 +461,15 @@ function renderItinerary() {
     }).join('');
 
     var tipHtml = day.tip
-      ? '<div class="day-pro-tip">💡 <strong>' + renderBilingualText({ en: 'Pro Tip:', zh: '實用貼士：' }) + '</strong> ' + renderBilingualText(day.tip) + '</div>'
+      ? '<div class="day-pro-tip">💡 <strong>' + renderBilingualText({ en: 'Pro Tip:', zh: '實用貼士：', 'zh-cn': '实用贴士：' }) + '</strong> ' + renderBilingualText(day.tip) + '</div>'
       : '';
 
     return '<div class="day-card reveal' + (isFirst ? ' open' : '') + '" id="' + day.id + '" data-region="' + (day.region || 'all') + '">' +
              '<div class="day-header" onclick="toggleDayAccordion(\'' + day.id + '\')">' +
                '<div class="day-header-left">' +
-                 '<span class="day-number-badge">DAY ' + (day.dayNum || (index + 1)) + '</span>' +
+                 '<span class="day-number-badge">' +
+               renderBilingualText({ en: 'DAY ' + (day.dayNum || (index + 1)), zh: '第 ' + (day.dayNum || (index + 1)) + ' 天', 'zh-cn': '第 ' + (day.dayNum || (index + 1)) + ' 天' }) +
+               '</span>' +
                  '<div class="day-header-title-wrap">' +
                    '<div class="day-date-label">' + (day.date || '') + '</div>' +
                    '<div class="day-main-title">' + renderBilingualText(day.title) + '</div>' +
@@ -651,7 +657,9 @@ function renderHotels() {
                '<a class="hotel-leg-btn"' +
                   ' href="https://www.booking.com/searchresults.html?ss=' + encodeURIComponent(leg.dest || '') + '&checkin=' + (leg.checkin || '') + '&checkout=' + (leg.checkout || '') + '&group_adults=' + partySize + '"' +
                   ' target="_blank" rel="noopener noreferrer">' +
-                 '🏨 Search on Booking.com ➔' +
+                  '<span class="lang-primary lang-en">🏨 Search on Booking.com ➔</span>' +
+                  '<span class="lang-secondary lang-zh">🏨 在 Booking.com 搜尋 ➔</span>' +
+                  '<span class="lang-tertiary lang-zh-cn">🏨 在 Booking.com 搜索 ➔</span>' +
                '</a>' +
              '</div>';
     }).join('');

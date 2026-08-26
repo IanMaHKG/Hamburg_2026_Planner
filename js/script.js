@@ -59,15 +59,8 @@ if ('serviceWorker' in navigator) {
 function updateNavForPlanMode(config) {
   document.body.classList.add('plan-mode');
 
-  // Update nav logo to show the trip title
-  const navLogo = document.querySelector('.nav-logo, .nav-brand, a.nav-logo');
-  if (navLogo && config && config.trip && config.trip.title) {
-    const primaryCode = (config.languages && config.languages.primary) ? config.languages.primary.code : 'en';
-    const title = (typeof config.trip.title === 'string') ? config.trip.title
-      : (config.trip.title[primaryCode] || Object.values(config.trip.title)[0] || 'Trip Planner');
-    const logoSpan = navLogo.querySelector('span:last-child');
-    if (logoSpan) logoSpan.textContent = title;
-  }
+  // Nav logo already contains hardcoded trilingual spans (Hamburg 2026 / 漢堡 2026 / 汉堡 2026).
+  // No update needed — CSS lang-primary/secondary/tertiary handles visibility.
 
   // Swap aria-hidden on the two panels
   const portal = document.getElementById('portal-landing');
