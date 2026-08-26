@@ -55,8 +55,11 @@ function t(obj, fallback = '') {
   const config = window.TRIP_CONFIG;
   const primaryCode   = config && config.languages && config.languages.primary   ? config.languages.primary.code   : 'en';
   const secondaryCode = config && config.languages && config.languages.secondary ? config.languages.secondary.code : null;
+  const tertiaryCode  = config && config.languages && config.languages.tertiary  ? config.languages.tertiary.code  : null;
+  const isTertiary    = document.body.classList.contains('lang-tertiary');
   const isSecondary   = document.body.classList.contains('lang-secondary');
 
+  if (isTertiary  && tertiaryCode  && obj[tertiaryCode])  return obj[tertiaryCode];
   if (isSecondary && secondaryCode && obj[secondaryCode]) return obj[secondaryCode];
   if (obj[primaryCode]) return obj[primaryCode];
   return Object.values(obj)[0] || fallback;
@@ -85,15 +88,24 @@ function renderBilingualText(obj, className) {
   const config = window.TRIP_CONFIG;
   const primaryCode   = config && config.languages && config.languages.primary   ? config.languages.primary.code   : 'en';
   const secondaryCode = config && config.languages && config.languages.secondary ? config.languages.secondary.code : null;
+  const tertiaryCode  = config && config.languages && config.languages.tertiary  ? config.languages.tertiary.code  : null;
   const primaryVal    = obj[primaryCode] || Object.values(obj)[0] || '';
 
   if (!secondaryCode) {
+    // Single-language mode
     return '<span class="lang-primary lang-' + primaryCode + ' ' + className + '">' + primaryVal + '</span>';
   }
 
   const secondaryVal = obj[secondaryCode] || primaryVal;
-  return '<span class="lang-primary lang-' + primaryCode + ' ' + className + '">' + primaryVal + '</span>' +
-         '<span class="lang-secondary lang-' + secondaryCode + ' ' + className + '">' + secondaryVal + '</span>';
+  let html = '<span class="lang-primary lang-' + primaryCode + ' ' + className + '">' + primaryVal + '</span>' +
+             '<span class="lang-secondary lang-' + secondaryCode + ' ' + className + '">' + secondaryVal + '</span>';
+
+  if (tertiaryCode) {
+    const tertiaryVal = obj[tertiaryCode] || primaryVal;
+    html += '<span class="lang-tertiary lang-' + tertiaryCode + ' ' + className + '">' + tertiaryVal + '</span>';
+  }
+
+  return html;
 }
 
 

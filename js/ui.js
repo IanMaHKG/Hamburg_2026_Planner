@@ -42,6 +42,7 @@ function initLanguage() {
   const config = window.TRIP_CONFIG;
   const primaryLang   = (config && config.languages && config.languages.primary)   ? config.languages.primary.code   : 'en';
   const secondaryLang = (config && config.languages && config.languages.secondary) ? config.languages.secondary.code : null;
+  const tertiaryLang  = (config && config.languages && config.languages.tertiary)  ? config.languages.tertiary.code  : null;
   const defaultLang   = (config && config.languages && config.languages.default)   ? config.languages.default         : 'en';
 
   const savedLang = localStorage.getItem('user-lang') || defaultLang;
@@ -56,14 +57,23 @@ function initLanguage() {
       return;
     }
 
-    switcher.innerHTML = `
+    // Build buttons: always primary + secondary, optionally tertiary
+    let html = `
       <button class="lang-btn${savedLang === primaryLang ? ' active' : ''}" data-lang="${primaryLang}">
         ${config.languages.primary.label || 'EN'}
       </button>
       <button class="lang-btn${savedLang === secondaryLang ? ' active' : ''}" data-lang="${secondaryLang}">
         ${config.languages.secondary.label || '繁中'}
-      </button>
-    `;
+      </button>`;
+
+    if (tertiaryLang) {
+      html += `
+      <button class="lang-btn${savedLang === tertiaryLang ? ' active' : ''}" data-lang="${tertiaryLang}">
+        ${config.languages.tertiary.label || '简中'}
+      </button>`;
+    }
+
+    switcher.innerHTML = html;
 
     switcher.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
@@ -96,16 +106,20 @@ function initLanguage() {
  */
 function setLanguage(lang) {
   const config = window.TRIP_CONFIG;
-  const primaryCode = (config && config.languages && config.languages.primary) ? config.languages.primary.code : 'en';
+  const primaryCode   = (config && config.languages && config.languages.primary)   ? config.languages.primary.code   : 'en';
+  const secondaryCode = (config && config.languages && config.languages.secondary) ? config.languages.secondary.code : null;
+  const tertiaryCode  = (config && config.languages && config.languages.tertiary)  ? config.languages.tertiary.code  : null;
 
   localStorage.setItem('user-lang', lang);
 
   // Dynamically remove ALL lang-* classes (handles any language code, not just en/zh)
   const toRemove = Array.from(document.body.classList).filter(cls => cls.startsWith('lang-'));
-  document.body.classList.remove(...toRemove, 'lang-primary', 'lang-secondary');
+  document.body.classList.remove(...toRemove, 'lang-primary', 'lang-secondary', 'lang-tertiary');
 
   if (lang === primaryCode) {
     document.body.classList.add('lang-primary', `lang-${primaryCode}`);
+  } else if (tertiaryCode && lang === tertiaryCode) {
+    document.body.classList.add('lang-tertiary', `lang-${tertiaryCode}`);
   } else {
     document.body.classList.add('lang-secondary', `lang-${lang}`);
   }

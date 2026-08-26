@@ -54,16 +54,25 @@ window.addEventListener('themechange', (e) => {
 
 /** Listen to language changes to update marker popups */
 window.addEventListener('langchange', (e) => {
-  const isZh = (e.detail.lang === 'secondary' || e.detail.lang === 'zh' || e.detail.lang === 'zh-hk');
+  const lang = e.detail.lang;
+  const config = window.TRIP_CONFIG;
+  const primaryCode   = config && config.languages && config.languages.primary   ? config.languages.primary.code : 'en';
+  const secondaryCode = config && config.languages && config.languages.secondary ? config.languages.secondary.code : null;
+  const tertiaryCode  = config && config.languages && config.languages.tertiary  ? config.languages.tertiary.code  : null;
+
+  // True when any non-primary (Chinese-family) language is active
+  const isZh = (lang !== primaryCode);
+  // Pick the best zh key: tertiary (zh-cn) when active, else secondary (zh)
+  const zhKey = (tertiaryCode && lang === tertiaryCode) ? tertiaryCode : secondaryCode;
 
   // Update Route Map Popups
   _routeMapRefs.forEach(({ popup, stop, index }) => {
     let nameTxt = isZh
-      ? (stop.nameZh || (stop.name && stop.name.zh) || stop.nameNative || stop.nameEn || `第 ${index + 1} 站`)
+      ? (stop.name && (stop.name[zhKey] || stop.name.zh || stop.name[secondaryCode]) || stop.nameNative || stop.nameEn || `第 ${index + 1} 站`)
       : (stop.nameEn || stop.nameNative || (stop.name && stop.name.en) || `Stop ${index + 1}`);
 
     let descTxt = isZh
-      ? ((stop.desc && (stop.desc.zh || stop.desc.en)) || (stop.name && stop.name.zh) || stop.nameRomaji || '')
+      ? ((stop.desc && (stop.desc[zhKey] || stop.desc.zh || stop.desc.en)) || (stop.name && (stop.name[zhKey] || stop.name.zh)) || stop.nameRomaji || '')
       : (stop.nameRomaji || (stop.desc && (stop.desc.en || stop.desc.zh)) || (stop.name && stop.name.en) || '');
 
     popup.setHTML(`
@@ -79,7 +88,9 @@ window.addEventListener('langchange', (e) => {
     refs.forEach(({ popup, point }) => {
       if (point.label || point.name) {
         const pObj = point.label || point.name;
-        const txt = isZh ? (pObj.zh || pObj.en || pObj) : (pObj.en || pObj);
+        const txt = isZh
+          ? (pObj[zhKey] || pObj.zh || pObj[secondaryCode] || pObj.en || pObj)
+          : (pObj.en || pObj);
         popup.setHTML(`<strong>${txt}</strong>`);
       }
     });

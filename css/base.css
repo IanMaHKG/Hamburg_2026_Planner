@@ -13,25 +13,23 @@
 
    MULTILINGUAL VISIBILITY SYSTEM (for agents):
    ─────────────────────────────────────────────────
-   render.js → renderBilingualText() emits paired <span> elements:
+   render.js → renderMultilingualText() emits up to three <span> elements:
      <span class="lang-primary lang-{code}">...</span>
      <span class="lang-secondary lang-{code}">...</span>
+     <span class="lang-tertiary lang-{code}">...</span>   ← added for 3rd language
 
    ui.js → setLanguage() adds one of these classes to <body>:
      .lang-primary   = active language is the primary (e.g. English)
-     .lang-secondary = active language is the secondary (e.g. Chinese)
+     .lang-secondary = active language is the secondary (e.g. Traditional Chinese)
+     .lang-tertiary  = active language is the tertiary (e.g. Simplified Chinese)
 
-   The rules below use these semantic classes to show/hide content:
-     body.lang-primary  — hide .lang-secondary spans, show .lang-primary.
-     body.lang-secondary — hide .lang-primary spans, show .lang-secondary.
+   The rules below use these semantic classes to show/hide content.
+   This design works for any 1–3 language combination configured in
+   TRIP_CONFIG.languages without changes to this file.
 
-   This design works for ANY language pair configured in TRIP_CONFIG.languages
-   (English+Chinese, French+Spanish, Japanese+English, etc.) without changes
-   to this file.
-
-   @see js/render.js   — renderBilingualText() for span output.
+   @see js/render.js   — renderBilingualText() / renderMultilingualText() for span output.
    @see js/ui.js       — setLanguage() for body class management.
-   @see data/config.js — TRIP_CONFIG.languages for primary/secondary codes.
+   @see data/config.js — TRIP_CONFIG.languages for primary/secondary/tertiary codes.
    @see AGENTS.md      — Language Style Rules section.
    ======================================================= */
 
@@ -57,22 +55,41 @@ body {
   transition: background-color var(--transition-smooth), color var(--transition-smooth);
 }
 
-/* ── Multilingual Display Rules ── */
-/* When English is active: show .lang-en, hide .lang-zh */
+/* ── Multilingual Display Rules (supports up to 3 languages) ── */
+
+/* PRIMARY active — hide secondary & tertiary */
+body.lang-primary .lang-secondary,
+body.lang-primary .lang-tertiary {
+  display: none !important;
+}
+
+/* SECONDARY active — hide primary & tertiary */
+body.lang-secondary .lang-primary,
+body.lang-secondary .lang-tertiary {
+  display: none !important;
+}
+
+/* TERTIARY active — hide primary & secondary */
+body.lang-tertiary .lang-primary,
+body.lang-tertiary .lang-secondary {
+  display: none !important;
+}
+
+/* Specific code-based aliases for backward compatibility & targeted overrides */
 body.lang-en .lang-zh,
-body.lang-en .lang-secondary {
+body.lang-en .lang-zh-cn {
   display: none !important;
 }
-
-/* When Chinese is active: show .lang-zh, hide .lang-en */
 body.lang-zh .lang-en,
-body.lang-zh-hk .lang-en,
-body.lang-secondary .lang-en,
-body:not(.lang-en) .lang-en {
+body.lang-zh .lang-zh-cn {
+  display: none !important;
+}
+body.lang-zh-cn .lang-en,
+body.lang-zh-cn .lang-zh {
   display: none !important;
 }
 
-/* When single language mode, secondary is omitted */
+/* Single language mode: hide switcher */
 .single-language .lang-switcher {
   display: none !important;
 }
