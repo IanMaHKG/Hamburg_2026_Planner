@@ -59,16 +59,16 @@ function initLanguage() {
 
     // Build buttons: always primary + secondary, optionally tertiary
     let html = `
-      <button class="lang-btn${savedLang === primaryLang ? ' active' : ''}" data-lang="${primaryLang}">
+      <button class="lang-btn${savedLang === primaryLang ? ' active' : ''}" data-lang="${primaryLang}" title="${config.languages.primary.title || config.languages.primary.name || 'English (UK)'}">
         ${config.languages.primary.label || 'EN'}
       </button>
-      <button class="lang-btn${savedLang === secondaryLang ? ' active' : ''}" data-lang="${secondaryLang}">
+      <button class="lang-btn${savedLang === secondaryLang ? ' active' : ''}" data-lang="${secondaryLang}" title="${config.languages.secondary.title || config.languages.secondary.name || '香港繁體中文'}">
         ${config.languages.secondary.label || '繁中'}
       </button>`;
 
     if (tertiaryLang) {
       html += `
-      <button class="lang-btn${savedLang === tertiaryLang ? ' active' : ''}" data-lang="${tertiaryLang}">
+      <button class="lang-btn${savedLang === tertiaryLang ? ' active' : ''}" data-lang="${tertiaryLang}" title="${config.languages.tertiary.title || config.languages.tertiary.name || '马来西亚简体中文'}">
         ${config.languages.tertiary.label || '简中'}
       </button>`;
     }
@@ -238,53 +238,28 @@ function initDayFilters() {
   if (!filtersContainer || itinerary.length === 0) return;
 
   // ── Region display label dictionary ──
-  // Maps region slug → { en, zh } bilingual label.
-  // Covers all 5 bundled example plans. Unlisted slugs are auto-capitalized.
+  // Maps region slug → { en, zh, 'zh-cn' } trilingual label.
   const regionLabels = {
-    'all': { en: `All Days (${itinerary.length} Days)`, zh: `全部行程（${itinerary.length}天）` },
-    // 01 Switzerland & Italy
-    'zurich-lucerne': { en: 'Zurich & Lucerne', zh: '蘇黎世與琉森' },
-    'interlaken-jungfrau': { en: 'Interlaken & Jungfrau', zh: '因特拉肯與少女峰' },
-    'zermatt-matterhorn': { en: 'Zermatt & Matterhorn', zh: '策馬特與馬特洪峰' },
-    'lake-como-milan': { en: 'Lake Como & Milan', zh: '科莫湖與米蘭' },
-    // 02 Japan Golden Route
-    'tokyo': { en: 'Tokyo Metropolis', zh: '東京都會' },
-    'tokyo-hakone': { en: 'Tokyo & Hakone', zh: '東京與箱根' },
-    'hakone': { en: 'Hakone Hot Springs', zh: '箱根溫泉' },
-    'hakone-kyoto': { en: 'Hakone & Kyoto', zh: '箱根與京都' },
-    'kyoto-osaka': { en: 'Kyoto & Osaka', zh: '京都與大阪' },
-    'osaka-departure': { en: 'Osaka Departure', zh: '大阪離境' },
-    // 03 UK & Scotland
-    'london': { en: 'London & Royal Heritage', zh: '倫敦與皇家歷史' },
-    'windsor': { en: 'Windsor Castle', zh: '溫莎城堡' },
-    'bath-cotswolds': { en: 'Bath & Cotswolds', zh: '巴斯與科茲窩' },
-    'york': { en: 'Medieval York', zh: '中世紀約克' },
-    'edinburgh': { en: 'Edinburgh', zh: '愛丁堡' },
-    'highlands': { en: 'Scottish Highlands', zh: '蘇格蘭高地' },
-    'edinburgh-departure': { en: 'Edinburgh Departure', zh: '愛丁堡離境' },
-    // 04 Hong Kong
-    'kowloon-harbour': { en: 'Kowloon & Victoria Harbour', zh: '九龍與維港' },
-    'central-peak': { en: 'Central & Victoria Peak', zh: '中環與太平山頂' },
-    'lantau': { en: 'Lantau Island & Big Buddha', zh: '大嶼山與天壇大佛' },
-    'hong-kong-island': { en: 'Hong Kong Island', zh: '香港島精華' },
-    'kowloon-local': { en: 'Kowloon Street Food', zh: '九龍地道美食' },
-    'sai-kung': { en: 'Sai Kung Geopark', zh: '西貢地質公園' },
-    'central-departure': { en: 'Central Departure', zh: '中環機場快綫離境' },
-    // 05 US New England
-    'boston': { en: 'Boston Freedom Trail', zh: '波士頓自由之路' },
-    'boston-cambridge': { en: 'Boston & Cambridge', zh: '波士頓與劍橋' },
-    'new-hampshire': { en: 'White Mountains NH', zh: '新罕布夏白山' },
-    'kancamagus': { en: 'Kancamagus Highway', zh: '康卡馬格斯楓葉公路' },
-    'vermont': { en: 'Stowe Vermont', zh: '佛蒙特與斯托' },
-    'vermont-woodstock': { en: 'Vermont & Woodstock', zh: '佛蒙特與伍德斯托克' },
-    'maine-acadia': { en: 'Maine & Acadia', zh: '緬因海岸與阿卡迪亞' },
-    'acadia-national-park': { en: 'Acadia National Park', zh: '阿卡迪亞國家公園' },
-    'acadia-jordan-pond': { en: 'Jordan Pond & Cliffs', zh: '阿卡迪亞喬丹池' },
-    'maine-portland': { en: 'Portland Head Light', zh: '緬因波特蘭海岸' },
-    'newport-rhode-island': { en: 'Newport Mansions', zh: '羅德島紐波特古堡' },
-    'nyc-manhattan': { en: 'NYC Manhattan', zh: '紐約曼哈頓中城' },
-    'nyc-central-park': { en: 'NYC Central Park', zh: '紐約中央公園' },
-    'nyc-departure': { en: 'NYC Departure', zh: '紐約市離境' }
+    'all': {
+      en: `All Days (${itinerary.length} Days)`,
+      zh: `全部行程（${itinerary.length}天）`,
+      'zh-cn': `全部行程（${itinerary.length}天）`
+    },
+    'hafencity': {
+      en: 'HafenCity & Speicherstadt',
+      zh: '港城與倉庫城',
+      'zh-cn': '港城与仓库城'
+    },
+    'city-centre': {
+      en: 'City Centre & Christmas Markets',
+      zh: '市中心與聖誕市集',
+      'zh-cn': '市中心与圣诞市集'
+    },
+    'harbour': {
+      en: 'Harbour & Landungsbrücken',
+      zh: '港口與輪船碼頭',
+      'zh-cn': '港口与轮船码头'
+    }
   };
 
   const regionsMap = new Map();
@@ -343,12 +318,16 @@ function initNavigation() {
 
   if (toggle && links) {
     toggle.addEventListener('click', () => {
-      links.classList.toggle('open');
+      const isOpen = links.classList.toggle('open');
+      toggle.classList.toggle('open', isOpen);
+      toggle.setAttribute('aria-expanded', String(isOpen));
     });
 
     links.querySelectorAll('a').forEach(a => {
       a.addEventListener('click', () => {
         links.classList.remove('open');
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
       });
     });
   }

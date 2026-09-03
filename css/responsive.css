@@ -148,6 +148,25 @@
     height: 340px;
   }
 
+  /* Flights Section on Mobile */
+  .flights-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .flight-card {
+    padding: 20px 16px;
+  }
+
+  .flight-route-visual {
+    padding: 12px 10px;
+    gap: 8px;
+  }
+
+  .flight-code {
+    font-size: 1.55rem;
+  }
+
   /* Hotel form */
   .hotel-search-card {
     padding: 20px;
@@ -181,14 +200,6 @@
 
   .nav-brand {
     font-size: 0.95rem;
-  }
-
-  .nav-hub-badge span:not(:first-child) {
-    display: none;
-  }
-
-  .nav-hub-badge {
-    padding: 6px 8px;
   }
 
   .nav-links {
@@ -232,146 +243,7 @@
   }
 }
 
-/* ═══════════════════════════════════════════════════
-   PORTAL LANDING PAGE (index.html) — Responsive
-   ═══════════════════════════════════════════════════ */
 
-/* ── Tablet (< 1024px) ── */
-@media (max-width: 1024px) {
-  .portal-hero {
-    padding: 120px 20px 64px !important;
-  }
-  .plans-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
-  }
-  .features-grid {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
-  }
-  .steps-container {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
-  }
-  .portal-stats-bar {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-}
-
-/* ── Mobile (< 768px) ── */
-@media (max-width: 768px) {
-  /* Portal Hero */
-  .portal-hero {
-    padding: 100px 16px 56px !important;
-    min-height: auto !important;
-  }
-  .portal-title {
-    font-size: clamp(1.9rem, 7vw, 2.8rem) !important;
-  }
-  .portal-subtitle {
-    font-size: 1rem !important;
-    margin-bottom: 28px !important;
-  }
-  .portal-actions {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 12px !important;
-  }
-  .portal-actions .btn {
-    width: 100% !important;
-    justify-content: center !important;
-    text-align: center !important;
-  }
-  .portal-stats-bar {
-    grid-template-columns: repeat(2, 1fr) !important;
-    padding: 16px !important;
-    gap: 12px !important;
-  }
-
-  /* Plans Grid — single column on phones */
-  .plans-grid {
-    grid-template-columns: 1fr !important;
-    gap: 20px !important;
-  }
-  .plan-card {
-    padding: 24px !important;
-  }
-
-  /* Features Grid — single column on phones */
-  .features-grid {
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-  }
-
-  /* Steps Container */
-  .steps-container {
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-  }
-
-  /* Prompt Modal */
-  .prompt-modal {
-    padding: 24px 18px !important;
-    border-radius: 18px !important;
-    max-height: 92vh !important;
-  }
-  .prompt-modal-title {
-    font-size: 1.1rem !important;
-  }
-  .prompt-code-box {
-    font-size: 0.78rem !important;
-    padding: 14px 12px !important;
-    max-height: 260px !important;
-  }
-  .prompt-copy-btn {
-    position: static !important;
-    display: block !important;
-    width: 100% !important;
-    margin-bottom: 10px !important;
-    text-align: center !important;
-  }
-  .prompt-modal-footer {
-    flex-direction: column !important;
-    align-items: stretch !important;
-  }
-  .prompt-modal-footer .btn-launch {
-    text-align: center !important;
-    justify-content: center !important;
-  }
-
-  /* Plan categories filter bar */
-  .plans-category-bar {
-    gap: 8px !important;
-    overflow-x: auto !important;
-    padding-bottom: 4px !important;
-    flex-wrap: nowrap !important;
-    justify-content: flex-start !important;
-  }
-
-  /* Showcase page */
-  .showcase-page {
-    padding: 20px 12px 60px !important;
-  }
-}
-
-/* ── Small Mobile (< 480px) ── */
-@media (max-width: 480px) {
-  .portal-stats-bar {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 10px !important;
-  }
-  .portal-stat-num {
-    font-size: 1.3rem !important;
-  }
-  .plan-card {
-    padding: 18px !important;
-  }
-  .plan-footer-actions {
-    flex-direction: column !important;
-    gap: 8px !important;
-  }
-  .btn-prompt {
-    width: 100% !important;
-    justify-content: center !important;
-  }
-}
 
 /* ═══════════════════════════════════════════════════
    RAILWAY MILESTONE BOARD — VERTICAL MODE

@@ -23,13 +23,15 @@
 |---|---|
 | **Destination** | Hamburg, Germany |
 | **Dates** | 26–28 November 2026 (3 days) |
+| **Flights** | **Outbound:** BA960 (26 Nov, 07:30 LHR T5 → 10:10 HAM T2)<br>**Return:** BA967 (28 Nov, 16:45 HAM T2 → 17:25 LHR T5)<br>💳 **Paid Receipt:** £212.70 total (2 return tickets) |
+| **Hotel** | [Courtyard by Marriott Hamburg City](https://www.marriott.com/en-gb/hotels/hamhc-courtyard-by-marriott-hamburg-city/overview) (Adenauerallee 52, 2 nights confirmed)<br>💳 **Paid Receipt:** €279.00 total |
 | **Party** | Couple (2 Adults) |
 | **Passports** | UK / Portuguese (Ian) · Malaysian (Partner) |
 | **Visa** | All Schengen visa-free ✅ |
-| **Transport** | HVV public transit (U-Bahn · S-Bahn · Bus · Ferry) |
+| **Transport** | HVV public transit (S1 Airport direct · U-Bahn · Ferry 62) |
 | **Theme** | `nordic-aurora` · Dark mode |
-| **Languages** | EN · 繁中 · 简中 (Trilingual) |
-| **Currency** | EUR base · GBP conversion |
+| **Languages** | British English · 香港繁體中文 · 马来西亚简体中文 |
+| **Currency** | EUR (€) base · Live conversion to GBP (£), EUR (€) & MYR (RM) |
 | **Transit Board** | `swiss-train` style (closest to Deutsche Bahn) |
 
 ---
@@ -39,27 +41,27 @@
 ```
 Hamburg_2026_Planner/
 ├── data/
-│   ├── config.js           ← Trip identity, theme, languages, currencies, feature flags
-│   ├── site-data.js        ← Overview cards, route board, tips, packing, budget, hotels, transit
-│   └── itinerary-data.js   ← 3-day day-by-day schedule (morning / afternoon / evening blocks)
+│   ├── config.js           ← Master config: identity, theme, trilingual settings, currencies, feature flags
+│   ├── site-data.js        ← Confirmed flights, hotels, overview cards, route stops, tips, packing, budget, transit
+│   └── itinerary-data.js   ← 3-day schedule with trilingual region labels & morning/afternoon/evening blocks
 ├── css/
-│   ├── style.css           ← Master import
-│   ├── base.css            ← Reset, typography, trilingual visibility rules
-│   ├── palette.css         ← 7 colour theme presets (nordic-aurora active)
-│   ├── components.css      ← Cards, buttons, badges, route board
-│   ├── sections.css        ← Hero, overview, itinerary, budget, hotels, transit sections
-│   └── responsive.css      ← Mobile-first breakpoints
+│   ├── style.css           ← Master stylesheet aggregator
+│   ├── base.css            ← Reset, typography, trilingual visibility rules (lang-primary/secondary/tertiary)
+│   ├── palette.css         ← 7 luxury theme presets (nordic-aurora active)
+│   ├── components.css      ← Cards, buttons, badges, navigation, route board
+│   ├── sections.css        ← Hero, overview, confirmed flights, itinerary, budget, hotels, transit
+│   └── responsive.css      ← Mobile-first breakpoints (phones, tablets, desktops)
 ├── js/
-│   ├── script.js           ← Bootstrap: detects isCustomPlan, reveals trip one-pager
-│   ├── render.js           ← Core render engine: reads data files → injects HTML
-│   ├── ui.js               ← Language switcher (EN/繁中/简中), dark/light toggle, accordion
-│   ├── map.js              ← MapLibre GL route map + day minimaps
-│   └── currency.js         ← Live EUR/GBP exchange rate with fallback
+│   ├── script.js           ← Application bootstrap: registers SW, initializes render engine & controllers
+│   ├── render.js           ← Core render engine: data-driven injection for flights, hotels, itinerary, etc.
+│   ├── ui.js               ← Language switcher (EN/繁中/简中), dark/light toggle, day accordion, region filters
+│   ├── map.js              ← MapLibre GL master route map + per-day mini-maps with trilingual popups
+│   └── currency.js         ← Live EUR/GBP exchange rates with offline fallback
 ├── assets/
-│   └── favicon.svg
-├── index.html              ← Single-page shell (trip one-pager only, no hub portal)
+│   └── favicon.svg         ← App icon / favicon
+├── index.html              ← Dedicated single-page shell (instant first paint, zero-flash)
 ├── manifest.json           ← PWA manifest
-└── sw.js                   ← Service worker for offline caching
+└── sw.js                   ← Service worker for offline caching (v3)
 ```
 
 ---
@@ -132,17 +134,17 @@ Day-by-day schedule. Each day entry:
 
 ---
 
-## 🌐 Trilingual Support
+## 🌐 Trilingual Support & Regional Localisation
 
-This planner supports **three languages simultaneously** — a custom extension beyond the base Trip Planner template:
+This planner is tailored with authentic regional flavours for each language:
 
-| Class | Body state | Language |
-|---|---|---|
-| `lang-primary` | `body.lang-primary` | English (EN) |
-| `lang-secondary` | `body.lang-secondary` | Traditional Chinese (繁中) |
-| `lang-tertiary` | `body.lang-tertiary` | Simplified Chinese (简中) |
+| Code | Button | Locale | Flavour / Regional Localisation |
+|---|---|---|---|
+| `en` | **EN** | `en-GB` | **British English** — UK spelling (*harbour*, *centre*, *favourite*), aviation/transit vocabulary (*cabin bag*, *return flight*, *Heathrow Terminal 5*). |
+| `zh` | **繁中** | `zh-HK` | **香港繁體中文 (Hong Kong SAR Chinese)** — authentic HK travel terminology (如「希斯路機場」、「乘搭S1」、「易北愛樂廳」、「倉庫城」、「熱紅酒」、「酒店」、「辦理入住/退房」). |
+| `zh-cn` | **简中** | `zh-MY` | **马来西亚简体中文 (Malaysian Chinese)** — standard Malaysian Chinese travel phrasing (如「希思罗机场」、「搭乘S1/城铁」、「易北爱乐音乐厅」、「仓库城」、「热红酒」、「酒店」、「电召车/德士」、「办理入住/退房」). |
 
-Switch language using the **EN · 繁中 · 简中** buttons in the top-right navigation.
+Switch language instantly using the **EN · 繁中 · 简中** buttons in the top-right navigation bar (with full descriptive hover tooltips).
 
 ---
 

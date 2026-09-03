@@ -43,69 +43,13 @@ if ('serviceWorker' in navigator) {
 }
 
 /* ═══════════════════════════════════════════════════
-   PLAN MODE — View Swap Logic
-   ═══════════════════════════════════════════════════
-   Checks if the loaded data/config.js has meta.isCustomPlan === true.
-   If yes  → hides #portal-landing, reveals #trip-onepager, runs renderAll().
-   If no   → stays on the hub landing page, no render pipeline needed.
-   ======================================================= */
+   APPLICATION INITIALIZATION
+   ═══════════════════════════════════════════════════ */
 
-/**
- * Updates the nav bar for plan mode.
- * Adds body.plan-mode so CSS swaps hub-link vs plan-link visibility.
- * Updates the nav logo text to the trip title from TRIP_CONFIG.
- * @param {object} config - window.TRIP_CONFIG
- */
-function updateNavForPlanMode(config) {
-  document.body.classList.add('plan-mode');
-
-  // Nav logo already contains hardcoded trilingual spans (Hamburg 2026 / 漢堡 2026 / 汉堡 2026).
-  // No update needed — CSS lang-primary/secondary/tertiary handles visibility.
-
-  // Swap aria-hidden on the two panels
-  const portal = document.getElementById('portal-landing');
-  const onepager = document.getElementById('trip-onepager');
-  if (portal) {
-    portal.style.display = 'none';
-    portal.setAttribute('aria-hidden', 'true');
-  }
-  if (onepager) {
-    onepager.removeAttribute('aria-hidden');
-    onepager.style.removeProperty('display'); // reveal (opacity:0 from CSS)
-    // Use rAF so browser paints once before adding .plan-visible → triggers CSS transition
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        onepager.classList.add('plan-visible');
-      });
-    });
-  }
-}
-
-// Master Initialization — works both on DOMContentLoaded and when dynamically injected
-// (In plan mode, script.js is loaded after DOMContentLoaded has already fired,
-//  so we run init immediately if the DOM is already ready.)
+// Master Initialization
 function tripPlannerInit() {
   try {
-    // ── Detect plan mode ──────────────────────────────────────────
-    // data/config.js is loaded before this script in index.html.
-    // If meta.isCustomPlan is true, an AI-generated plan is present.
-    const hasPlan = window.TRIP_CONFIG
-      && window.TRIP_CONFIG.meta
-      && window.TRIP_CONFIG.meta.isCustomPlan === true;
-
-    if (!hasPlan) {
-      // ── HUB MODE ──────────────────────────────────────────────
-      // Stay on the landing page. No render pipeline needed.
-      // Portal-specific scripts (lang, theme) are inlined in index.html.
-      console.log('Trip Planner: Hub mode — no custom plan detected.');
-      return;
-    }
-
-    // ── PLAN MODE ────────────────────────────────────────────────
-    console.log('Trip Planner: Plan mode — rendering custom itinerary.');
-
-    // Swap views: hide hub, reveal one-pager with fade-in
-    updateNavForPlanMode(window.TRIP_CONFIG);
+    console.log('Hamburg 2026 Trip Planner: Initializing itinerary application.');
 
     // 1. Initialize Language State & Classes
     if (typeof initLanguage === 'function') initLanguage();

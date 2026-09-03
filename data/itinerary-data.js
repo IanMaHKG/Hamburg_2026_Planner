@@ -14,6 +14,11 @@ const ITINERARY_DATA = [
     dayNum: "01",
     date: "Nov 26",
     region: "hafencity",
+    regionLabel: {
+      en: "HafenCity & Speicherstadt",
+      zh: "港城與倉庫城",
+      "zh-cn": "港城与仓库城"
+    },
     title: {
       en: "Arrival & HafenCity — Elbphilharmonie, Speicherstadt & First Glühwein",
       zh: "抵達漢堡 — 易北愛樂廳、倉庫城與第一杯熱紅酒",
@@ -25,17 +30,17 @@ const ITINERARY_DATA = [
     ],
     blocks: [
       {
-        time: { en: "🌅 Morning / Arrival", zh: "🌅 早上 / 抵達", "zh-cn": "🌅 早上 / 抵达" },
+        time: { en: "🌅 Morning / Flight Arrival", zh: "🌅 早上 / 航班抵達", "zh-cn": "🌅 早上 / 航班抵达" },
         activity: {
           title: {
-            en: "Arrive at Hamburg Airport & Transfer to City Centre",
-            zh: "抵達漢堡機場，乘搭S1城郊列車進入市區",
-            "zh-cn": "抵达汉堡机场，乘搭S1城郊列车进入市区"
+            en: "Flight BA960 Arrival (10:10) & Check-in at Courtyard by Marriott",
+            zh: "英航 BA960 抵達（10:10）與入住萬豪萬怡酒店",
+            "zh-cn": "英航 BA960 抵达（10:10）与入住万豪万怡酒店"
           },
           desc: {
-            en: "Collect baggage and head to the S1 S-Bahn platform directly inside the terminal. The train runs every 10 minutes to Hamburg Hauptbahnhof (25 min). Purchase your 3-Day Hamburg Card at the airport ticket machines. Check in at your hotel in HafenCity or Neustadt and freshen up.",
-            zh: "取行李後直接前往航站樓內S1城郊列車月台，每10分鐘一班直達漢堡中央車站（約25分鐘）。於機場自動售票機購買3天漢堡城市卡。辦理港城或新城區酒店入住手續，稍事休息。",
-            "zh-cn": "取行李后直接前往航站楼内S1城郊列车月台，每10分钟一班直达汉堡中央车站（约25分钟）。于机场自动售票机购买3天汉堡城市卡。办理港城或新城区酒店入住手续，稍事休息。"
+            en: "British Airways flight BA960 (departing London Heathrow T5 at 07:30 GMT) touches down at Hamburg Airport (HAM Terminal 2) at 10:10 CET. Clear Schengen border control, collect baggage, and head straight to the S1 S-Bahn station directly beneath the terminal. Purchase your 3-Day Hamburg Card at the ticket machines, then board the direct S1 train to <strong>Berliner Tor</strong> (27 min). It's an easy 4-minute walk to <strong>Courtyard by Marriott Hamburg City</strong> (Adenauerallee 52). Drop luggage with concierge, freshen up, and step out to begin your Hamburg winter adventure!",
+            zh: "乘搭英國航空 BA960（07:30 GMT 倫敦希斯路T5起飛），於 10:10 CET 準時降落漢堡機場 (HAM Terminal 2)。通過申根入境手續並領取行李後，前往航站樓地下月台乘搭S1城郊列車直達<strong>柏林門站 (Berliner Tor)</strong>（約27分鐘）。出站步行約4分鐘即抵達<strong>漢堡市萬怡酒店 (Courtyard by Marriott)</strong>（Adenauerallee 52）。於前台寄存行李並稍事整裝，隨即展開冬日漢堡假期！",
+            "zh-cn": "乘搭英国航空 BA960（07:30 GMT 伦敦希思罗T5起飞），于 10:10 CET 准时降落汉堡机场 (HAM Terminal 2)。通过申根入境手续并领取行李后，前往航站楼地下月台乘搭S1城郊列车直达<strong>柏林门站 (Berliner Tor)</strong>（约27分钟）。出站步行约4分钟即抵达<strong>汉堡市万怡酒店 (Courtyard by Marriott)</strong>（Adenauerallee 52）。于前台寄存行李并稍事整装，随即展开冬日汉堡假期！"
           },
           meal: {
             icon: "☕",
@@ -44,7 +49,8 @@ const ITINERARY_DATA = [
             "zh-cn": "<strong>早午餐：</strong><em>巴黎咖啡馆 (Café Paris)</em>位于市政厅附近，1882年创立的汉堡老字号，在新艺术风格法式餐馆内享用蓬松煎蛋卷、烟三文鱼薄饼及香浓咖啡。"
           },
           locations: [
-            { lat: 53.6303, lng: 9.9882, label: { en: "Hamburg Airport (HAM)", zh: "漢堡機場", "zh-cn": "汉堡机场" } },
+            { lat: 53.6303, lng: 9.9882, label: { en: "Hamburg Airport (HAM T2)", zh: "漢堡機場 (T2)", "zh-cn": "汉堡机场 (T2)" } },
+            { lat: 53.5534, lng: 10.0105, label: { en: "Courtyard by Marriott Hamburg City", zh: "漢堡市萬怡酒店", "zh-cn": "汉堡市万怡酒店" } },
             { lat: 53.5532, lng: 10.0066, label: { en: "Hamburg Hauptbahnhof", zh: "漢堡中央車站", "zh-cn": "汉堡中央车站" } }
           ]
         }
@@ -113,6 +119,11 @@ const ITINERARY_DATA = [
     dayNum: "02",
     date: "Nov 27",
     region: "city-centre",
+    regionLabel: {
+      en: "City Centre & Christmas Markets",
+      zh: "市中心與聖誕市集",
+      "zh-cn": "市中心与圣诞市集"
+    },
     title: {
       en: "Christmas Market Day — Rathausmarkt, Jungfernstieg Shopping & Binnenalster",
       zh: "聖誕市集日 — 市政廳廣場、少女大道購物與內阿爾斯特湖",
@@ -212,6 +223,11 @@ const ITINERARY_DATA = [
     dayNum: "03",
     date: "Nov 28",
     region: "harbour",
+    regionLabel: {
+      en: "Harbour & Landungsbrücken",
+      zh: "港口與輪船碼頭",
+      "zh-cn": "港口与轮船码头"
+    },
     title: {
       en: "Harbour, Landungsbrücken & Departure — Fischmarkt, St. Pauli & Elbe Views",
       zh: "港口、輪船碼頭與離港 — 魚市場、聖保利區與易北河景",
@@ -273,27 +289,28 @@ const ITINERARY_DATA = [
         }
       },
       {
-        time: { en: "🌙 Late Afternoon & Departure", zh: "🌙 傍晚與離港", "zh-cn": "🌙 傍晚与离港" },
+        time: { en: "🌙 Afternoon & Flight BA967 Departure", zh: "🌙 下午與 BA967 離港", "zh-cn": "🌙 下午与 BA967 离港" },
         activity: {
           title: {
-            en: "Last Glühwein & Airport Transfer",
-            zh: "最後一杯熱紅酒與機場交通",
-            "zh-cn": "最后一杯热红酒与机场交通"
+            en: "Courtyard Check-out, Final Glühwein & Flight BA967 to London (16:45)",
+            zh: "萬怡酒店退房、最後一杯熱紅酒與 BA967 返英（16:45）",
+            "zh-cn": "万怡酒店退房、最后一杯热红酒与 BA967 返英（16:45）"
           },
           desc: {
-            en: "Make your way back towards the city centre for a final stroll through any remaining Christmas markets. Enjoy one last Glühwein or a Heißer Bratapfel (hot baked apple with vanilla cream) as a farewell to Hamburg. Check out of your hotel, then take the S1 S-Bahn from Hauptbahnhof or Jungfernstieg directly to Hamburg Airport (25 min, every 10 minutes). Allow 2 hours before your flight for check-in.",
-            zh: "返回市中心，最後漫遊剩餘聖誕市集。品嚐一杯告別熱紅酒或一份熱烤蘋果配香草忌廉（Heißer Bratapfel），向漢堡道別。辦理酒店退房後，從中央車站或少女橋站乘搭S1城郊列車直達漢堡機場（約25分鐘，每10分鐘一班）。請在航班起飛前至少預留2小時辦理登機手續。",
-            "zh-cn": "返回市中心，最后漫游剩余圣诞市集。品尝一杯告别热红酒或一份热烤苹果配香草忌廉（Heißer Bratapfel），向汉堡道别。办理酒店退房后，从中央车站或少女桥站乘搭S1城郊列车直达汉堡机场（约25分钟，每10分钟一班）。请在航班起飞前至少预留2小时办理登机手续。"
+            en: "Check out of Courtyard by Marriott Hamburg City by 12:00 (concierge will store luggage). Enjoy a final market stroll through Jungfernstieg or Rathausmarkt for roasted almonds and a farewell Glühwein. Collect luggage from the Courtyard by 14:15 and walk 4 minutes to Berliner Tor station (or Hauptbahnhof). Board the direct S1 S-Bahn to Hamburg Airport (27 min), arriving at Terminal 2 by ~14:45 — giving a comfortable 2-hour window before your <strong>British Airways BA967 departure at 16:45 CET</strong> (arriving London Heathrow T5 at 17:25 GMT).",
+            zh: "中午12:00前辦理漢堡市萬怡酒店退房（行李可寄存於禮賓部）。在少女大道或市政廳市集最後漫步，品嚐烤杏仁與一杯告別熱紅酒。14:15前返回萬怡酒店取回行李，步行4分鐘至柏林門站（或中央車站），乘搭S1城郊列車直達漢堡機場（約27分鐘）。約14:45抵達Terminal 2，從容預留2小時辦理<strong>英國航空 BA967（16:45 CET起飛）</strong>的託運與安檢手續，預計17:25 GMT順利抵達倫敦希斯路T5。",
+            "zh-cn": "中午12:00前办理汉堡市万怡酒店退房（行李可寄存于礼宾部）。在少女大道或市政厅市集最后漫步，品尝烤杏仁与一杯告别热红酒。14:15前返回万怡酒店取回行李，步行4分钟至柏林门站（或中央车站），乘搭S1城郊列车直达汉堡机场（约27分钟）。约14:45抵达Terminal 2，从容预留2小时办理<strong>英国航空 BA967（16:45 CET起飞）</strong>的托运与安检手续，预计17:25 GMT顺利抵达伦敦希思罗T5。"
           },
           meal: {
             icon: "🍽️",
-            en: "<strong>Early Dinner / Airport:</strong> If time allows, grab a classic <em>Hamburger</em> at <em>Jim Block</em> (Hamburg's own beloved burger chain) near the Hauptbahnhof — a fitting farewell to the city that gave the burger its name.",
-            zh: "<strong>早晚餐/機場：</strong>若時間許可，在中央車站附近的<em>Jim Block</em>（漢堡本地深受愛戴的漢堡包連鎖店）品嚐一個正宗Hamburger——向這座賦予漢堡包名稱的城市作最後致敬。",
-            "zh-cn": "<strong>早晚餐/机场：</strong>若时间许可，在中央车站附近的<em>Jim Block</em>（汉堡本地深受爱戴的汉堡包连锁店）品尝一个正宗Hamburger——向这座赋予汉堡包名称的城市作最后致敬。"
+            en: "<strong>Pre-flight Snack / Jim Block:</strong> Grab a classic <em>Hamburger</em> at <em>Jim Block</em> (Hamburg's legendary homegrown burger chain) near Hauptbahnhof or at Airport Terminal 1/2 before boarding.",
+            zh: "<strong>候機美食 / Jim Block：</strong>登機前可於中央車站或機場航站樓的 <em>Jim Block</em>（漢堡本地極負盛名的漢堡包連鎖名店）品嚐正宗漢堡包——向漢堡之名作最美味的告別。",
+            "zh-cn": "<strong>候机美食 / Jim Block：</strong>登机前可于中央车站或机场航站楼的 <em>Jim Block</em>（汉堡本地极负盛名的汉堡包连锁名店）品尝正宗汉堡包——向汉堡之名作最美味的告别。"
           },
           locations: [
-            { lat: 53.5532, lng: 10.0066, label: { en: "Hamburg Hauptbahnhof", zh: "漢堡中央車站", "zh-cn": "汉堡中央车站" } },
-            { lat: 53.6303, lng: 9.9882, label: { en: "Hamburg Airport (HAM)", zh: "漢堡機場", "zh-cn": "汉堡机场" } }
+            { lat: 53.5534, lng: 10.0105, label: { en: "Courtyard by Marriott Hamburg City", zh: "漢堡市萬怡酒店", "zh-cn": "汉堡市万怡酒店" } },
+            { lat: 53.5532, lng: 10.0066, label: { en: "Hamburg Hauptbahnhof / Berliner Tor", zh: "漢堡中央車站 / 柏林門站", "zh-cn": "汉堡中央车站 / 柏林门站" } },
+            { lat: 53.6303, lng: 9.9882, label: { en: "Hamburg Airport (HAM T2)", zh: "漢堡機場 (T2)", "zh-cn": "汉堡机场 (T2)" } }
           ]
         }
       }

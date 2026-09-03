@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="dark" data-theme-preset="nordic-aurora">
 <head>
   <meta charset="UTF-8">
@@ -22,584 +22,8 @@
   <!-- Master Design System & Styles -->
   <link rel="stylesheet" href="css/style.css">
 
-  <style>
-    /* ═══════════════════════════════════════════════════════════════
-       GREETING & PORTAL HUB STYLES
-       ═══════════════════════════════════════════════════════════════ */
-
-    /* ════ PLAN MODE — View Swap ════
-       #trip-onepager is hidden at HTML parse time (display:none inline).
-       script.js removes the inline style, then adds .plan-visible to
-       trigger the CSS fade-in after a rAF so the transition fires. */
-    #trip-onepager {
-      opacity: 0;
-      transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    #trip-onepager.plan-visible {
-      opacity: 1;
-    }
-
-    /* In plan mode, swap the nav links to itinerary section links */
-    body.plan-mode .nav-links a[data-hub-link] {
-      display: none;
-    }
-    body.plan-mode .nav-links a[data-plan-link] {
-      display: inline-flex;
-    }
-    .nav-links a[data-plan-link] {
-      display: none; /* hidden in hub mode */
-    }
-
-    /* ════ PROMPT MODAL ════ */
-    .prompt-modal-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: rgba(5, 10, 20, 0.82);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-    }
-    .prompt-modal-overlay.open {
-      opacity: 1;
-      pointer-events: all;
-    }
-    .prompt-modal {
-      position: relative;
-      background: #0D1B2A;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 24px;
-      padding: 40px;
-      max-width: 760px;
-      width: 100%;
-      max-height: 88vh;
-      overflow-y: auto;
-      box-shadow: 0 32px 80px rgba(0,0,0,0.55);
-      transform: translateY(12px);
-      transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
-    }
-    [data-theme="light"] .prompt-modal {
-      background: #F8FAFC;
-      border-color: rgba(0,0,0,0.1);
-    }
-    .prompt-modal-overlay.open .prompt-modal {
-      transform: translateY(0);
-    }
-    .prompt-modal-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-    .prompt-modal-title {
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: #F8FAFC;
-      line-height: 1.3;
-    }
-    [data-theme="light"] .prompt-modal-title {
-      color: #0F172A;
-    }
-    .prompt-modal-close {
-      flex-shrink: 0;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
-      color: #94A3B8;
-      font-size: 1.1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-    }
-    [data-theme="light"] .prompt-modal-close {
-      background: #E2E8F0;
-      border-color: #CBD5E1;
-      color: #475569;
-    }
-    .prompt-modal-close:hover {
-      background: rgba(255,255,255,0.18);
-      color: #fff;
-    }
-    .prompt-how-to {
-      font-size: 0.9rem;
-      line-height: 1.6;
-      color: #94A3B8;
-      margin-bottom: 20px;
-      padding: 14px 18px;
-      background: rgba(16,185,129,0.08);
-      border: 1px solid rgba(16,185,129,0.2);
-      border-radius: 12px;
-    }
-    [data-theme="light"] .prompt-how-to {
-      color: #334155;
-      background: rgba(16,185,129,0.06);
-    }
-    .prompt-how-to strong { color: #10B981; }
-    .prompt-code-box {
-      position: relative;
-      background: #020818;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 14px;
-      padding: 20px 24px;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 0.83rem;
-      line-height: 1.65;
-      color: #CBD5E1;
-      white-space: pre-wrap;
-      word-break: break-word;
-      overflow-y: auto;
-      max-height: 380px;
-    }
-    [data-theme="light"] .prompt-code-box {
-      background: #1E293B;
-      color: #E2E8F0;
-    }
-    .prompt-copy-btn {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      padding: 6px 14px;
-      border-radius: 8px;
-      background: rgba(16,185,129,0.15);
-      border: 1px solid rgba(16,185,129,0.3);
-      color: #10B981;
-      font-size: 0.8rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .prompt-copy-btn:hover {
-      background: rgba(16,185,129,0.28);
-    }
-    .prompt-copy-btn.copied {
-      background: rgba(16,185,129,0.4);
-      color: #fff;
-    }
-    .prompt-modal-footer {
-      margin-top: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .prompt-gh-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #64748B;
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-    .prompt-gh-link:hover { color: #10B981; }
-
-    .portal-hero {
-      position: relative;
-      min-height: 85vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 140px 24px 80px;
-      background: radial-gradient(circle at 50% 20%, rgba(6, 78, 59, 0.4) 0%, rgba(10, 15, 29, 0.95) 80%);
-      overflow: hidden;
-    }
-    [data-theme="light"] .portal-hero {
-      background: radial-gradient(circle at 50% 10%, rgba(16, 185, 129, 0.15) 0%, rgba(248, 250, 252, 1) 75%);
-    }
-
-    .portal-hero-content {
-      position: relative;
-      z-index: 10;
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    .portal-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 18px;
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      border-radius: 9999px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--color-primary-text, #10B981);
-      margin-bottom: 24px;
-      backdrop-filter: blur(8px);
-    }
-    [data-theme="light"] .portal-badge {
-      color: #065F46;
-      background: rgba(16, 185, 129, 0.1);
-      border-color: rgba(16, 185, 129, 0.25);
-    }
-
-    .portal-title {
-      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
-      font-weight: 900;
-      line-height: 1.12;
-      letter-spacing: -0.03em;
-      margin-bottom: 20px;
-      background: linear-gradient(135deg, #ffffff 30%, #94A3B8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    [data-theme="light"] .portal-title {
-      background: linear-gradient(135deg, #0F172A 30%, #334155 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .portal-subtitle {
-      font-size: clamp(1.05rem, 2vw, 1.35rem);
-      line-height: 1.6;
-      color: #94A3B8;
-      max-width: 780px;
-      margin: 0 auto 36px;
-    }
-    [data-theme="light"] .portal-subtitle {
-      color: #475569;
-    }
-
-    .portal-actions {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 50px;
-    }
-
-    .portal-stats-bar {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-      max-width: 880px;
-      margin: 0 auto;
-      padding: 20px 28px;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      backdrop-filter: blur(16px);
-    }
-    [data-theme="light"] .portal-stats-bar {
-      background: rgba(255, 255, 255, 0.85);
-      border-color: rgba(0, 0, 0, 0.08);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    }
-
-    .portal-stat-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .portal-stat-num {
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: var(--color-primary-text, #10B981);
-    }
-    .portal-stat-label {
-      font-size: 0.82rem;
-      color: #64748B;
-      font-weight: 500;
-      margin-top: 2px;
-    }
-
-    /* ════ PLANS GRID ════ */
-    .plans-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 28px;
-      margin-top: 40px;
-    }
-
-    .plan-card {
-      position: relative;
-      background: rgba(15, 23, 42, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 24px;
-      padding: 32px;
-      display: flex;
-      flex-direction: column;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      overflow: hidden;
-      backdrop-filter: blur(12px);
-    }
-    [data-theme="light"] .plan-card {
-      background: #ffffff;
-      border-color: rgba(0, 0, 0, 0.08);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-    }
-    .plan-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--card-accent, #10B981);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-    }
-    [data-theme="light"] .plan-card:hover {
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-    }
-
-    .plan-card-banner {
-      height: 6px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: var(--card-gradient, linear-gradient(90deg, #10B981, #064E3B));
-    }
-
-    .plan-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    .plan-flag-title {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .plan-icon {
-      font-size: 2.2rem;
-      line-height: 1;
-    }
-    .plan-title {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: #F8FAFC;
-    }
-    [data-theme="light"] .plan-title {
-      color: #0F172A;
-    }
-    .plan-duration-badge {
-      font-size: 0.8rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.08);
-      color: #CBD5E1;
-      white-space: nowrap;
-    }
-    [data-theme="light"] .plan-duration-badge {
-      background: #F1F5F9;
-      color: #475569;
-    }
-
-    .plan-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-    .plan-tag {
-      font-size: 0.76rem;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #94A3B8;
-    }
-    [data-theme="light"] .plan-tag {
-      background: #F8FAFC;
-      border-color: #E2E8F0;
-      color: #64748B;
-    }
-
-    .plan-route-box {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px dashed rgba(255, 255, 255, 0.12);
-      border-radius: 12px;
-      padding: 12px 16px;
-      margin-bottom: 16px;
-      font-size: 0.86rem;
-      color: #CBD5E1;
-      line-height: 1.5;
-    }
-    [data-theme="light"] .plan-route-box {
-      background: #F8FAFC;
-      border-color: #CBD5E1;
-      color: #334155;
-    }
-
-    .plan-desc {
-      font-size: 0.92rem;
-      line-height: 1.6;
-      color: #94A3B8;
-      margin-bottom: 24px;
-      flex-grow: 1;
-    }
-    [data-theme="light"] .plan-desc {
-      color: #64748B;
-    }
-
-    .plan-footer-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: auto;
-    }
-    .btn-launch {
-      flex: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 20px;
-      border-radius: 14px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #ffffff;
-      background: var(--card-accent, #10B981);
-      text-decoration: none;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
-    }
-    .btn-launch:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-      filter: brightness(1.1);
-    }
-    .btn-prompt {
-      padding: 12px 14px;
-      border-radius: 14px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: #94A3B8;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      text-decoration: none;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    [data-theme="light"] .btn-prompt {
-      background: #F1F5F9;
-      border-color: #CBD5E1;
-      color: #475569;
-    }
-    .btn-prompt:hover {
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.12);
-    }
-    [data-theme="light"] .btn-prompt:hover {
-      background: #E2E8F0;
-      color: #0F172A;
-    }
-
-    /* ════ FEATURES SECTION ════ */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin-top: 40px;
-    }
-    .feature-box {
-      background: rgba(15, 23, 42, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 20px;
-      padding: 28px;
-      backdrop-filter: blur(8px);
-      transition: transform 0.2s ease;
-    }
-    [data-theme="light"] .feature-box {
-      background: #ffffff;
-      border-color: rgba(0, 0, 0, 0.06);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-    }
-    .feature-box:hover {
-      transform: translateY(-4px);
-    }
-    .feature-icon {
-      font-size: 2.2rem;
-      margin-bottom: 16px;
-      display: inline-block;
-    }
-    .feature-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #F8FAFC;
-    }
-    [data-theme="light"] .feature-title {
-      color: #0F172A;
-    }
-    .feature-desc {
-      font-size: 0.9rem;
-      line-height: 1.6;
-      color: #94A3B8;
-    }
-    [data-theme="light"] .feature-desc {
-      color: #64748B;
-    }
-
-    /* ════ QUICKSTART STEPS ════ */
-    .steps-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-      margin-top: 40px;
-    }
-    .step-box {
-      position: relative;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      padding: 32px 24px;
-      text-align: center;
-    }
-    [data-theme="light"] .step-box {
-      background: #ffffff;
-      border-color: rgba(0, 0, 0, 0.08);
-    }
-    .step-number {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--color-primary, #10B981);
-      color: #ffffff;
-      font-size: 1.2rem;
-      font-weight: 800;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-    }
-    .step-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #F8FAFC;
-    }
-    [data-theme="light"] .step-title {
-      color: #0F172A;
-    }
-    .step-desc {
-      font-size: 0.88rem;
-      line-height: 1.55;
-      color: #94A3B8;
-    }
-    [data-theme="light"] .step-desc {
-      color: #64748B;
-    }
-  </style>
+  <!-- MapLibre GL CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css">
 </head>
 <body class="lang-primary lang-en">
 
@@ -616,13 +40,14 @@
       </a>
 
       <div class="nav-links">
-        <a href="#overview" data-plan-link><span class="lang-primary lang-en">Overview</span><span class="lang-secondary lang-zh">行程概覽</span><span class="lang-tertiary lang-zh-cn">行程概览</span></a>
-        <a href="#map" data-plan-link><span class="lang-primary lang-en">Route Map</span><span class="lang-secondary lang-zh">路線地圖</span><span class="lang-tertiary lang-zh-cn">路线地图</span></a>
-        <a href="#tips" data-plan-link><span class="lang-primary lang-en">Tips</span><span class="lang-secondary lang-zh">實用貼士</span><span class="lang-tertiary lang-zh-cn">实用贴士</span></a>
-        <a href="#itinerary" data-plan-link><span class="lang-primary lang-en">Itinerary</span><span class="lang-secondary lang-zh">詳細行程</span><span class="lang-tertiary lang-zh-cn">详细行程</span></a>
-        <a href="#budget" data-plan-link><span class="lang-primary lang-en">Budget</span><span class="lang-secondary lang-zh">費用預算</span><span class="lang-tertiary lang-zh-cn">费用预算</span></a>
-        <a href="#hotels" data-plan-link><span class="lang-primary lang-en">Hotels</span><span class="lang-secondary lang-zh">精選住宿</span><span class="lang-tertiary lang-zh-cn">精选住宿</span></a>
-        <a href="#transit" data-plan-link><span class="lang-primary lang-en">Transit</span><span class="lang-secondary lang-zh">交通方案</span><span class="lang-tertiary lang-zh-cn">交通方案</span></a>
+        <a href="#overview"><span class="lang-primary lang-en">Overview</span><span class="lang-secondary lang-zh">行程概覽</span><span class="lang-tertiary lang-zh-cn">行程概览</span></a>
+        <a href="#flights"><span class="lang-primary lang-en">Flights</span><span class="lang-secondary lang-zh">航班資訊</span><span class="lang-tertiary lang-zh-cn">航班信息</span></a>
+        <a href="#map"><span class="lang-primary lang-en">Route Map</span><span class="lang-secondary lang-zh">路線地圖</span><span class="lang-tertiary lang-zh-cn">路线地图</span></a>
+        <a href="#tips"><span class="lang-primary lang-en">Tips</span><span class="lang-secondary lang-zh">實用貼士</span><span class="lang-tertiary lang-zh-cn">实用贴士</span></a>
+        <a href="#itinerary"><span class="lang-primary lang-en">Itinerary</span><span class="lang-secondary lang-zh">詳細行程</span><span class="lang-tertiary lang-zh-cn">详细行程</span></a>
+        <a href="#budget"><span class="lang-primary lang-en">Budget</span><span class="lang-secondary lang-zh">費用預算</span><span class="lang-tertiary lang-zh-cn">费用预算</span></a>
+        <a href="#hotels"><span class="lang-primary lang-en">Hotels</span><span class="lang-secondary lang-zh">精選住宿</span><span class="lang-tertiary lang-zh-cn">精选住宿</span></a>
+        <a href="#transit"><span class="lang-primary lang-en">Transit</span><span class="lang-secondary lang-zh">交通方案</span><span class="lang-tertiary lang-zh-cn">交通方案</span></a>
       </div>
 
       <div class="nav-actions">
@@ -633,7 +58,7 @@
         <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle Dark/Light Mode" title="Toggle Dark/Light Mode"></button>
 
         <!-- Mobile Menu Toggle -->
-        <button class="nav-toggle" id="nav-toggle-btn" aria-label="Toggle navigation menu" onclick="toggleMobileNav()">
+        <button class="nav-toggle" id="nav-toggle-btn" aria-label="Toggle navigation menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -641,11 +66,9 @@
   </nav>
 
   <!-- ═══════════════════════════════════════════════════
-       TRIP ONE-PAGER SHELL
-       Hidden by default. Revealed by script.js when data/config.js
-       has meta.isCustomPlan === true (AI-generated plan detected).
+       TRIP CONTENT (Direct & Instant First Paint)
        ═══════════════════════════════════════════════════ -->
-  <div id="trip-onepager" style="display:none;" aria-hidden="true">
+  <div id="trip-content">
 
     <!-- 1. HERO -->
     <header id="hero">
@@ -686,6 +109,25 @@
         </div>
         <div class="overview-grid" id="overview-cards-container"></div>
         <div id="route-board-mount" style="margin-top: 36px;"></div>
+      </div>
+    </section>
+
+    <!-- 2.5 FLIGHTS -->
+    <section id="flights" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="lang-primary lang-en">Confirmed Flights &amp; Airport Transit</span>
+            <span class="lang-secondary lang-zh">已確認航班與機場接駁</span>
+            <span class="lang-tertiary lang-zh-cn">已确认航班与机场接驳</span>
+          </h2>
+          <p class="section-subtitle">
+            <span class="lang-primary lang-en">British Airways BA960 &amp; BA967 flights between London Heathrow (LHR T5) and Hamburg Airport (HAM T2) with direct S1 transit to city.</span>
+            <span class="lang-secondary lang-zh">英國航空 BA960 與 BA967 往返倫敦希斯路（T5）與漢堡機場（T2），搭配S1城郊列車直通市區。</span>
+            <span class="lang-tertiary lang-zh-cn">英国航空 BA960 与 BA967 往返伦敦希思罗（T5）与汉堡机场（T2），搭配S1城郊列车直通市区。</span>
+          </p>
+        </div>
+        <div id="flights-container"></div>
       </div>
     </section>
 
@@ -811,16 +253,17 @@
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">
-            <span class="lang-primary lang-en">Hotels &amp; Accommodation Finder</span>
-            <span class="lang-secondary lang-zh">各站精選住宿與即時搜尋</span>
-             <span class="lang-tertiary lang-zh-cn">各站精选住宿与实时搜索</span>
+            <span class="lang-primary lang-en">Confirmed Accommodation &amp; Hotel Details</span>
+            <span class="lang-secondary lang-zh">已確認住宿安排與酒店詳情</span>
+            <span class="lang-tertiary lang-zh-cn">已确认住宿安排与酒店详情</span>
           </h2>
           <p class="section-subtitle">
-            <span class="lang-primary lang-en">Direct quick-links to pre-filtered Booking.com searches for each stop of your journey.</span>
-            <span class="lang-secondary lang-zh">一鍵前往各城市住宿搜尋頁面，已為您預設目的地與人數。</span>
-             <span class="lang-tertiary lang-zh-cn">一键前往各城市住宿搜索页面，已为您预设目的地与人数。</span>
+            <span class="lang-primary lang-en">Staying at Courtyard by Marriott Hamburg City for the entire 3-day trip. Direct link to official Marriott booking &amp; live rates.</span>
+            <span class="lang-secondary lang-zh">全程入住漢堡市萬怡酒店 (Courtyard by Marriott)。附官方萬豪酒店詳情及即時房價查詢。</span>
+            <span class="lang-tertiary lang-zh-cn">全程入住汉堡市万怡酒店 (Courtyard by Marriott)。附官方万豪酒店详情及实时房价查询。</span>
           </p>
         </div>
+        <div class="itinerary-hotels-grid" id="itinerary-hotels-grid" style="margin-bottom: 32px;"></div>
         <div class="hotel-search-card">
           <div class="hotel-search-header">
             <div class="hotel-search-brand">
@@ -863,7 +306,6 @@
             </div>
           </form>
         </div>
-        <div class="itinerary-hotels-grid" id="itinerary-hotels-grid"></div>
       </div>
     </section>
 
@@ -879,7 +321,7 @@
           <p class="section-subtitle">
             <span class="lang-primary lang-en">Master transit networks, rail passes, high-speed rail, and travel logistics.</span>
             <span class="lang-secondary lang-zh">鐵路通票、高鐵路線、地鐵感應支付與交通安排完整須知。</span>
-             <span class="lang-tertiary lang-zh-cn">铁路通票、高铁路线、地铁感应支付与交通安排完整须知。</span>
+            <span class="lang-tertiary lang-zh-cn">铁路通票、高铁路线、地铁感应支付与交通安排完整须知。</span>
           </p>
         </div>
         <div class="transit-grid" id="transit-grid-container"></div>
@@ -909,59 +351,19 @@
       </div>
     </footer>
 
-  </div><!-- /#trip-onepager -->
-
+  </div><!-- /#trip-content -->
 
   <!-- ═══════════════════════════════════════════════════
-       DATA FILES — Loaded for plan mode only.
-       onerror guards prevent crashes if files don't exist.
+       TRIP DATA & RUNTIME ENGINE SCRIPTS
        ═══════════════════════════════════════════════════ -->
-  <script src="data/config.js" onerror="window.__PLAN_LOAD_ERROR=true"></script>
-  <script src="data/site-data.js" onerror=""></script>
-  <script src="data/itinerary-data.js" onerror=""></script>
-
-  <!-- MapLibre GL (only used in plan mode for maps) -->
-  <link id="maplibre-css" rel="stylesheet" href="" disabled>
-  <script>
-    // Load MapLibre CSS lazily only when plan mode is active
-    (function() {
-      var hasPlan = window.TRIP_CONFIG && window.TRIP_CONFIG.meta && window.TRIP_CONFIG.meta.isCustomPlan === true;
-      if (hasPlan) {
-        var link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css';
-        document.head.appendChild(link);
-      }
-    })();
-  </script>
-  <script>
-    // Conditionally load MapLibre GL JS and engine scripts for plan mode
-    (function() {
-      var hasPlan = window.TRIP_CONFIG && window.TRIP_CONFIG.meta && window.TRIP_CONFIG.meta.isCustomPlan === true;
-      if (!hasPlan) return;
-      var scripts = [
-        'https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js',
-        'js/currency.js',
-        'js/map.js',
-        'js/render.js',
-        'js/ui.js',
-        'js/script.js'
-      ];
-      var idx = 0;
-      function loadNext() {
-        if (idx >= scripts.length) return;
-        var s = document.createElement('script');
-        s.src = scripts[idx++];
-        s.onload = loadNext;
-        s.onerror = loadNext;
-        document.body.appendChild(s);
-      }
-      loadNext();
-    })();
-  </script>
-
-
-
-
+  <script src="data/config.js"></script>
+  <script src="data/site-data.js"></script>
+  <script src="data/itinerary-data.js"></script>
+  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+  <script src="js/currency.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>

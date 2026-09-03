@@ -17,17 +17,23 @@ const TRIP_CONFIG = {
     primary: {
       code: "en",
       label: "EN",
-      name: "English"
+      name: "English (UK)",
+      title: "English (UK)",
+      locale: "en-GB"
     },
     secondary: {
       code: "zh",
       label: "繁中",
-      name: "繁體中文"
+      name: "繁體中文（香港）",
+      title: "香港繁體中文",
+      locale: "zh-HK"
     },
     tertiary: {
       code: "zh-cn",
       label: "简中",
-      name: "简体中文"
+      name: "简体中文（马来西亚）",
+      title: "马来西亚简体中文",
+      locale: "zh-MY"
     },
     default: "en"
   },
@@ -75,6 +81,14 @@ const TRIP_CONFIG = {
       {
         icon: "💑",
         text: { en: "Couple", zh: "情侶同遊", "zh-cn": "情侣同游" }
+      },
+      {
+        icon: "✈️",
+        text: { en: "BA960 / BA967", zh: "英航 BA960 / BA967", "zh-cn": "英航 BA960 / BA967" }
+      },
+      {
+        icon: "🏨",
+        text: { en: "Courtyard Marriott", zh: "萬豪萬怡酒店", "zh-cn": "万豪万怡酒店" }
       },
       {
         icon: "🚇",
@@ -147,6 +161,12 @@ const TRIP_CONFIG = {
         symbol: "€",
         name: "EUR (€)",
         fallbackRate: 1.00
+      },
+      {
+        code: "myr",
+        symbol: "RM",
+        name: "MYR (RM)",
+        fallbackRate: 5.10
       }
     ],
     defaultTarget: "gbp"
@@ -172,6 +192,7 @@ const TRIP_CONFIG = {
   features: {
     showOverview: true,
     showMilestoneBoard: true,
+    showFlights: true,
     showMap: true,
     showTips: true,
     showItinerary: true,

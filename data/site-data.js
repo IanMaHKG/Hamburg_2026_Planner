@@ -90,7 +90,7 @@ const SITE_DATA = {
     routeStops: [
       {
         code: "01",
-        label: "HAM",
+        label: "HBF",
         nameNative: "Hamburg Hbf",
         nameRomaji: "Hamburg Central",
         dotClass: "hamburg-hbf",
@@ -108,6 +108,27 @@ const SITE_DATA = {
         lat: 53.5532,
         lng: 10.0066,
         color: "#CC0000"
+      },
+      {
+        code: "HTL",
+        label: "MAR",
+        nameNative: "Courtyard by Marriott",
+        nameRomaji: "Adenauerallee 52",
+        dotClass: "courtyard-marriott",
+        name: {
+          en: "Courtyard by Marriott Hamburg City",
+          zh: "漢堡市萬怡酒店",
+          "zh-cn": "汉堡市万怡酒店"
+        },
+        days: { en: "Hotel Base (2 Nights)", zh: "全程住宿（2晚）", "zh-cn": "全程住宿（2晚）" },
+        desc: {
+          en: "Trip accommodation base (Adenauerallee 52). 4 min walk to Berliner Tor, direct S1 connection to airport.",
+          zh: "全程住宿基地（Adenauerallee 52）。步行4分鐘即達柏林門站，S1直達漢堡機場。",
+          "zh-cn": "全程住宿基地（Adenauerallee 52）。步行4分钟即达柏林门站，S1直达汉堡机场。"
+        },
+        lat: 53.5534,
+        lng: 10.0105,
+        color: "#0D9488"
       },
       {
         code: "02",
@@ -354,8 +375,10 @@ const SITE_DATA = {
       items: [
         { id: "p11", en: "Passports (valid 3+ months after Nov 28, 2026) + printed copies", zh: "護照（11月28日後至少3個月有效）及紙本備份", "zh-cn": "护照（11月28日后至少3个月有效）及纸本备份" },
         { id: "p12", en: "Comprehensive Europe travel insurance (including medical cover)", zh: "包含醫療保障的歐洲旅遊保險單據", "zh-cn": "包含医疗保障的欧洲旅游保险单据" },
-        { id: "p13", en: "Cash (€50–€100 per person for Christmas market stalls)", zh: "現金（每人€50至€100，用於聖誕市集攤位消費）", "zh-cn": "现金（每人€50至€100，用于圣诞市集摊位消费）" },
-        { id: "p14", en: "Hamburg Card (purchase at airport or online in advance)", zh: "漢堡城市卡（可於機場購買或提前網上購買）", "zh-cn": "汉堡城市卡（可于机场购买或提前网上购买）" }
+        { id: "p13", en: "British Airways App & Boarding Passes (BA960 / BA967, LHR T5 & HAM T2)", zh: "英國航空 App 及電子登機證（BA960 / BA967，希斯路T5與漢堡T2）", "zh-cn": "英国航空 App 及电子登机牌（BA960 / BA967，希思罗T5与汉堡T2）" },
+        { id: "p14", en: "Courtyard by Marriott confirmation (Adenauerallee 52) / Marriott Bonvoy App", zh: "漢堡市萬怡酒店確認單（Adenauerallee 52）/ 萬豪旅享家 App", "zh-cn": "汉堡市万怡酒店确认单（Adenauerallee 52）/ 万豪旅享家 App" },
+        { id: "p15", en: "Cash (€50–€100 per person for Christmas market stalls)", zh: "現金（每人€50至€100，用於聖誕市集攤位消費）", "zh-cn": "现金（每人€50至€100，用于圣诞市集摊位消费）" },
+        { id: "p16", en: "Hamburg Card (purchase at airport or online in advance)", zh: "漢堡城市卡（可於機場購買或提前網上購買）", "zh-cn": "汉堡城市卡（可于机场购买或提前网上购买）" }
       ]
     }
   ],
@@ -367,24 +390,24 @@ const SITE_DATA = {
     items: [
       {
         category: { en: "Flights (Return)", zh: "來回機票", "zh-cn": "来回机票" },
-        baseAmount: "€200 – €500",
-        min: 200,
-        max: 500,
+        baseAmount: "£212.70 paid (~€250)",
+        min: 250,
+        max: 250,
         notes: {
-          en: "2 return flights (UK → Hamburg). Budget on EasyJet/Ryanair from ~€50pp each way; full service BA/Lufthansa ~€150pp each way.",
-          zh: "2張來回機票（英國 → 漢堡）。EasyJet/Ryanair廉價航空每人單程約€50起；英航/漢莎全服務航空每人單程約€150。",
-          "zh-cn": "2张来回机票（英国 → 汉堡）。EasyJet/Ryanair廉价航空每人单程约€50起；英航/汉莎全服务航空每人单程约€150。"
+          en: "British Airways BA960 & BA967 (London Heathrow LHR T5 ↔ Hamburg HAM T2). 2 return tickets for couple (Receipt: £212.70 paid).",
+          zh: "英國航空 BA960 與 BA967（倫敦希斯路 T5 ↔ 漢堡機場 T2），2位成人來回機票（收據：已付 £212.70）。",
+          "zh-cn": "英国航空 BA960 与 BA967（伦敦希思罗 T5 ↔ 汉堡机场 T2），2位成人来回机票（收据：已付 £212.70）。"
         }
       },
       {
         category: { en: "Accommodation (2 Nights)", zh: "酒店住宿 (2晚)", "zh-cn": "酒店住宿 (2晚)" },
-        baseAmount: "€280 – €480",
-        min: 280,
-        max: 480,
+        baseAmount: "€279.00 paid",
+        min: 279,
+        max: 279,
         notes: {
-          en: "4-star boutique hotel near HafenCity or Jungfernstieg. Average €140–€240/night for a double room.",
-          zh: "港城或少女大道附近精品4星酒店，雙人房每晚平均約€140–€240。",
-          "zh-cn": "港城或少女大道附近精品4星酒店，双人房每晚平均约€140–€240。"
+          en: "Courtyard by Marriott Hamburg City (Adenauerallee 52). 2 nights confirmed booking for couple (Receipt: €279.00 paid).",
+          zh: "漢堡市萬怡酒店 (Courtyard by Marriott, Adenauerallee 52)，情侶2晚已確認住宿（收據：已付 €279.00）。",
+          "zh-cn": "汉堡市万怡酒店 (Courtyard by Marriott, Adenauerallee 52)，情侣2晚已确认住宿（收据：已付 €279.00）。"
         }
       },
       {
@@ -434,50 +457,154 @@ const SITE_DATA = {
     ],
     total: {
       category: { en: "Total Estimated Budget (2 Persons, 3 Days)", zh: "總預算估算（2人，3天）", "zh-cn": "总预算估算（2人，3天）" },
-      baseAmount: "€830 – €1,670",
-      min: 830,
-      max: 1670,
+      baseAmount: "€879 – €1,219",
+      min: 879,
+      max: 1219,
       notes: {
-        en: "Approx. €415 – €835 per person for a premium festive city break in Hamburg.",
-        zh: "每人約€415至€835的優質漢堡節慶城市假期。",
-        "zh-cn": "每人约€415至€835的优质汉堡节庆城市假期。"
+        en: "Pre-paid: €529 (£212.70 flights + €279 hotel). Remaining on-trip estimate: €350 – €690. Total approx. €440 – €610 per person.",
+        zh: "已預付：€529（機票 £212.70 + 酒店 €279）。在當地預計開支：€350至€690。每人總開支約 €440至€610。",
+        "zh-cn": "已预付：€529（机票 £212.70 + 酒店 €279）。在当地预计开支：€350至€690。每人总开支约 €440至€610。"
       }
     }
   },
 
   /* ══════════════════════════════════════════════════
-     5. HOTEL FINDER & CURATED ACCOMMODATION LEGS
+     5. CONFIRMED FLIGHTS — British Airways (LHR ↔ HAM)
+     ══════════════════════════════════════════════════ */
+  flights: {
+    badge: {
+      en: "Confirmed Flights · British Airways",
+      zh: "已確認航班 · 英國航空",
+      "zh-cn": "已确认航班 · 英国航空"
+    },
+    routeHeader: {
+      en: "London Heathrow (LHR) ⇄ Hamburg Airport (HAM)",
+      zh: "倫敦希斯路 (LHR) ⇄ 漢堡機場 (HAM)",
+      "zh-cn": "伦敦希思罗 (LHR) ⇄ 汉堡机场 (HAM)"
+    },
+    summary: {
+      airline: "British Airways",
+      baggage: {
+        en: "1 cabin bag (up to 23kg, 56×45×25cm) + 1 personal bag (up to 23kg, 40×30×15cm) + checked baggage included per passenger.",
+        zh: "每位乘客包含1件手提隨身行李（上限23公斤，56×45×25厘米）+ 1件個人手提包（上限23公斤，40×30×15厘米）及託運行李。",
+        "zh-cn": "每位乘客包含1件手提随身行李（上限23公斤，56×45×25厘米）+ 1件个人手提包（上限23公斤，40×30×15厘米）及托运行李。"
+      },
+      airportTransfer: {
+        en: "Direct <strong>S1 S-Bahn</strong> runs every 10 minutes from Hamburg Airport (station directly beneath Terminal 1 & 2) to <strong>Berliner Tor</strong> (27 min, 4 min walk to Courtyard by Marriott) and <strong>Hauptbahnhof</strong> (25 min). No train changes required.",
+        zh: "<strong>S1城郊列車</strong>每10分鐘一班，從漢堡機場航站樓地下月台直達<strong>柏林門站 (Berliner Tor)</strong>（約27分鐘，步行4分鐘即達萬豪萬怡酒店）及<strong>中央車站 (Hauptbahnhof)</strong>（約25分鐘），直達無需換車。",
+        "zh-cn": "<strong>S1城郊列车</strong>每10分钟一班，从汉堡机场航站楼地下月台直达<strong>柏林门站 (Berliner Tor)</strong>（约27分钟，步行4分钟即达万豪万怡酒店）及<strong>中央车站 (Hauptbahnhof)</strong>（约25分钟），直达无需换车。"
+      }
+    },
+    legs: [
+      {
+        id: "flight-ba960",
+        legNum: { en: "Outbound Flight", zh: "去程航班", "zh-cn": "去程航班" },
+        flightNum: "BA960",
+        airline: "British Airways",
+        date: "2026-11-26",
+        dateDisplay: { en: "Thu 26 Nov 2026", zh: "2026年11月26日（星期四）", "zh-cn": "2026年11月26日（星期四）" },
+        origin: {
+          code: "LHR",
+          city: { en: "London", zh: "倫敦", "zh-cn": "伦敦" },
+          airport: { en: "London Heathrow", zh: "希斯路機場", "zh-cn": "希思罗机场" },
+          terminal: "Terminal 5",
+          time: "07:30",
+          tz: "GMT"
+        },
+        destination: {
+          code: "HAM",
+          city: { en: "Hamburg", zh: "漢堡", "zh-cn": "汉堡" },
+          airport: { en: "Hamburg Airport", zh: "漢堡機場", "zh-cn": "汉堡机场" },
+          terminal: "Terminal 2",
+          time: "10:10",
+          tz: "CET"
+        },
+        duration: "1h 40m",
+        aircraft: "Airbus A320neo",
+        status: { en: "Confirmed", zh: "已確認", "zh-cn": "已确认" },
+        statusUrl: "https://www.britishairways.com/en-gb/information/flight-information/flight-status?flightNumber=960",
+        notes: {
+          en: "Terminal 5 is BA's flagship hub at LHR. Recommend arriving by 05:30 for bag drop & security. Landing at 10:10 CET allows a full first day in Hamburg.",
+          zh: "T5為英航倫敦希斯路旗艦航站樓。建議於05:30前抵達辦理託運及安檢。上午10:10抵達漢堡，擁有充裕的第一天探索時光。",
+          "zh-cn": "T5为英航伦敦希思罗旗舰航站楼。建议于05:30前抵达办理托运及安检。上午10:10抵达汉堡，拥有充裕的第一天探索时光。"
+        }
+      },
+      {
+        id: "flight-ba967",
+        legNum: { en: "Return Flight", zh: "回程航班", "zh-cn": "回程航班" },
+        flightNum: "BA967",
+        airline: "British Airways",
+        date: "2026-11-28",
+        dateDisplay: { en: "Sat 28 Nov 2026", zh: "2026年11月28日（星期六）", "zh-cn": "2026年11月28日（星期六）" },
+        origin: {
+          code: "HAM",
+          city: { en: "Hamburg", zh: "漢堡", "zh-cn": "汉堡" },
+          airport: { en: "Hamburg Airport", zh: "漢堡機場", "zh-cn": "汉堡机场" },
+          terminal: "Terminal 2",
+          time: "16:45",
+          tz: "CET"
+        },
+        destination: {
+          code: "LHR",
+          city: { en: "London", zh: "倫敦", "zh-cn": "伦敦" },
+          airport: { en: "London Heathrow", zh: "希斯路機場", "zh-cn": "希思罗机场" },
+          terminal: "Terminal 5",
+          time: "17:25",
+          tz: "GMT"
+        },
+        duration: "1h 40m",
+        aircraft: "Airbus A320",
+        status: { en: "Confirmed", zh: "已確認", "zh-cn": "已确认" },
+        statusUrl: "https://www.britishairways.com/en-gb/information/flight-information/flight-status?flightNumber=967",
+        notes: {
+          en: "Depart Courtyard by Marriott / Berliner Tor by 14:15 via S1 S-Bahn to HAM Terminal 2 (27 min), arriving 2 hours before the 16:45 departure. Arrives LHR T5 at 17:25 GMT.",
+          zh: "請於14:15前從萬豪萬怡酒店/柏林門站乘搭S1城郊列車直達漢堡T2（約27分鐘），在16:45起飛前2小時辦理登機手續。傍晚17:25抵達希斯路T5。",
+          "zh-cn": "请于14:15前从万豪万怡酒店/柏林门站乘搭S1城郊列车直达汉堡T2（约27分钟），在16:45起飞前2小时办理登机手续。傍晚17:25抵达希思罗T5。"
+        }
+      }
+    ]
+  },
+
+  /* ══════════════════════════════════════════════════
+     6. HOTEL FINDER & CONFIRMED ACCOMMODATION
      ══════════════════════════════════════════════════ */
   hotels: {
     quickLegs: [
       {
         active: true,
-        dest: "Hamburg, Germany",
+        dest: "Courtyard by Marriott Hamburg City, Adenauerallee 52, Hamburg",
         checkin: "2026-11-26",
         checkout: "2026-11-28",
-        label: { en: "Hamburg (2N)", zh: "漢堡 (2晚)", "zh-cn": "汉堡 (2晚)" }
+        label: { en: "Courtyard by Marriott (Confirmed)", zh: "萬豪萬怡酒店（已訂）", "zh-cn": "万豪万怡酒店（已订）" }
       }
     ],
 
     legs: [
       {
-        legNum: "Leg 01",
-        nights: { en: "2 Nights", zh: "2 晚", "zh-cn": "2 晚" },
+        legNum: "Confirmed Stay",
+        nights: { en: "2 Nights · Entire Trip", zh: "2 晚 · 全程入住", "zh-cn": "2 晚 · 全程入住" },
+        isConfirmed: true,
         title: {
-          en: "HafenCity or Neustadt — Waterfront Hamburg",
-          zh: "港城區或新城區 — 漢堡海濱",
-          "zh-cn": "港城区或新城区 — 汉堡海滨"
+          en: "Courtyard by Marriott Hamburg City",
+          zh: "漢堡市萬怡酒店 (Courtyard by Marriott)",
+          "zh-cn": "汉堡市万怡酒店 (Courtyard by Marriott)"
         },
-        dates: "Nov 26 – Nov 28",
+        dates: "Nov 26 – Nov 28, 2026",
+        address: "Adenauerallee 52, 20097 Hamburg, Germany",
+        url: "https://www.marriott.com/en-gb/hotels/hamhc-courtyard-by-marriott-hamburg-city/overview",
+        checkinTime: "15:00",
+        checkoutTime: "12:00",
         desc: {
-          en: "Stay in the heart of HafenCity for direct walkability to Speicherstadt, Miniatur Wunderland, and the Elbphilharmonie plaza. Alternatively, Neustadt puts you steps from Jungfernstieg and the Rathausmarkt Christmas market.",
-          zh: "入住港城區可步行直達倉庫城、微型奇蹟世界及易北愛樂廳廣場；入住新城區則近在咫尺少女大道及市政廳廣場聖誕市集。",
-          "zh-cn": "入住港城区可步行直达仓库城、微型奇迹世界及易北爱乐厅广场；入住新城区则近在咫尺少女大道及市政厅广场圣诞市集。"
+          en: "Modern 4-star Marriott hotel located on Adenauerallee. Outstanding transit connectivity: only 4 minutes' walk to Berliner Tor (interchange for U2/U3/U4 & S1/S2) and 8–10 minutes' walk to Hamburg Hauptbahnhof. Direct 27-minute S1 S-Bahn connection to Hamburg Airport (HAM). Features Böckmann's restaurant & bar, Finnish sauna, 24/7 fitness centre, and high-speed Wi-Fi.",
+          zh: "座落於Adenauerallee的現代4星萬豪酒店。交通位置無可挑剔：步行4分鐘即達柏林門站（Berliner Tor，U2/U3/U4地鐵及S1/S2城郊列車交匯），步行8至10分鐘即達漢堡中央車站。S1城郊列車約27分鐘直通漢堡機場。附設Böckmann's餐廳及酒吧、芬蘭桑拿浴室、24小時健身中心及高速無線網絡。",
+          "zh-cn": "座落于Adenauerallee的现代4星万豪酒店。交通位置无可挑剔：步行4分钟即达柏林门站（Berliner Tor，U2/U3/U4地铁及S1/S2城郊列车交汇），步行8至10分钟即达汉堡中央车站。S1城郊列车约27分钟直通汉堡机场。附设Böckmann's餐厅及酒吧、芬兰桑拿浴室、24小时健身中心及高速无线网络。"
         },
-        tags: ["🌊 Waterfront", "🚇 U-Bahn Access", "🎄 Market Proximity"],
-        dest: "Hamburg, Germany",
+        tags: ["🏨 Confirmed Stay", "💳 Paid: €279 (2 nights)", "⭐ 4-Star Marriott", "🚇 4 min to Berliner Tor", "🚶 8 min to Hbf", "🧖 Sauna & Fitness", "✈️ Direct S1 from Airport"],
+        dest: "Courtyard by Marriott Hamburg City",
         checkin: "2026-11-26",
-        checkout: "2026-11-28"
+        checkout: "2026-11-28",
+        lat: 53.5534,
+        lng: 10.0105
       }
     ]
   },

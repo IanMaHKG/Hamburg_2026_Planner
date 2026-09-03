@@ -1,11 +1,11 @@
 {
-  "name": "Trip Planner",
-  "short_name": "Trip Planner",
-  "description": "Universal Interactive Travel Planner & Day-by-Day Itinerary",
+  "name": "Hamburg 2026 · Winter City Break",
+  "short_name": "Hamburg 2026",
+  "description": "Interactive travel planner & itinerary for 3-day couple winter trip to Hamburg (Nov 26–28, 2026)",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0F172A",
-  "theme_color": "#0284C7",
+  "theme_color": "#0D9488",
   "icons": [
     {
       "src": "assets/favicon.svg",

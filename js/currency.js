@@ -159,10 +159,15 @@ function updateConvertedBudgets() {
     const fMin = roundedMin.toLocaleString();
     const fMax = roundedMax.toLocaleString();
 
+    const sep = (symbol.length > 1 && !symbol.endsWith(' ')) ? ' ' : '';
+    const prefix = `${symbol}${sep}`;
+    const isSingle = (minVal === maxVal || fMin === fMax);
+    const displayVal = isSingle ? `${prefix}${fMin}` : `${prefix}${fMin} – ${prefix}${fMax}`;
+
     if (el.classList.contains('budget-total-val')) {
-      el.innerHTML = `<strong>${symbol}${fMin} – ${symbol}${fMax}</strong>`;
+      el.innerHTML = `<strong>${displayVal}</strong>`;
     } else {
-      el.innerHTML = `${symbol}${fMin} – ${symbol}${fMax}`;
+      el.innerHTML = displayVal;
     }
   });
 

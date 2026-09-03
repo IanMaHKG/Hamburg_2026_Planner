@@ -638,32 +638,142 @@ function renderHotels() {
     }
   }
 
-  // Curated Hotel Stay Cards with Booking.com deep-link
+  // Curated Hotel Stay Cards with Booking.com / Official Marriott link
   var legsGrid = document.getElementById('itinerary-hotels-grid') || document.getElementById('hotels-grid');
   var legs = data.hotels.legs || data.hotels.stays || [];
   if (legsGrid && Array.isArray(legs)) {
     legsGrid.innerHTML = legs.map(function(leg) {
       var tagsHtml = (leg.tags || []).map(function(tag) { return '<span class="tag tag-city">' + tag + '</span>'; }).join('');
+      var badgeClass = leg.isConfirmed ? 'hotel-leg-badge confirmed' : 'hotel-leg-badge';
+      var badgePrefix = leg.isConfirmed ? '✓ ' : '';
+      var addressHtml = leg.address ? '<div class="hotel-address-tag">📍 ' + leg.address + '</div>' : '';
+
+      var linkUrl = leg.url || ('https://www.booking.com/searchresults.html?ss=' + encodeURIComponent(leg.dest || '') + '&checkin=' + (leg.checkin || '') + '&checkout=' + (leg.checkout || '') + '&group_adults=' + partySize);
+      var isOfficialMarriott = !!leg.url;
+      var btnClass = isOfficialMarriott ? 'hotel-leg-btn marriott-btn' : 'hotel-leg-btn';
+      var btnLabel = isOfficialMarriott
+        ? '<span class="lang-primary lang-en">🏨 View Hotel on Marriott.com ➔</span>' +
+          '<span class="lang-secondary lang-zh">🏨 瀏覽萬豪官方酒店專頁 ➔</span>' +
+          '<span class="lang-tertiary lang-zh-cn">🏨 浏览万豪官方酒店专页 ➔</span>'
+        : '<span class="lang-primary lang-en">🏨 Search on Booking.com ➔</span>' +
+          '<span class="lang-secondary lang-zh">🏨 在 Booking.com 搜尋 ➔</span>' +
+          '<span class="lang-tertiary lang-zh-cn">🏨 在 Booking.com 搜索 ➔</span>';
+
       return '<div class="hotel-leg-card reveal">' +
                '<div>' +
                  '<div class="hotel-leg-top">' +
-                   '<span class="hotel-leg-badge">' + (leg.legNum || 'Stop') + ' · ' + renderBilingualText(leg.nights || 'Stay') + '</span>' +
+                   '<span class="' + badgeClass + '">' + badgePrefix + (leg.legNum || 'Stop') + ' · ' + renderBilingualText(leg.nights || 'Stay') + '</span>' +
                    '<span class="hotel-leg-dates">' + (leg.dates || '') + '</span>' +
                  '</div>' +
                  '<h4 class="hotel-leg-title">' + renderBilingualText(leg.title) + '</h4>' +
+                 addressHtml +
                  '<p class="hotel-leg-desc">' + renderBilingualText(leg.desc || leg.description) + '</p>' +
                  '<div class="day-tags" style="margin-bottom: 16px;">' + tagsHtml + '</div>' +
                '</div>' +
-               '<a class="hotel-leg-btn"' +
-                  ' href="https://www.booking.com/searchresults.html?ss=' + encodeURIComponent(leg.dest || '') + '&checkin=' + (leg.checkin || '') + '&checkout=' + (leg.checkout || '') + '&group_adults=' + partySize + '"' +
+               '<a class="' + btnClass + '"' +
+                  ' href="' + linkUrl + '"' +
                   ' target="_blank" rel="noopener noreferrer">' +
-                  '<span class="lang-primary lang-en">🏨 Search on Booking.com ➔</span>' +
-                  '<span class="lang-secondary lang-zh">🏨 在 Booking.com 搜尋 ➔</span>' +
-                  '<span class="lang-tertiary lang-zh-cn">🏨 在 Booking.com 搜索 ➔</span>' +
+                  btnLabel +
                '</a>' +
              '</div>';
     }).join('');
   }
+}
+
+
+/* =======================================================
+   7.5. RENDER CONFIRMED FLIGHTS SECTION
+   ======================================================= */
+
+/**
+ * Renders the Confirmed Flights section from window.SITE_DATA.flights.
+ * Displays BA960 (outbound) and BA967 (return) boarding-pass cards
+ * and airport transfer guidelines.
+ * Called by renderAll() when TRIP_CONFIG.features.showFlights !== false.
+ */
+function renderFlights() {
+  var data = window.SITE_DATA;
+  if (!data || !data.flights) return;
+
+  var container = document.getElementById('flights-container');
+  if (!container) return;
+
+  var flights = data.flights;
+  var legs = flights.legs || [];
+
+  var cardsHtml = legs.map(function(leg) {
+    var legBadgeText = renderBilingualText(leg.legNum);
+    var statusText   = renderBilingualText(leg.status || 'Confirmed');
+    var dateText     = renderBilingualText(leg.dateDisplay);
+    var originCity   = renderBilingualText(leg.origin.city);
+    var destCity     = renderBilingualText(leg.destination.city);
+    var notesText    = leg.notes ? renderBilingualText(leg.notes) : '';
+
+    return '<div class="flight-card reveal" id="' + (leg.id || '') + '">' +
+             '<div>' +
+               '<div class="flight-card-header">' +
+                 '<span class="flight-leg-badge">' + legBadgeText + ' · ' + leg.flightNum + '</span>' +
+                 '<span class="flight-status-pill"><span class="flight-status-dot"></span>' + statusText + '</span>' +
+               '</div>' +
+               '<div class="flight-date-heading">📅 ' + dateText + '</div>' +
+               '<div class="flight-route-visual">' +
+                 '<div class="flight-station origin">' +
+                   '<div class="flight-code">' + leg.origin.code + '</div>' +
+                   '<div class="flight-city">' + originCity + '</div>' +
+                   '<span class="flight-terminal-tag">' + (leg.origin.terminal || '') + '</span>' +
+                   '<div class="flight-time-display">' + leg.origin.time + ' <span style="font-size:0.75rem;font-weight:600;color:var(--text-muted);">' + leg.origin.tz + '</span></div>' +
+                 '</div>' +
+                 '<div class="flight-mid">' +
+                   '<span class="flight-duration-badge">⏱️ ' + leg.duration + '</span>' +
+                   '<div class="flight-plane-track">' +
+                     '<div class="flight-track-line"></div>' +
+                     '<span class="flight-plane-icon">✈️</span>' +
+                     '<div class="flight-track-line"></div>' +
+                   '</div>' +
+                   '<span style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">' + (leg.aircraft || '') + '</span>' +
+                 '</div>' +
+                 '<div class="flight-station dest">' +
+                   '<div class="flight-code">' + leg.destination.code + '</div>' +
+                   '<div class="flight-city">' + destCity + '</div>' +
+                   '<span class="flight-terminal-tag">' + (leg.destination.terminal || '') + '</span>' +
+                   '<div class="flight-time-display">' + leg.destination.time + ' <span style="font-size:0.75rem;font-weight:600;color:var(--text-muted);">' + leg.destination.tz + '</span></div>' +
+                 '</div>' +
+               '</div>' +
+               '<div class="flight-details-list">' +
+                 '<span class="flight-detail-chip">💺 ' + leg.airline + '</span>' +
+                 '<span class="flight-detail-chip">✈️ ' + leg.aircraft + '</span>' +
+                 '<span class="flight-detail-chip">🧳 23kg Checked + 23kg Cabin</span>' +
+                 '<span class="flight-detail-chip">⚡ Nonstop (1h 40m)</span>' +
+                 '<span class="flight-detail-chip">💳 Paid: £212.70 (2 pax)</span>' +
+               '</div>' +
+               (notesText ? '<div class="flight-notes-box">💡 ' + notesText + '</div>' : '') +
+             '</div>' +
+             '<div class="flight-actions-row">' +
+               '<a class="flight-status-btn" href="' + (leg.statusUrl || 'https://www.britishairways.com/travel/flightstatus/public/en_gb/searchFlights') + '" target="_blank" rel="noopener noreferrer">' +
+                 '<span class="lang-primary lang-en">✈️ BA Live Flight Status ➔</span>' +
+                 '<span class="lang-secondary lang-zh">✈️ 英航即時航班動態 ➔</span>' +
+                 '<span class="lang-tertiary lang-zh-cn">✈️ 英航实时航班动态 ➔</span>' +
+               '</a>' +
+             '</div>' +
+           '</div>';
+  }).join('');
+
+  var transferCardHtml = '';
+  if (flights.summary && flights.summary.airportTransfer) {
+    transferCardHtml = '<div class="flight-transfer-card reveal" style="margin-top: 24px;">' +
+                         '<div class="flight-transfer-icon">🚇</div>' +
+                         '<div class="flight-transfer-content">' +
+                           '<h4>' +
+                             '<span class="lang-primary lang-en">S1 S-Bahn Direct Airport Transfer</span>' +
+                             '<span class="lang-secondary lang-zh">S1城郊列車機場直達指南</span>' +
+                             '<span class="lang-tertiary lang-zh-cn">S1城郊列车机场直达指南</span>' +
+                           '</h4>' +
+                           '<p>' + renderBilingualText(flights.summary.airportTransfer) + '</p>' +
+                         '</div>' +
+                       '</div>';
+  }
+
+  container.innerHTML = '<div class="flights-grid">' + cardsHtml + '</div>' + transferCardHtml;
 }
 
 
@@ -724,6 +834,7 @@ function renderAll() {
   if (features.showOverview      !== false) renderHero();
   if (features.showOverview      !== false) renderOverview();
   if (features.showMilestoneBoard !== false && features.showOverview === false) renderOverview(); // allow standalone milestone
+  if (features.showFlights       !== false) renderFlights();
   if (features.showTips          !== false) renderTips();
   if (features.showItinerary     !== false) renderItinerary();
   if (features.showPacking       !== false) renderPacking();

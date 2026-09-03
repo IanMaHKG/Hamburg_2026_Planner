@@ -186,14 +186,17 @@ function initRouteMap() {
       el.style.fontWeight = '800';
       el.innerText = stop.label || stop.code || (index + 1);
 
-      const isZh = document.body.classList.contains('lang-secondary') || document.body.classList.contains('lang-zh');
+      const isTertiary  = document.body.classList.contains('lang-tertiary') || document.body.classList.contains('lang-zh-cn');
+      const isSecondary = document.body.classList.contains('lang-secondary') || document.body.classList.contains('lang-zh');
+      const isZh        = isSecondary || isTertiary;
+      const zhKey       = isTertiary ? 'zh-cn' : 'zh';
 
       let nameTxt = isZh
-        ? (stop.nameZh || (stop.name && stop.name.zh) || stop.nameNative || stop.nameEn || `第 ${index + 1} 站`)
+        ? ((stop.name && (stop.name[zhKey] || stop.name.zh)) || stop.nameZh || stop.nameNative || stop.nameEn || `第 ${index + 1} 站`)
         : (stop.nameEn || stop.nameNative || (stop.name && stop.name.en) || `Stop ${index + 1}`);
 
       let descTxt = isZh
-        ? ((stop.desc && (stop.desc.zh || stop.desc.en)) || (stop.name && stop.name.zh) || stop.nameRomaji || '')
+        ? ((stop.desc && (stop.desc[zhKey] || stop.desc.zh || stop.desc.en)) || (stop.name && (stop.name[zhKey] || stop.name.zh)) || stop.nameRomaji || '')
         : (stop.nameRomaji || (stop.desc && (stop.desc.en || stop.desc.zh)) || (stop.name && stop.name.en) || '');
 
       const popup = new maplibregl.Popup({ offset: 18 }).setHTML(`
@@ -278,8 +281,11 @@ function initDayMiniMap(dayId) {
       el.style.fontWeight = '800';
       el.innerText = idx + 1;
 
-      const isZh = document.body.classList.contains('lang-secondary') || document.body.classList.contains('lang-zh');
-      const labelTxt = pt.label ? (isZh ? (pt.label.zh || pt.label.en) : (pt.label.en || pt.label)) : `Point ${idx + 1}`;
+      const isTertiary  = document.body.classList.contains('lang-tertiary') || document.body.classList.contains('lang-zh-cn');
+      const isSecondary = document.body.classList.contains('lang-secondary') || document.body.classList.contains('lang-zh');
+      const isZh        = isSecondary || isTertiary;
+      const zhKey       = isTertiary ? 'zh-cn' : 'zh';
+      const labelTxt    = pt.label ? (isZh ? (pt.label[zhKey] || pt.label.zh || pt.label.en) : (pt.label.en || pt.label)) : `Point ${idx + 1}`;
 
       const popup = new maplibregl.Popup({ offset: 14 }).setHTML(`<strong>${labelTxt}</strong>`);
 
