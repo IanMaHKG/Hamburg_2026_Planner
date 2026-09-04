@@ -44,11 +44,23 @@ let _routeMap = null;
 let _routeMapRefs = [];
 const _dayMaps = {};
 const _dayMarkers = {};
+let _foodMap = null;
+let _foodMarkers = [];
+
+/** Category marker colors for food spots */
+const FOOD_CATEGORY_COLORS = {
+  'street-food': '#D97706',     // warm amber
+  'traditional': '#B91C1C',     // rich dark red / brick
+  'seafood': '#0284C7',         // ocean blue
+  'modern-dining': '#7C3AED',   // vibrant purple
+  'cafe-bakery': '#0D9488'      // nordic teal
+};
 
 /** Listen to theme changes across all map instances */
 window.addEventListener('themechange', (e) => {
   const s = e.detail.theme === 'dark' ? STYLE_DARK : STYLE_LIGHT;
   if (_routeMap) _routeMap.setStyle(s);
+  if (_foodMap) _foodMap.setStyle(s);
   Object.values(_dayMaps).forEach(m => m.setStyle(s));
 });
 
@@ -94,6 +106,30 @@ window.addEventListener('langchange', (e) => {
         popup.setHTML(`<strong>${txt}</strong>`);
       }
     });
+  });
+
+  // Update Food Map Popups
+  _foodMarkers.forEach(({ popup, spot }) => {
+    const nameTxt = isZh
+      ? (spot.name && (spot.name[zhKey] || spot.name.zh || spot.name[secondaryCode]) || spot.name.en)
+      : (spot.name && spot.name.en || '');
+    const districtTxt = isZh
+      ? (spot.district && (spot.district[zhKey] || spot.district.zh || spot.district[secondaryCode]) || spot.district.en)
+      : (spot.district && spot.district.en || '');
+    const viewListTxt = (isZh ? '在列表中檢視' : 'View in List');
+
+    popup.setHTML(`
+      <div class="food-popup-content">
+        <div class="food-popup-header">
+          <span class="food-popup-icon">${spot.icon || '🍽️'}</span>
+          <h4 class="food-popup-title">${nameTxt}</h4>
+        </div>
+        <div class="food-popup-meta">
+          <span>${districtTxt}</span> • <span>${spot.price || '€€'}</span> • <span>${spot.rating || ''}</span>
+        </div>
+        <a class="food-popup-btn" href="#spot-${spot.id}" onclick="if (typeof focusFoodCard === 'function') focusFoodCard('${spot.id}');">📍 ${viewListTxt} ➔</a>
+      </div>
+    `);
   });
 });
 
@@ -298,3 +334,168 @@ function initDayMiniMap(dayId) {
     });
   });
 }
+
+/* ═══════════════════════════════════════════════════
+   3. CULINARY FOOD MAP & FILTERING
+   ═══════════════════════════════════════════════════ */
+
+/**
+ * Initializes the interactive Food & Restaurant Map (#food-map).
+ * Plots all spots from SITE_DATA.food.spots[] with category-coded markers
+ * and binds popup / card synchronisation.
+ */
+function initFoodMap() {
+  const mapEl = document.getElementById('food-map');
+  if (!mapEl || typeof maplibregl === 'undefined') return;
+
+  // If already initialized, just resize
+  if (_foodMap) {
+    _foodMap.resize();
+    return;
+  }
+
+  const data = (typeof window !== 'undefined' && window.SITE_DATA) ? window.SITE_DATA : null;
+  if (!data || !data.food || !Array.isArray(data.food.spots)) return;
+
+  const spots = data.food.spots;
+  const validSpots = spots.filter(s => typeof s.lat === 'number' && typeof s.lng === 'number');
+  if (validSpots.length === 0) {
+    mapEl.style.display = 'none';
+    return;
+  }
+
+  const coords = validSpots.map(s => [s.lng, s.lat]);
+  const bounds = coords.reduce(
+    (b, c) => b.extend(c),
+    new maplibregl.LngLatBounds(coords[0], coords[0])
+  );
+
+  const map = new maplibregl.Map({
+    container: 'food-map',
+    style: getMapStyle(),
+    bounds: bounds,
+    fitBoundsOptions: { padding: { top: 50, bottom: 50, left: 50, right: 50 }, maxZoom: 14 },
+    scrollZoom: false,
+    attributionControl: true
+  });
+
+  map.addControl(new maplibregl.NavigationControl({ showCompass: true }), 'top-right');
+
+  _foodMap = map;
+  _foodMarkers = [];
+
+  map.on('load', () => {
+    validSpots.forEach((spot) => {
+      const el = document.createElement('div');
+      el.className = 'food-marker';
+      el.dataset.spotId = spot.id;
+      el.dataset.category = spot.category;
+      el.style.backgroundColor = FOOD_CATEGORY_COLORS[spot.category] || '#0D9488';
+      el.innerHTML = `<span style="pointer-events:none;">${spot.icon || '🍽️'}</span>`;
+
+      const isTertiary  = document.body.classList.contains('lang-tertiary') || document.body.classList.contains('lang-zh-cn');
+      const isSecondary = document.body.classList.contains('lang-secondary') || document.body.classList.contains('lang-zh');
+      const isZh        = isSecondary || isTertiary;
+      const zhKey       = isTertiary ? 'zh-cn' : 'zh';
+
+      const nameTxt = isZh
+        ? (spot.name && (spot.name[zhKey] || spot.name.zh || spot.name[isSecondary ? 'zh' : 'zh-cn']) || spot.name.en)
+        : (spot.name && spot.name.en || '');
+      const districtTxt = isZh
+        ? (spot.district && (spot.district[zhKey] || spot.district.zh) || spot.district.en)
+        : (spot.district && spot.district.en || '');
+      const viewListTxt = (isZh ? '在列表中檢視' : 'View in List');
+
+      const popup = new maplibregl.Popup({ offset: 18 }).setHTML(`
+        <div class="food-popup-content">
+          <div class="food-popup-header">
+            <span class="food-popup-icon">${spot.icon || '🍽️'}</span>
+            <h4 class="food-popup-title">${nameTxt}</h4>
+          </div>
+          <div class="food-popup-meta">
+            <span>${districtTxt}</span> • <span>${spot.price || '€€'}</span> • <span>${spot.rating || ''}</span>
+          </div>
+          <a class="food-popup-btn" href="#spot-${spot.id}" onclick="if (typeof focusFoodCard === 'function') focusFoodCard('${spot.id}');">📍 ${viewListTxt} ➔</a>
+        </div>
+      `);
+
+      const marker = new maplibregl.Marker({ element: el })
+        .setLngLat([spot.lng, spot.lat])
+        .setPopup(popup)
+        .addTo(map);
+
+      el.addEventListener('click', () => {
+        if (typeof focusFoodCard === 'function') {
+          focusFoodCard(spot.id);
+        }
+      });
+
+      _foodMarkers.push({ marker, spot, el, popup });
+    });
+  });
+}
+
+/**
+ * Filters visible map markers by food category and adjusts the map view.
+ * @param {string} category - 'all' or specific category id.
+ */
+function filterFoodMap(category) {
+  if (!_foodMap || _foodMarkers.length === 0) return;
+
+  const visibleCoords = [];
+
+  _foodMarkers.forEach(({ marker, spot, el }) => {
+    const isVisible = (category === 'all' || spot.category === category);
+    el.style.display = isVisible ? 'flex' : 'none';
+    if (isVisible) {
+      visibleCoords.push([spot.lng, spot.lat]);
+    }
+  });
+
+  if (visibleCoords.length > 0) {
+    const newBounds = visibleCoords.reduce(
+      (b, c) => b.extend(c),
+      new maplibregl.LngLatBounds(visibleCoords[0], visibleCoords[0])
+    );
+    _foodMap.fitBounds(newBounds, {
+      padding: { top: 50, bottom: 50, left: 50, right: 50 },
+      maxZoom: 14,
+      duration: 700
+    });
+  }
+}
+
+/**
+ * Centers the food map on a spot and opens its popup.
+ * @param {string} spotId - Spot identifier.
+ */
+function focusFoodSpot(spotId) {
+  if (!_foodMap || _foodMarkers.length === 0) return;
+
+  const item = _foodMarkers.find(m => m.spot.id === spotId);
+  if (!item) return;
+
+  _foodMap.flyTo({
+    center: [item.spot.lng, item.spot.lat],
+    zoom: 15,
+    speed: 1.2,
+    curve: 1.42,
+    essential: true
+  });
+
+  // Ensure marker is visible
+  item.el.style.display = 'flex';
+
+  // Toggle/open popup
+  if (!item.marker.getPopup().isOpen()) {
+    item.marker.togglePopup();
+  }
+}
+
+// Global exports
+if (typeof window !== 'undefined') {
+  window.initFoodMap = initFoodMap;
+  window.filterFoodMap = filterFoodMap;
+  window.focusFoodSpot = focusFoodSpot;
+}
+

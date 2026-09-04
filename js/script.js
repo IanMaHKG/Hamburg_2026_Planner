@@ -82,6 +82,13 @@ function tripPlannerInit() {
       }, 200);
     }
 
+    // 9.5. Initialize Interactive Food & Culinary Map
+    if (typeof initFoodMap === 'function') {
+      setTimeout(() => {
+        initFoodMap();
+      }, 250);
+    }
+
     // 10. Auto-open Day 1 mini-map if open
     const firstDayCard = document.querySelector('.day-card.open');
     if (firstDayCard && typeof initDayMiniMap === 'function') {

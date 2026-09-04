@@ -45,6 +45,8 @@
         <a href="#map"><span class="lang-primary lang-en">Route Map</span><span class="lang-secondary lang-zh">路線地圖</span><span class="lang-tertiary lang-zh-cn">路线地图</span></a>
         <a href="#tips"><span class="lang-primary lang-en">Tips</span><span class="lang-secondary lang-zh">實用貼士</span><span class="lang-tertiary lang-zh-cn">实用贴士</span></a>
         <a href="#itinerary"><span class="lang-primary lang-en">Itinerary</span><span class="lang-secondary lang-zh">詳細行程</span><span class="lang-tertiary lang-zh-cn">详细行程</span></a>
+        <a href="#food"><span class="lang-primary lang-en">Food &amp; Dining</span><span class="lang-secondary lang-zh">美食品味</span><span class="lang-tertiary lang-zh-cn">美食品味</span></a>
+        <a href="#packing"><span class="lang-primary lang-en">Packing</span><span class="lang-secondary lang-zh">行前清單</span><span class="lang-tertiary lang-zh-cn">行前清单</span></a>
         <a href="#budget"><span class="lang-primary lang-en">Budget</span><span class="lang-secondary lang-zh">費用預算</span><span class="lang-tertiary lang-zh-cn">费用预算</span></a>
         <a href="#hotels"><span class="lang-primary lang-en">Hotels</span><span class="lang-secondary lang-zh">精選住宿</span><span class="lang-tertiary lang-zh-cn">精选住宿</span></a>
         <a href="#transit"><span class="lang-primary lang-en">Transit</span><span class="lang-secondary lang-zh">交通方案</span><span class="lang-tertiary lang-zh-cn">交通方案</span></a>
@@ -132,7 +134,7 @@
     </section>
 
     <!-- 3. ROUTE MAP -->
-    <section id="map" class="section section-alt">
+    <section id="map" class="section">
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">
@@ -151,7 +153,7 @@
     </section>
 
     <!-- 4. PRACTICAL TIPS -->
-    <section id="tips" class="section">
+    <section id="tips" class="section section-alt">
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">
@@ -171,7 +173,7 @@
     </section>
 
     <!-- 5. ITINERARY -->
-    <section id="itinerary" class="section section-alt">
+    <section id="itinerary" class="section">
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">
@@ -187,6 +189,52 @@
         </div>
         <div class="day-filters" id="day-filters-container"></div>
         <div class="timeline" id="itinerary-timeline-container"></div>
+      </div>
+    </section>
+
+    <!-- 5.5 FOOD & GASTRONOMY -->
+    <section id="food" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="lang-primary lang-en">Hamburg Food, Street Eats &amp; Dining Map</span>
+            <span class="lang-secondary lang-zh">漢堡特色美食、街頭小吃與餐飲地圖</span>
+            <span class="lang-tertiary lang-zh-cn">汉堡特色美食、街头小吃与餐饮地图</span>
+          </h2>
+          <p class="section-subtitle">
+            <span class="lang-primary lang-en">From fresh harbour Fischbrötchen and sizzling Currywurst to historic Labskaus cellars, craft breweries, and waterfront dinners. Filter by food type below.</span>
+            <span class="lang-secondary lang-zh">從碼頭金黃香脆的鮮魚卷、熱騰騰的秘醬咖喱香腸，到百年水手燉牛肉老字號、私家釀酒坊與海景餐廳。支援依美食類別即時篩選。</span>
+            <span class="lang-tertiary lang-zh-cn">从码头金黄香脆的鲜鱼卷、热腾腾的秘酱咖喱香肠，到百年水手炖牛肉老字号、私家酿酒坊与海景餐厅。支持依美食类别实时筛选。</span>
+          </p>
+        </div>
+
+        <!-- Food Category Filter Pills -->
+        <div class="food-filter-container" id="food-filter-container">
+          <div class="food-filter-pills" id="food-filter-pills"></div>
+        </div>
+
+        <!-- Interactive Food Map -->
+        <div class="food-map-container">
+          <div class="food-map-header">
+            <div class="food-map-stat">
+              <span class="food-map-icon">🗺️</span>
+              <span class="food-map-title">
+                <span class="lang-primary lang-en">Interactive Food &amp; Restaurant Map</span>
+                <span class="lang-secondary lang-zh">互動式美食與餐廳地圖</span>
+                <span class="lang-tertiary lang-zh-cn">互动式美食与餐厅地图</span>
+              </span>
+            </div>
+            <div class="food-map-hint">
+              <span class="lang-primary lang-en">Click pins or cards to inspect details</span>
+              <span class="lang-secondary lang-zh">點擊地標圖標或卡片以檢視詳情</span>
+              <span class="lang-tertiary lang-zh-cn">点击地标图标或卡片以检视详情</span>
+            </div>
+          </div>
+          <div id="food-map" class="food-map"></div>
+        </div>
+
+        <!-- Food Spots Grid -->
+        <div class="food-cards-grid" id="food-cards-grid"></div>
       </div>
     </section>
 
@@ -263,49 +311,7 @@
             <span class="lang-tertiary lang-zh-cn">全程入住汉堡市万怡酒店 (Courtyard by Marriott)。附官方万豪酒店详情及实时房价查询。</span>
           </p>
         </div>
-        <div class="itinerary-hotels-grid" id="itinerary-hotels-grid" style="margin-bottom: 32px;"></div>
-        <div class="hotel-search-card">
-          <div class="hotel-search-header">
-            <div class="hotel-search-brand">
-              <div class="booking-logo-icon">🏨</div>
-              <div>
-                <h3 style="font-size:1.2rem;font-weight:800;color:var(--text-primary);">Booking.com Live Search</h3>
-                <p style="font-size:0.88rem;color:var(--text-secondary);">Direct access to lowest available rates &amp; reviews</p>
-              </div>
-            </div>
-            <div class="quick-leg-pills" id="hotel-quick-legs-container"></div>
-          </div>
-          <form class="hotel-search-form" id="hotel-search-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="hotel-dest"><span class="lang-primary lang-en">Destination / City</span><span class="lang-secondary lang-zh">目的地 / 城市</span><span class="lang-tertiary lang-zh-cn">目的地 / 城市</span></label>
-                <div class="input-with-icon"><span class="input-icon">📍</span><input type="text" id="hotel-dest" required></div>
-              </div>
-              <div class="form-group">
-                <label for="hotel-checkin"><span class="lang-primary lang-en">Check-in Date</span><span class="lang-secondary lang-zh">入住日期</span><span class="lang-tertiary lang-zh-cn">入住日期</span></label>
-                <div class="input-with-icon"><span class="input-icon">📅</span><input type="date" id="hotel-checkin" required></div>
-              </div>
-              <div class="form-group">
-                <label for="hotel-checkout"><span class="lang-primary lang-en">Check-out Date</span><span class="lang-secondary lang-zh">退房日期</span><span class="lang-tertiary lang-zh-cn">退房日期</span></label>
-                <div class="input-with-icon"><span class="input-icon">📅</span><input type="date" id="hotel-checkout" required></div>
-              </div>
-              <div class="form-group">
-                <label for="hotel-guests"><span class="lang-primary lang-en">Guests</span><span class="lang-secondary lang-zh">人數</span><span class="lang-tertiary lang-zh-cn">人数</span></label>
-                <div class="input-with-icon"><span class="input-icon">👥</span>
-                  <select id="hotel-guests">
-                    <option value="1">1 Adult</option>
-                    <option value="2">2 Adults</option>
-                    <option value="3">3 Adults</option>
-                    <option value="4">4 Adults</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <button type="submit" class="hotel-search-btn"><span>🏨 Search Stays ➔</span></button>
-              </div>
-            </div>
-          </form>
-        </div>
+        <div class="itinerary-hotels-grid" id="itinerary-hotels-grid"></div>
       </div>
     </section>
 

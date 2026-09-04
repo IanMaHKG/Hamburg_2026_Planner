@@ -96,8 +96,8 @@ const SITE_DATA = {
         dotClass: "hamburg-hbf",
         name: {
           en: "Hamburg Hauptbahnhof",
-          zh: "漢堡中央車站",
-          "zh-cn": "汉堡中央车站"
+          zh: "漢堡中央車站 (Hamburg Hauptbahnhof)",
+          "zh-cn": "汉堡中央车站 (Hamburg Hauptbahnhof)"
         },
         days: { en: "Day 1 Arrival", zh: "第1天 抵達", "zh-cn": "第1天 抵达" },
         desc: {
@@ -117,8 +117,8 @@ const SITE_DATA = {
         dotClass: "courtyard-marriott",
         name: {
           en: "Courtyard by Marriott Hamburg City",
-          zh: "漢堡市萬怡酒店",
-          "zh-cn": "汉堡市万怡酒店"
+          zh: "漢堡市萬怡酒店 (Courtyard by Marriott)",
+          "zh-cn": "汉堡市万怡酒店 (Courtyard by Marriott)"
         },
         days: { en: "Hotel Base (2 Nights)", zh: "全程住宿（2晚）", "zh-cn": "全程住宿（2晚）" },
         desc: {
@@ -138,8 +138,8 @@ const SITE_DATA = {
         dotClass: "speicherstadt",
         name: {
           en: "Speicherstadt & Miniatur Wunderland",
-          zh: "倉庫城與微型奇蹟世界",
-          "zh-cn": "仓库城与微型奇迹世界"
+          zh: "倉庫城與微型奇蹟世界 (Speicherstadt & Miniatur Wunderland)",
+          "zh-cn": "仓库城与微型奇迹世界 (Speicherstadt & Miniatur Wunderland)"
         },
         days: { en: "Day 1–2", zh: "第1–2天", "zh-cn": "第1–2天" },
         desc: {
@@ -159,8 +159,8 @@ const SITE_DATA = {
         dotClass: "hafencity",
         name: {
           en: "HafenCity & Elbphilharmonie",
-          zh: "港城與易北愛樂廳",
-          "zh-cn": "港城与易北爱乐厅"
+          zh: "港城與易北愛樂廳 (HafenCity & Elbphilharmonie)",
+          "zh-cn": "港城与易北爱乐厅 (HafenCity & Elbphilharmonie)"
         },
         days: { en: "Day 1–2", zh: "第1–2天", "zh-cn": "第1–2天" },
         desc: {
@@ -180,8 +180,8 @@ const SITE_DATA = {
         dotClass: "jungfernstieg",
         name: {
           en: "Jungfernstieg & Inner Alster Lake",
-          zh: "少女大道與內阿爾斯特湖",
-          "zh-cn": "少女大道与内阿尔斯特湖"
+          zh: "少女大道與內阿爾斯特湖 (Jungfernstieg & Binnenalster)",
+          "zh-cn": "少女大道与内阿尔斯特湖 (Jungfernstieg & Binnenalster)"
         },
         days: { en: "Day 2", zh: "第2天", "zh-cn": "第2天" },
         desc: {
@@ -201,8 +201,8 @@ const SITE_DATA = {
         dotClass: "christmas-markets",
         name: {
           en: "Hamburg Christmas Markets",
-          zh: "漢堡聖誕市集",
-          "zh-cn": "汉堡圣诞市集"
+          zh: "漢堡聖誕市集 (Hamburger Weihnachtsmärkte)",
+          "zh-cn": "汉堡圣诞市集 (Hamburger Weihnachtsmärkte)"
         },
         days: { en: "Day 2–3", zh: "第2–3天", "zh-cn": "第2–3天" },
         desc: {
@@ -222,8 +222,8 @@ const SITE_DATA = {
         dotClass: "landungsbruecken",
         name: {
           en: "St. Pauli & Landungsbrücken",
-          zh: "聖保利區與輪船碼頭",
-          "zh-cn": "圣保利区与轮船码头"
+          zh: "聖保利區與輪船碼頭 (St. Pauli & Landungsbrücken)",
+          "zh-cn": "圣保利区与轮船码头 (St. Pauli & Landungsbrücken)"
         },
         days: { en: "Day 3", zh: "第3天", "zh-cn": "第3天" },
         desc: {
@@ -491,8 +491,8 @@ const SITE_DATA = {
       },
       airportTransfer: {
         en: "Direct <strong>S1 S-Bahn</strong> runs every 10 minutes from Hamburg Airport (station directly beneath Terminal 1 & 2) to <strong>Berliner Tor</strong> (27 min, 4 min walk to Courtyard by Marriott) and <strong>Hauptbahnhof</strong> (25 min). No train changes required.",
-        zh: "<strong>S1城郊列車</strong>每10分鐘一班，從漢堡機場航站樓地下月台直達<strong>柏林門站 (Berliner Tor)</strong>（約27分鐘，步行4分鐘即達萬豪萬怡酒店）及<strong>中央車站 (Hauptbahnhof)</strong>（約25分鐘），直達無需換車。",
-        "zh-cn": "<strong>S1城郊列车</strong>每10分钟一班，从汉堡机场航站楼地下月台直达<strong>柏林门站 (Berliner Tor)</strong>（约27分钟，步行4分钟即达万豪万怡酒店）及<strong>中央车站 (Hauptbahnhof)</strong>（约25分钟），直达无需换车。"
+        zh: "<strong>S1城郊列車</strong>每10分鐘一班，從漢堡機場航站樓地下月台直達<strong>柏林門站 (Berliner Tor)</strong>（約27分鐘，步行4分鐘即達漢堡市萬怡酒店）及<strong>中央車站 (Hamburg Hauptbahnhof)</strong>（約25分鐘），直達無需換車。",
+        "zh-cn": "<strong>S1城郊列车</strong>每10分钟一班，从汉堡机场航站楼地下月台直达<strong>柏林门站 (Berliner Tor)</strong>（约27分钟，步行4分钟即达汉堡市万怡酒店）及<strong>中央车站 (Hamburg Hauptbahnhof)</strong>（约25分钟），直达无需换车。"
       }
     },
     legs: [
@@ -575,7 +575,7 @@ const SITE_DATA = {
         dest: "Courtyard by Marriott Hamburg City, Adenauerallee 52, Hamburg",
         checkin: "2026-11-26",
         checkout: "2026-11-28",
-        label: { en: "Courtyard by Marriott (Confirmed)", zh: "萬豪萬怡酒店（已訂）", "zh-cn": "万豪万怡酒店（已订）" }
+        label: { en: "Courtyard by Marriott (Confirmed)", zh: "漢堡市萬怡酒店 (Courtyard by Marriott)（已確認）", "zh-cn": "汉堡市万怡酒店 (Courtyard by Marriott)（已确认）" }
       }
     ],
 
@@ -655,6 +655,322 @@ const SITE_DATA = {
           zh: "倉庫城、港城、易北河海濱（輪船碼頭至魚市場）及聖誕市集巡遊路線（市政廳廣場 → 內阿爾斯特湖 → 少女大道）均可步行串聯，各點相距15至20分鐘步程。防水舒適鞋履必不可少。",
           "zh-cn": "仓库城、港城、易北河海滨（轮船码头至鱼市场）及圣诞市集巡游路线（市政厅广场 → 内阿尔斯特湖 → 少女大道）均可步行串联，各点相距15至20分钟步程。防水舒适鞋履必不可少。"
         }
+      }
+    ]
+  },
+
+  /* ══════════════════════════════════════════════════
+     7. CULINARY GUIDE & RESTAURANT SUGGESTIONS
+     ══════════════════════════════════════════════════ */
+  food: {
+    categories: [
+      { id: "all", label: { en: "All Delights", zh: "全部美食", "zh-cn": "全部美食" }, icon: "🍽️" },
+      { id: "street-food", label: { en: "Must-Have Street Food", zh: "必嚐街頭小吃", "zh-cn": "必尝街头小吃" }, icon: "🐟" },
+      { id: "traditional", label: { en: "Historic & Labskaus", zh: "傳統德式經典", "zh-cn": "传统德式经典" }, icon: "🥩" },
+      { id: "seafood", label: { en: "Seafood & Harbour", zh: "海鮮與海濱", "zh-cn": "海鲜与海滨" }, icon: "🦐" },
+      { id: "modern-dining", label: { en: "Romantic & Dinner", zh: "特色餐廳與晚宴", "zh-cn": "特色餐厅与晚宴" }, icon: "🍷" },
+      { id: "cafe-bakery", label: { en: "Cafés & Bakeries", zh: "咖啡館與烘焙", "zh-cn": "咖啡馆与烘焙" }, icon: "☕" }
+    ],
+    spots: [
+      {
+        id: "bruecke-10",
+        category: "street-food",
+        name: { en: "Brücke 10", zh: "Brücke 10 碼頭魚堡 (Brücke 10)", "zh-cn": "Brücke 10 码头鱼堡 (Brücke 10)" },
+        district: { en: "Landungsbrücken · St. Pauli", zh: "輪船碼頭 · 聖保利 (Landungsbrücken · St. Pauli)", "zh-cn": "轮船码头 · 圣保利 (Landungsbrücken · St. Pauli)" },
+        categoryLabel: { en: "Must-Have Street Food", zh: "必嚐街頭小吃", "zh-cn": "必尝街头小吃" },
+        price: "€",
+        rating: "4.7 ★",
+        icon: "🐟",
+        badge: { en: "Best Fischbrötchen in Hamburg", zh: "漢堡第一海濱魚堡", "zh-cn": "汉堡第一海滨鱼堡" },
+        specialties: [
+          { en: "Krabbenbrötchen (North Sea Shrimp Roll)", zh: "北海鮮蝦仁脆卷 (Krabbenbrötchen)", "zh-cn": "北海鲜虾仁脆卷 (Krabbenbrötchen)" },
+          { en: "Bismarckhering (Pickled Herring)", zh: "俾斯麥醋漬鯡魚堡 (Bismarckhering)", "zh-cn": "俾斯麦醋渍鲱鱼堡 (Bismarckhering)" },
+          { en: "Matjesbrötchen (Mild Salt Herring)", zh: "荷蘭醃嫩鯡魚卷 (Matjesbrötchen)", "zh-cn": "荷兰腌嫩鲱鱼卷 (Matjesbrötchen)" }
+        ],
+        desc: {
+          en: "Perched right on Pier 10 with direct views of passing ships and the Elbphilharmonie. Crusty warm rolls filled generously with freshly caught North Sea fish and remoulade. An unmissable Hamburg street food ritual.",
+          zh: "座落於10號碼頭旁，直面往來貨輪與遠眺易北愛樂廳。外脆內軟的麵包夾入滿滿新鮮北海海產與秘製醬汁，是漫步易北河畔最正宗的地道街頭風味儀式。",
+          "zh-cn": "座落于10号码头旁，直面往来货轮与远眺易北爱乐厅。外脆内软的面包夹入满满新鲜北海海产与秘制酱汁，是漫步易北河畔最正宗的地道街头风味仪式。"
+        },
+        address: "St. Pauli-Landungsbrücken 10, 20359 Hamburg",
+        lat: 53.5458,
+        lng: 9.9655,
+        url: "https://maps.google.com/?q=Bruecke+10+Hamburg"
+      },
+      {
+        id: "moe-grill",
+        category: "street-food",
+        name: { en: "Mö-Grill Jungfernstieg", zh: "Mö-Grill 傳奇咖喱香腸 (Mö-Grill)", "zh-cn": "Mö-Grill 传奇咖喱香肠 (Mö-Grill)" },
+        district: { en: "Jungfernstieg · Altstadt", zh: "少女大道 · 老城區 (Jungfernstieg · Altstadt)", "zh-cn": "少女大道 · 老城区 (Jungfernstieg · Altstadt)" },
+        categoryLabel: { en: "Must-Have Street Food", zh: "必嚐街頭小吃", "zh-cn": "必尝街头小吃" },
+        price: "€",
+        rating: "4.5 ★",
+        icon: "🌭",
+        badge: { en: "Iconic Hamburg Currywurst", zh: "漢堡地標咖喱香腸", "zh-cn": "汉堡地标咖喱香肠" },
+        specialties: [
+          { en: "Currywurst mit Pommes", zh: "秘醬咖喱香腸配金黃薯條 (Currywurst mit Pommes)", "zh-cn": "秘酱咖喱香肠配金黄薯条 (Currywurst mit Pommes)" },
+          { en: "Rindscurrywurst (Pure Beef Option)", zh: "特級純牛肉咖喱香腸 (Rindscurrywurst)", "zh-cn": "特级纯牛肉咖喱香肠 (Rindscurrywurst)" },
+          { en: "Schärfegrad 1–5 (Spicy Levels)", zh: "自選辣度（1至5級微辣到超辣）", "zh-cn": "自选辣度（1至5级微辣到超辣）" }
+        ],
+        desc: {
+          en: "Hamburg's cult kiosk on the grand boulevard by the Binnenalster. Sizzling grilled Bratwurst cut and smothered in piping-hot homemade curry-tomato sauce. Scorching hot and deeply satisfying in crisp winter weather.",
+          zh: "座落於內阿爾斯特湖畔繁華購物街的狂熱老攤。鐵板現烤多汁香腸切段，淋上濃郁滾燙的秘製特調咖喱番茄醬，冬日寒風中來一份熱氣騰騰，暖胃無比。",
+          "zh-cn": "座落于内阿尔斯特湖畔繁华购物街的狂热老摊。铁板现烤多汁香肠切段，淋上浓郁滚烫的秘制特调咖喱番茄酱，冬日寒风中来一份热气腾腾，暖胃无比。"
+        },
+        address: "Jungfernstieg 16-20, 20354 Hamburg",
+        lat: 53.5531,
+        lng: 9.9926,
+        url: "https://maps.google.com/?q=Moe+Grill+Jungfernstieg+Hamburg"
+      },
+      {
+        id: "franz-and-friends",
+        category: "street-food",
+        name: { en: "Franz & Friends", zh: "Franz & Friends 漢堡肉桂酥專門店 (Franz & Friends)", "zh-cn": "Franz & Friends 汉堡肉桂酥专门店 (Franz & Friends)" },
+        district: { en: "Hauptbahnhof · Wandelhalle", zh: "中央車站 · 長廊商場 (Hauptbahnhof · Wandelhalle)", "zh-cn": "中央车站 · 长廊商场 (Hauptbahnhof · Wandelhalle)" },
+        categoryLabel: { en: "Must-Have Street Food", zh: "必嚐街頭小吃", "zh-cn": "必尝街头小吃" },
+        price: "€",
+        rating: "4.6 ★",
+        icon: "🥨",
+        badge: { en: "Signature Hamburg Pastry", zh: "漢堡代表性肉桂酥點", "zh-cn": "汉堡代表性肉桂酥点" },
+        specialties: [
+          { en: "Classic Franzbrötchen (Cinnamon Butter)", zh: "經典焦糖牛油肉桂酥 (Franzbrötchen)", "zh-cn": "经典焦糖牛油肉桂酥 (Franzbrötchen)" },
+          { en: "Schoko-Franzbrötchen (Belgian Chocolate)", zh: "濃郁比利時朱古力夾心 (Schoko-Franzbrötchen)", "zh-cn": "浓郁比利时巧克力夹心 (Schoko-Franzbrötchen)" },
+          { en: "Streusel & Marzipan (Special)", zh: "酥粒杏仁膏特製口味", "zh-cn": "酥粒杏仁膏特制口味" }
+        ],
+        desc: {
+          en: "Dedicated entirely to Hamburg's unique culinary crown jewel: the Franzbrötchen. This flaky, laminated pastry is pressed with generous butter, caramelized sugar, and aromatic cinnamon. Warm, fragrant, and wonderfully addictive.",
+          zh: "專門烘焙漢堡專屬點心皇冠「Franzbrötchen」。源自拿破崙佔領時期的法式牛角改良傳奇，層層酥皮壓入焦糖、牛油與肉桂香氣，全天現烤出爐，香脆軟糯。",
+          "zh-cn": "专门烘焙汉堡专属点心皇冠「Franzbrötchen」。源自拿破仑占领时期的法式牛角改良传奇，层层酥皮压入焦糖、牛油与肉桂香气，全天现烤出炉，香脆软糯。"
+        },
+        address: "Glockengießerwall 8, Wandelhalle Hbf, 20095 Hamburg",
+        lat: 53.5535,
+        lng: 10.0070,
+        url: "https://maps.google.com/?q=Franz+and+Friends+Hamburg"
+      },
+      {
+        id: "xmas-stalls-rathaus",
+        category: "street-food",
+        name: { en: "Rathausmarkt Christmas Food Stalls", zh: "市政廳聖誕市集傳統美食攤 (Weihnachtsmarkt auf dem Rathausmarkt)", "zh-cn": "市政厅圣诞市集传统美食摊 (Weihnachtsmarkt auf dem Rathausmarkt)" },
+        district: { en: "Rathausmarkt · Altstadt", zh: "市政廳廣場 · 老城區 (Rathausmarkt · Altstadt)", "zh-cn": "市政厅广场 · 老城区 (Rathausmarkt · Altstadt)" },
+        categoryLabel: { en: "Must-Have Street Food", zh: "必嚐街頭小吃", "zh-cn": "必尝街头小吃" },
+        price: "€",
+        rating: "4.8 ★",
+        icon: "🎄",
+        badge: { en: "Advent Winter Treats", zh: "冬日降臨節市集必選", "zh-cn": "冬日降临节市集必选" },
+        specialties: [
+          { en: "Glühwein mit Schuss (Mulled Wine + Rum)", zh: "熱紅酒（可加蘭姆酒添暖） (Glühwein)", "zh-cn": "热红酒（可加朗姆酒添暖） (Glühwein)" },
+          { en: "Gebrannte Mandeln (Candied Almonds)", zh: "古法銅鍋現炒焦糖甜杏仁 (Gebrannte Mandeln)", "zh-cn": "古法铜锅现炒焦糖甜杏仁 (Gebrannte Mandeln)" },
+          { en: "Reibekuchen mit Apfelmus (Potato Fritters)", zh: "德式金黃脆薯餅配鮮蘋果醬 (Reibekuchen)", "zh-cn": "德式金黄脆薯饼配鲜苹果酱 (Reibekuchen)" }
+        ],
+        desc: {
+          en: "The festive heartbeat of Hamburg in late November. Gather under the illuminated neo-Renaissance town hall for steaming Glühwein in commemorative ceramic mugs, warm cinnamon-coated almonds, and artisan street bites.",
+          zh: "11月下旬漢堡最耀眼的節日靈魂所在。漫步於燈火璀璨的市政廳下，手握刻有漢堡標誌的紀念陶瓷杯品飲熱熱香料紅酒，品嚐香氣撲鼻的現烤焦糖杏仁與酥脆馬鈴薯餅。",
+          "zh-cn": "11月下旬汉堡最耀眼的节日灵魂所在。漫步于灯火璀璨的市政厅下，手握刻有汉堡标志的纪念陶瓷杯品饮热热香料红酒，品尝香气扑鼻的现烤焦糖杏仁与酥脆马铃薯饼。"
+        },
+        address: "Rathausmarkt 1, 20095 Hamburg",
+        lat: 53.5503,
+        lng: 9.9928,
+        url: "https://maps.google.com/?q=Rathausmarkt+Hamburg"
+      },
+      {
+        id: "old-commercial-room",
+        category: "traditional",
+        name: { en: "Old Commercial Room", zh: "水手老字號 (Old Commercial Room)", "zh-cn": "水手老字号 (Old Commercial Room)" },
+        district: { en: "St. Michaelis · Neustadt", zh: "聖米迦勒教堂旁 · 新城區 (St. Michaelis · Neustadt)", "zh-cn": "圣米迦勒教堂旁 · 新城区 (St. Michaelis · Neustadt)" },
+        categoryLabel: { en: "Historic & Labskaus", zh: "傳統德式經典", "zh-cn": "传统德式经典" },
+        price: "€€",
+        rating: "4.6 ★",
+        icon: "⚓",
+        badge: { en: "Historic Since 1795", zh: "1795年傳奇水手餐廳", "zh-cn": "1795年传奇水手餐厅" },
+        specialties: [
+          { en: "Original Hamburger Labskaus", zh: "正統漢堡水手燉牛肉 (Hamburger Labskaus)", "zh-cn": "正统汉堡水手炖牛肉 (Hamburger Labskaus)" },
+          { en: "Pannfisch mit Senfsauce", zh: "傳統鐵鍋煎鮮魚配濃香芥末白醬 (Pannfisch)", "zh-cn": "传统铁锅煎鲜鱼配浓香芥末白酱 (Pannfisch)" },
+          { en: "Hamburger Rote Grütze", zh: "漢堡經典紅莓果布丁配香草冰淇淋 (Rote Grütze)", "zh-cn": "汉堡经典红莓果布丁配香草冰淇淋 (Rote Grütze)" }
+        ],
+        desc: {
+          en: "Directly opposite St. Michaelis church, this maritime tavern has welcomed sea captains and guests for over 230 years. Polished wood booths, brass portholes, and the definitive rendition of Hamburg's legendary Labskaus.",
+          zh: "正對聖米迦勒地標大教堂，接待船長、各國政要與旅人逾230年。典雅深色實木卡座與黃銅航海陳設，供應全漢堡公認最地道正宗的古法水手燉牛肉（Labskaus）。",
+          "zh-cn": "正对圣米迦勒地标大教堂，接待船长、各国政要与旅人逾230年。典雅深色实木卡座与黄铜航海陈设，供应全汉堡公认最地道正宗的古法水手炖牛肉（Labskaus）。"
+        },
+        address: "Englische Planke 10, 20459 Hamburg",
+        lat: 53.5484,
+        lng: 9.9788,
+        url: "https://maps.google.com/?q=Old+Commercial+Room+Hamburg"
+      },
+      {
+        id: "groeninger-brauhaus",
+        category: "traditional",
+        name: { en: "Gröninger Privatbrauerei", zh: "格勒寧格私家釀酒坊 (Gröninger Privatbrauerei)", "zh-cn": "格勒宁格私家酿酒坊 (Gröninger Privatbrauerei)" },
+        district: { en: "Altstadt · Speicherstadt Edge", zh: "老城區 · 倉庫城交界 (Altstadt · Speicherstadt)", "zh-cn": "老城区 · 仓库城交界 (Altstadt · Speicherstadt)" },
+        categoryLabel: { en: "Historic & Labskaus", zh: "傳統德式經典", "zh-cn": "传统德式经典" },
+        price: "€€",
+        rating: "4.5 ★",
+        icon: "🍺",
+        badge: { en: "Oldest Brewery (1793)", zh: "漢堡現存最古老釀酒坊", "zh-cn": "汉堡现存最古老酿酒坊" },
+        specialties: [
+          { en: "Gröninger Pils aus dem Eichenfass", zh: "橡木桶自釀新鮮皮爾森啤酒 (Gröninger Pils)", "zh-cn": "橡木桶自酿新鲜皮尔森啤酒 (Gröninger Pils)" },
+          { en: "Knusprige Schweinshaxe", zh: "香脆現烤大豬手配酸菜馬鈴薯球 (Schweinshaxe)", "zh-cn": "香脆现烤大猪手配酸菜马铃薯球 (Schweinshaxe)" },
+          { en: "Brauhaus-Gulasch in Biersauce", zh: "黑啤燉嫩牛肉配手工麵疙瘩 (Spätzle)", "zh-cn": "黑啤炖嫩牛肉配手工面疙瘩 (Spätzle)" }
+        ],
+        desc: {
+          en: "Dating back to 1793, this cavernous brewery cellar features massive copper brewing tanks and rustic long wooden tables. Unpasteurized Gröninger Pils poured straight from wooden kegs paired with hearty crackling roast pork.",
+          zh: "始於1793年的地下酒窖釀酒坊，室內聳立巨大黃銅釀酒蒸餾壺與厚重長木桌。從木桶直接注出未過濾生啤酒，佐以皮脆肉嫩的烤豬手與黑啤燉肉，德式豪邁氣氛滿溢。",
+          "zh-cn": "始于1793年的地下酒窖酿酒坊，室内耸立巨大黄铜酿酒蒸馏壶与厚重长木桌。从木桶直接注出未过滤生啤酒，佐以皮脆肉嫩的烤猪手与黑啤炖肉，德式豪迈气氛满溢。"
+        },
+        address: "Willy-Brandt-Straße 47, 20457 Hamburg",
+        lat: 53.5469,
+        lng: 9.9942,
+        url: "https://maps.google.com/?q=Groeninger+Privatbrauerei+Hamburg"
+      },
+      {
+        id: "krameramtsstuben",
+        category: "traditional",
+        name: { en: "Restaurant Krameramtsstuben", zh: "雜貨商古邸餐廳 (Restaurant Krameramtsstuben)", "zh-cn": "杂货商古邸餐厅 (Restaurant Krameramtsstuben)" },
+        district: { en: "St. Michaelis · Historic Alley", zh: "聖米迦勒教堂 · 17世紀古巷 (St. Michaelis)", "zh-cn": "圣米迦勒教堂 · 17世纪古巷 (St. Michaelis)" },
+        categoryLabel: { en: "Historic & Labskaus", zh: "傳統德式經典", "zh-cn": "传统德式经典" },
+        price: "€€",
+        rating: "4.5 ★",
+        icon: "🏰",
+        badge: { en: "17th-Century Courtyard", zh: "1676年木骨架庭院古建築", "zh-cn": "1676年木骨架庭院古建筑" },
+        specialties: [
+          { en: "Hamburger Rundstück warm", zh: "暖烤鮮豬肉包配特濃肉汁 (Rundstück warm)", "zh-cn": "暖烤鲜猪肉包配特浓肉汁 (Rundstück warm)" },
+          { en: "Norddeutsche Scholle 'Finkenwerder'", zh: "芬肯韋德風煎比目魚配培根蝦 (Scholle)", "zh-cn": "芬肯韦德风煎比目鱼配培根虾 (Scholle)" },
+          { en: "Roastbeef kalt mit Bratkartoffeln", zh: "低溫慢烤凍牛肉薄片配香煎馬鈴薯 (Roastbeef)", "zh-cn": "低温慢烤冻牛肉薄片配香煎马铃薯 (Roastbeef)" }
+        ],
+        desc: {
+          en: "Tucked inside Hamburg's last preserved 17th-century courtyard (1676). Dine beneath ancient timber beams on historic dishes like 'Rundstück warm' — roast pork on a bread roll smothered in hot gravy, widely considered the precursor to the modern hamburger.",
+          zh: "隱匿於漢堡僅存的1676年古老半木結構小巷庭院內。在老木樑古意盎然的環境中，品嚐被譽為「現代漢堡包鼻祖」的Rundstück warm（脆皮麵包夾烤肉淋濃郁熱肉汁）與經典北德鰈魚。",
+          "zh-cn": "隐匿于汉堡仅存的1676年古老半木结构小巷庭院内。在老木梁古意盎然的环境中，品尝被誉为「现代汉堡包鼻祖」的Rundstück warm（脆皮面包夹烤肉淋浓郁热肉汁）与经典北德鲽鱼。"
+        },
+        address: "Krayenkamp 10, 20459 Hamburg",
+        lat: 53.5489,
+        lng: 9.9796,
+        url: "https://maps.google.com/?q=Restaurant+Krameramtsstuben+Hamburg"
+      },
+      {
+        id: "fischereihafen",
+        category: "seafood",
+        name: { en: "Fischereihafen Restaurant", zh: "易北河景海鮮名店 (Fischereihafen Restaurant)", "zh-cn": "易北河景海鲜名店 (Fischereihafen Restaurant)" },
+        district: { en: "Altona · Elbmeile Waterfront", zh: "阿爾托納 · 易北海濱長廊 (Altona · Elbmeile)", "zh-cn": "阿尔托纳 · 易北海滨长廊 (Altona · Elbmeile)" },
+        categoryLabel: { en: "Seafood & Harbour", zh: "海鮮與海濱", "zh-cn": "海鲜与海滨" },
+        price: "€€€",
+        rating: "4.7 ★",
+        icon: "🦞",
+        badge: { en: "Panoramic Harbour View", zh: "易北河全景精緻海鮮", "zh-cn": "易北河全景精致海鲜" },
+        specialties: [
+          { en: "Kowalke's Räucheraal auf Rührei", zh: "Kowalke 招牌煙燻鰻魚配香滑炒蛋 (Räucheraal)", "zh-cn": "Kowalke 招牌烟熏鳗鱼配香滑炒蛋 (Räucheraal)" },
+          { en: "Nordsee-Steinbutt vom Grill", zh: "香煎北海野生多寶魚配松露白酒汁 (Steinbutt)", "zh-cn": "香煎北海野生多宝鱼配松露白酒汁 (Steinbutt)" },
+          { en: "Kaviar Selection & Oysters", zh: "精選優質鱘魚子醬與新鮮生蠔拼盤 (Kaviar)", "zh-cn": "精选优质鲟鱼子酱与新鲜生蚝拼盘 (Kaviar)" }
+        ],
+        desc: {
+          en: "Hamburg's premier seafood institution operated by the Kowalke family for generations. Large glass windows offer expansive views across the active harbour. Sublime seafood preparations paired with an encyclopedic wine cellar.",
+          zh: "漢堡殿堂級頂級海鮮名府，由Kowalke家族世代經營。寬闊落地窗全幅坐擁易北河港口景觀與船舶往來。野生北海時鮮烹調極為精準，搭配世界級窖藏葡萄酒，情侶晚宴極致之選。",
+          "zh-cn": "汉堡殿堂级顶级海鲜名府，由Kowalke家族世代经营。宽阔落地窗全幅坐拥易北河港口景观与船舶往来。野生北海时鲜烹调极为精准，搭配世界级窖藏葡萄酒，情侣晚宴极致之选。"
+        },
+        address: "Große Elbstraße 143, 22767 Hamburg",
+        lat: 53.5432,
+        lng: 9.9392,
+        url: "https://maps.google.com/?q=Fischereihafen+Restaurant+Hamburg"
+      },
+      {
+        id: "bullerei",
+        category: "modern-dining",
+        name: { en: "Bullerei (Tim Mälzer)", zh: "明星名廚時髦餐館 (Bullerei)", "zh-cn": "明星名厨时髦餐馆 (Bullerei)" },
+        district: { en: "Schanzenviertel · Sternschanze", zh: "文創區 · 舊屠宰場 (Schanzenviertel)", "zh-cn": "文创区 · 旧屠宰场 (Schanzenviertel)" },
+        categoryLabel: { en: "Romantic & Dinner", zh: "特色餐廳與晚宴", "zh-cn": "特色餐厅与晚宴" },
+        price: "€€€",
+        rating: "4.6 ★",
+        icon: "🥩",
+        badge: { en: "Celebrity Chef Tim Mälzer", zh: "德國明星主廚聯名代表作", "zh-cn": "德国明星主厨联名代表作" },
+        specialties: [
+          { en: "Dry-Aged Tomahawk & Flank Steak", zh: "乾式熟成戰斧牛扒與果木炭火烤肉 (Steak)", "zh-cn": "干式熟成战斧牛扒与果木炭火烤肉 (Steak)" },
+          { en: "Burrata mit Wintergemüse", zh: "布拉塔芝士配烤時令冬根莖蔬菜 (Burrata)", "zh-cn": "布拉塔芝士配烤时令冬根茎蔬菜 (Burrata)" },
+          { en: "Smoked Craft Cocktails", zh: "特調煙燻迷迭香經典雞尾酒 (Craft Cocktails)", "zh-cn": "特调烟熏迷迭香经典鸡尾酒 (Craft Cocktails)" }
+        ],
+        desc: {
+          en: "Set in a converted red-brick slaughterhouse in Hamburg's trendy Schanzenviertel. Founded by celebrity chef Tim Mälzer, Bullerei combines industrial loft chic with exceptional wood-fired steaks, artisanal drinks, and electric atmosphere.",
+          zh: "位於前衛的Schanzenviertel舊屠宰場紅磚廠房內，由德國名廚Tim Mälzer創立。粗獷工業風與溫暖燭光交融，主打乾式熟成頂級果木炭烤牛排與先鋒時令料理，氣氛熱烈迷人，強烈建議提前訂座。",
+          "zh-cn": "位于前卫的Schanzenviertel旧屠宰场红砖厂房内，由德国名厨Tim Mälzer创立。粗犷工业风与温暖烛光交融，主打干式熟成顶级果木炭烤牛排与先锋时令料理，气氛热烈迷人，强烈建议提前订座。"
+        },
+        address: "Lagerstraße 34b, 20357 Hamburg",
+        lat: 53.5630,
+        lng: 9.9705,
+        url: "https://maps.google.com/?q=Bullerei+Hamburg"
+      },
+      {
+        id: "jim-block",
+        category: "modern-dining",
+        name: { en: "Jim Block Jungfernstieg", zh: "漢堡本地招牌漢堡 (Jim Block)", "zh-cn": "汉堡本地招牌汉堡 (Jim Block)" },
+        district: { en: "Jungfernstieg · Binnenalster", zh: "少女大道 · 內阿爾斯特 (Jungfernstieg · Binnenalster)", "zh-cn": "少女大道 · 内阿尔斯特 (Jungfernstieg · Binnenalster)" },
+        categoryLabel: { en: "Romantic & Dinner", zh: "特色餐廳與晚宴", "zh-cn": "特色餐厅与晚宴" },
+        price: "€€",
+        rating: "4.5 ★",
+        icon: "🍔",
+        badge: { en: "Hamburg's Gourmet Burger Original", zh: "漢堡人的在地正牌漢堡", "zh-cn": "汉堡人的在地正牌汉堡" },
+        specialties: [
+          { en: "JB Champions Burger (Block House Beef)", zh: "JB冠軍牛肉漢堡（頂級安格斯純牛肉）", "zh-cn": "JB冠军牛肉汉堡（顶级安格斯纯牛肉）" },
+          { en: "Knoblauch-Dip & Steakhouse Fries", zh: "獨家招牌蒜香醬配厚切脆薯條", "zh-cn": "独家招牌蒜香酱配厚切脆薯条" },
+          { en: "Crispy Chicken & Truffle Mayo", zh: "香酥炸雞堡配黑松露美乃滋", "zh-cn": "香酥炸鸡堡配黑松露美乃滋" }
+        ],
+        desc: {
+          en: "From the masters behind Germany's renowned Block House steakhouses. Freshly ground 100% regional beef patties grilled on hot lava rocks, served in golden brioche buns overlooking the sparkling Inner Alster.",
+          zh: "源自德國傳奇牛排品牌Block House的漢堡專門店。100%德國本土安格斯牛肉現切現絞，火山石高溫炙烤鎖緊肉汁，配手工布里歐修麵包與獨門大蒜醬，飽覽湖景，既美味又高性價比。",
+          "zh-cn": "源自德国传奇牛排品牌Block House的汉堡专门店。100%德国本土安格斯牛肉现切现绞，火山石高温炙烤锁紧肉汁，配手工布里欧修面包与独门大蒜酱，饱览湖景，既美味又高性价比。"
+        },
+        address: "Jungfernstieg 1-3, 20095 Hamburg",
+        lat: 53.5529,
+        lng: 9.9950,
+        url: "https://maps.google.com/?q=Jim+Block+Jungfernstieg+Hamburg"
+      },
+      {
+        id: "cafe-paris",
+        category: "cafe-bakery",
+        name: { en: "Café Paris", zh: "巴黎咖啡館 (Café Paris)", "zh-cn": "巴黎咖啡馆 (Café Paris)" },
+        district: { en: "Rathausmarkt · Altstadt", zh: "市政廳旁 · 老城區 (Rathausmarkt · Altstadt)", "zh-cn": "市政厅旁 · 老城区 (Rathausmarkt · Altstadt)" },
+        categoryLabel: { en: "Cafés & Bakeries", zh: "咖啡館與烘焙", "zh-cn": "咖啡馆与烘焙" },
+        price: "€€",
+        rating: "4.6 ★",
+        icon: "☕",
+        badge: { en: "1882 Belle Époque Landmark", zh: "1882年新藝術宮廷咖啡廳", "zh-cn": "1882年新艺术宫廷咖啡厅" },
+        specialties: [
+          { en: "Café au Lait & Fresh Brioche", zh: "大碗法式香濃拿鐵配現烤鬆軟布里歐 (Café au Lait)", "zh-cn": "大碗法式香浓拿铁配现烤松软布里欧 (Café au Lait)" },
+          { en: "Croque Madame (Gruyère & Egg)", zh: "焗烤格呂耶爾乾酪流心庫克太太吐司 (Croque Madame)", "zh-cn": "焗烤格吕耶尔干酪流心库克太太吐司 (Croque Madame)" },
+          { en: "Tartare de Bœuf Classique", zh: "主廚秘製調味傳統法式生牛肉撻撻 (Tartare)", "zh-cn": "主厨秘制调味传统法式生牛肉挞挞 (Tartare)" }
+        ],
+        desc: {
+          en: "Stepping inside this 1882 landmark near the Rathaus is like stepping into fin-de-siècle Paris. Soaring vaulted ceilings lined in hand-painted Art Nouveau ceramic tiles, bustling zinc bars, and exquisite breakfasts.",
+          zh: "位於市政廳旁的1882年建築藝術傑作，挑高穹頂鑲滿手工彩繪新藝術陶瓷瓷磚，搭配黃銅吊燈與大理石桌面。無論是清晨享用一杯醇厚歐蕾咖啡與流心吐司，或是午後小憩，皆如置身十九世紀巴黎。",
+          "zh-cn": "位于市政厅旁的1882年建筑艺术杰作，挑高穹顶镶满手工彩绘新艺术陶瓷瓷砖，搭配黄铜吊灯与大理石桌面。无论是清晨享用一杯醇厚欧蕾咖啡与流心吐司，或是午后小憩，皆如置身十九世纪巴黎。"
+        },
+        address: "Rathausstraße 4, 20095 Hamburg",
+        lat: 53.5498,
+        lng: 9.9948,
+        url: "https://maps.google.com/?q=Cafe+Paris+Hamburg"
+      },
+      {
+        id: "zeit-fuer-brot",
+        category: "cafe-bakery",
+        name: { en: "Zeit für Brot", zh: "手工有機烘焙坊 (Zeit für Brot)", "zh-cn": "手工有机烘焙坊 (Zeit für Brot)" },
+        district: { en: "Große Bleichen · Neustadt", zh: "新城區 · 奢品商街旁 (Große Bleichen · Neustadt)", "zh-cn": "新城区 · 奢品商街旁 (Große Bleichen · Neustadt)" },
+        categoryLabel: { en: "Cafés & Bakeries", zh: "咖啡館與烘焙", "zh-cn": "咖啡馆与烘焙" },
+        price: "€",
+        rating: "4.7 ★",
+        icon: "🥐",
+        badge: { en: "Artisan Organic Zimtschnecken", zh: "全城公認頂級有機肉桂卷", "zh-cn": "全城公认顶级有机肉桂卷" },
+        specialties: [
+          { en: "Warme Zimtschnecke (Cinnamon Roll)", zh: "熱烤出爐經典有機肉桂蝸牛卷 (Zimtschnecke)", "zh-cn": "热烤出炉经典有机肉桂蜗牛卷 (Zimtschnecke)" },
+          { en: "Apfel-Zimt & Walnuss Schnecke", zh: "蜜漬蘋果核桃肉桂脆卷 (Schnecke)", "zh-cn": "蜜渍苹果核桃肉桂脆卷 (Schnecke)" },
+          { en: "Bio-Sourdough Bread", zh: "古法慢酵百年酵母酸種歐包 (Bio-Brot)", "zh-cn": "古法慢酵百年酵母酸种欧包 (Bio-Brot)" }
+        ],
+        desc: {
+          en: "Celebrated across Germany for organic sourdough and giant, ultra-fluffy warm cinnamon rolls (Zimtschnecken). Watch bakers knead and roll dough right before your eyes behind the open glass bakery counter.",
+          zh: "以慢速自然發酵的100%有機麵包及巨大、極致鬆軟的溫熱肉桂卷（Zimtschnecken）聞名。全開放式玻璃透明烘焙坊可親睹麵包師揉麵出爐，香氣馥郁，配杯燕麥奶拿鐵是冬日早晨絕佳享受。",
+          "zh-cn": "以慢速自然发酵的100%有机面包及巨大、极致松软的温热肉桂卷（Zimtschnecken）闻名。全开放式玻璃透明烘焙坊可亲睹面包师揉面出炉，香气馥郁，配杯燕麦奶拿铁是冬日早晨绝佳享受。"
+        },
+        address: "Große Bleichen 30, 20354 Hamburg",
+        lat: 53.5532,
+        lng: 9.9888,
+        url: "https://maps.google.com/?q=Zeit+fuer+Brot+Hamburg"
       }
     ]
   }

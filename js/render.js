@@ -809,6 +809,142 @@ function renderTransit() {
 
 
 /* =======================================================
+   8.5. RENDER CULINARY FOOD SECTION & FILTERING
+   ======================================================= */
+
+/**
+ * Focuses a food card in the DOM, scrolls to it, and highlights it briefly.
+ */
+function focusFoodCard(spotId) {
+  var card = document.getElementById('spot-' + spotId);
+  if (!card) return;
+
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  card.classList.add('highlighted');
+  setTimeout(function() {
+    card.classList.remove('highlighted');
+  }, 2200);
+}
+window.focusFoodCard = focusFoodCard;
+
+/**
+ * Renders the Culinary Guide & Food Map section.
+ * Builds category filter pills, cards grid, and connects with MapLibre GL.
+ */
+function renderFood() {
+  var data = window.SITE_DATA;
+  if (!data || !data.food) return;
+
+  var pillsContainer = document.getElementById('food-filter-pills');
+  var cardsContainer = document.getElementById('food-cards-grid');
+  if (!pillsContainer || !cardsContainer) return;
+
+  var categories = data.food.categories || [];
+  var spots = data.food.spots || [];
+
+  // Render Filter Pills
+  pillsContainer.innerHTML = categories.map(function(cat) {
+    var count = (cat.id === 'all')
+      ? spots.length
+      : spots.filter(function(s) { return s.category === cat.id; }).length;
+    var isActive = (cat.id === 'all') ? ' active' : '';
+
+    return '<button class="food-pill' + isActive + '" data-category="' + cat.id + '">' +
+             '<span>' + (cat.icon || '🍽️') + '</span>' +
+             renderBilingualText(cat.label) +
+             '<span class="food-pill-count">' + count + '</span>' +
+           '</button>';
+  }).join('');
+
+  // Render Food Cards
+  cardsContainer.innerHTML = spots.map(function(spot) {
+    var categoryLabel = spot.categoryLabel ? renderBilingualText(spot.categoryLabel) : spot.category;
+    var districtText = spot.district ? renderBilingualText(spot.district) : '';
+    var nameText = renderBilingualText(spot.name);
+    var descText = renderBilingualText(spot.desc);
+    var badgeText = spot.badge ? ('<div class="food-highlight-badge"><span>✨</span>' + renderBilingualText(spot.badge) + '</div>') : '';
+
+    var specialtiesHtml = '';
+    if (Array.isArray(spot.specialties) && spot.specialties.length > 0) {
+      var items = spot.specialties.map(function(sp) {
+        return '<div class="food-specialty-item">' +
+                 '<span class="food-specialty-dot">●</span>' +
+                 '<span>' + renderBilingualText(sp) + '</span>' +
+               '</div>';
+      }).join('');
+
+      specialtiesHtml = '<div class="food-specialties-box">' +
+                          '<div class="food-specialties-label">' +
+                            '<span>🍴</span>' +
+                            '<span class="lang-primary lang-en">Must-Order Specialties</span>' +
+                            '<span class="lang-secondary lang-zh">必點招牌美食</span>' +
+                            '<span class="lang-tertiary lang-zh-cn">必点招牌美食</span>' +
+                          '</div>' +
+                          '<div class="food-specialties-list">' + items + '</div>' +
+                        '</div>';
+    }
+
+    var mapActionText = '<span class="lang-primary lang-en">📍 Locate on Map</span>' +
+                        '<span class="lang-secondary lang-zh">📍 在地圖定位</span>' +
+                        '<span class="lang-tertiary lang-zh-cn">📍 在地图定位</span>';
+
+    return '<div class="food-card reveal" id="spot-' + spot.id + '" data-category="' + spot.category + '" onclick="if (typeof focusFoodSpot === \'function\') focusFoodSpot(\'' + spot.id + '\');">' +
+             '<div>' +
+               '<div class="food-card-top">' +
+                 '<div class="food-card-badges">' +
+                   '<span class="food-category-tag"><span>' + (spot.icon || '🍽️') + '</span>' + categoryLabel + '</span>' +
+                 '</div>' +
+                 '<div style="display:flex;align-items:center;gap:8px;">' +
+                   '<span class="food-price-badge">' + (spot.price || '€€') + '</span>' +
+                   (spot.rating ? '<span class="food-rating-badge">★ ' + spot.rating.replace('★', '').trim() + '</span>' : '') +
+                 '</div>' +
+               '</div>' +
+               '<div class="food-card-main">' +
+                 '<div class="food-card-title-row">' +
+                   '<span class="food-spot-icon">' + (spot.icon || '🍽️') + '</span>' +
+                   '<h3 class="food-spot-name">' + nameText + '</h3>' +
+                 '</div>' +
+                 '<div class="food-district-row">📍 ' + districtText + '</div>' +
+                 badgeText +
+                 '<p class="food-spot-desc">' + descText + '</p>' +
+                 specialtiesHtml +
+               '</div>' +
+             '</div>' +
+             '<div class="food-card-footer">' +
+               '<span class="food-address" title="' + (spot.address || '') + '">📌 ' + (spot.address || '') + '</span>' +
+               '<button class="food-action-btn" type="button" onclick="event.stopPropagation(); if (typeof focusFoodSpot === \'function\') focusFoodSpot(\'' + spot.id + '\');">' +
+                 mapActionText +
+               '</button>' +
+             '</div>' +
+           '</div>';
+  }).join('');
+
+  // Bind Filter Pills click handlers
+  pillsContainer.querySelectorAll('.food-pill').forEach(function(pill) {
+    pill.addEventListener('click', function() {
+      var category = pill.getAttribute('data-category');
+
+      // Toggle active pill
+      pillsContainer.querySelectorAll('.food-pill').forEach(function(p) { p.classList.remove('active'); });
+      pill.classList.add('active');
+
+      // Filter food cards
+      cardsContainer.querySelectorAll('.food-card').forEach(function(card) {
+        var cardCat = card.getAttribute('data-category');
+        var match = (category === 'all' || cardCat === category);
+        card.style.display = match ? 'flex' : 'none';
+      });
+
+      // Filter map markers
+      if (typeof window.filterFoodMap === 'function') {
+        window.filterFoodMap(category);
+      }
+    });
+  });
+}
+
+
+/* =======================================================
    MASTER RENDER ORCHESTRATOR
    ======================================================= */
 
@@ -837,6 +973,7 @@ function renderAll() {
   if (features.showFlights       !== false) renderFlights();
   if (features.showTips          !== false) renderTips();
   if (features.showItinerary     !== false) renderItinerary();
+  if (features.showFood          !== false) renderFood();
   if (features.showPacking       !== false) renderPacking();
   if (features.showBudget        !== false) renderBudget();
   if (features.showHotels        !== false) renderHotels();
