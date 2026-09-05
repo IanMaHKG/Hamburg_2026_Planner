@@ -2484,7 +2484,7 @@
 
 .contacts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: 18px;
 }
 
@@ -2497,12 +2497,15 @@
   flex-direction: column;
   justify-content: space-between;
   box-shadow: var(--shadow-card);
-  transition: transform 0.2s, border-color 0.2s;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .contact-card:hover {
   transform: translateY(-2px);
   border-color: var(--accent-primary);
+  box-shadow: var(--shadow-md);
 }
 
 .contact-card.critical-border {
@@ -2511,27 +2514,33 @@
 
 .contact-card-top {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 8px;
-  margin-bottom: 10px;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 12px;
+  min-width: 0;
 }
 
-.contact-card-title-row {
+.contact-card-meta {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
+  min-width: 0;
 }
 
 .contact-icon {
   font-size: 1.4rem;
+  line-height: 1;
+  flex-shrink: 0;
 }
 
 .contact-name {
-  font-size: 0.98rem;
+  font-size: 1.02rem;
   font-weight: 800;
   color: var(--text-primary);
-  line-height: 1.25;
+  line-height: 1.3;
+  min-width: 0;
+  word-break: break-word;
 }
 
 .contact-badge {
@@ -2541,7 +2550,11 @@
   border-radius: var(--radius-pill);
   background: var(--bg-secondary);
   color: var(--text-muted);
-  white-space: nowrap;
+  max-width: calc(100% - 38px);
+  white-space: normal;
+  word-break: break-word;
+  text-align: right;
+  line-height: 1.3;
 }
 
 .contact-badge.critical {
@@ -2559,6 +2572,8 @@
   color: var(--text-secondary);
   line-height: 1.45;
   margin-bottom: 14px;
+  min-width: 0;
+  word-break: break-word;
 }
 
 .contact-tel-btn {
@@ -2575,6 +2590,7 @@
   text-decoration: none;
   transition: all 0.2s;
   width: fit-content;
+  max-width: 100%;
 }
 
 .contact-tel-btn:hover {
@@ -2631,53 +2647,90 @@
 .phrases-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr));
-  gap: 14px;
+  gap: 18px;
 }
 
 .phrase-item {
   background: var(--bg-card);
   border: 1px solid var(--border-light);
-  border-radius: var(--radius-md, 12px);
-  padding: 16px;
+  border-radius: var(--radius-lg, 16px);
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  transition: border-color 0.2s;
+  justify-content: space-between;
+  gap: 14px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .phrase-item:hover {
+  transform: translateY(-2px);
   border-color: var(--accent-primary);
+  box-shadow: var(--shadow-md);
 }
 
-.phrase-german-row {
+.phrase-card-body {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   gap: 8px;
+  min-width: 0;
+}
+
+.phrase-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
 }
 
 .phrase-german {
   font-size: 1.05rem;
   font-weight: 800;
   color: var(--text-primary);
+  line-height: 1.3;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.phrase-phonetic-row {
+  display: flex;
+  align-items: center;
+  min-width: 0;
 }
 
 .phrase-phonetic {
+  display: inline-block;
   font-size: 0.78rem;
   font-weight: 600;
   color: var(--brand-gold, #F59E0B);
   background: rgba(245, 158, 11, 0.1);
-  padding: 2px 8px;
+  padding: 3px 10px;
   border-radius: var(--radius-pill);
+  max-width: 100%;
+  word-break: break-word;
+  white-space: normal;
+  line-height: 1.4;
 }
 
 .phrase-trans-row {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
-  font-size: 0.85rem;
+  align-items: flex-start;
+  font-size: 0.88rem;
   color: var(--text-secondary);
+  line-height: 1.45;
+  min-width: 0;
+  word-break: break-word;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-light);
+  margin-top: auto;
+}
+
+.phrase-trans-text {
+  min-width: 0;
+  word-break: break-word;
 }
 
 /* ═══════════════════════════════════════════════════

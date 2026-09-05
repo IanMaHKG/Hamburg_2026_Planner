@@ -129,7 +129,7 @@ try:
 
     # 5. Evaluate DOM rendering completeness via JavaScript execution
     print("\n[STEP 4] Evaluating Rendered DOM Components...")
-    eval_script = """
+    eval_script = r"""
     (() => {
         return {
             heroTitle: document.querySelector('.hero-title') ? document.querySelector('.hero-title').innerText : null,
@@ -140,6 +140,26 @@ try:
             foodCards: document.querySelectorAll('.food-card').length,
             hotelCards: document.querySelectorAll('.hotel-leg-card').length,
             packingItems: document.querySelectorAll('.packing-item').length,
+            contactCards: document.querySelectorAll('.contact-card').length,
+            phraseCards: document.querySelectorAll('.phrase-item').length,
+            contactOverflowList: Array.from(document.querySelectorAll('.contact-card')).map(card => {
+                const badge = card.querySelector('.contact-badge');
+                if (!badge) return null;
+                const cr = card.getBoundingClientRect();
+                const br = badge.getBoundingClientRect();
+                return {
+                    name: (card.querySelector('.contact-name') ? card.querySelector('.contact-name').innerText : '').split('\n').join(' '),
+                    overflow: br.right > cr.right + 2,
+                    diff: br.right - cr.right
+                };
+            }).filter(Boolean),
+            phraseTexts: Array.from(document.querySelectorAll('.phrase-item')).slice(0, 5).map(item => {
+                const trans = item.querySelector('.phrase-trans-row');
+                return {
+                    german: item.querySelector('.phrase-german') ? item.querySelector('.phrase-german').innerText : '',
+                    text: trans ? trans.innerText.split('\n').map(s => s.trim()).filter(Boolean).join(' | ') : ''
+                };
+            }),
             scrollWidth: document.documentElement.scrollWidth,
             clientWidth: document.documentElement.clientWidth
         };
@@ -178,13 +198,32 @@ try:
         print(f"  • Culinary Cards:          {eval_res.get('foodCards')} cards")
         print(f"  • Hotel Stay Cards:        {eval_res.get('hotelCards')} cards")
         print(f"  • Packing Items:           {eval_res.get('packingItems')} items")
+        print(f"  • Emergency Contacts:      {eval_res.get('contactCards')} cards")
+        print(f"  • German Travel Phrases:   {eval_res.get('phraseCards')} cards")
         
         sw = eval_res.get('scrollWidth', 0)
         cw = eval_res.get('clientWidth', 0)
         overflow = sw > cw
         print(f"  • Viewport Width Check:    scrollWidth={sw}px, clientWidth={cw}px (Overflow: {overflow})")
+
+        overflow_contacts = [c for c in eval_res.get('contactOverflowList', []) if c.get('overflow')]
+        print(f"  • Contact Badges Overflow: {len(overflow_contacts)} / {len(eval_res.get('contactOverflowList', []))}")
+        for oc in overflow_contacts:
+            print(f"      - {oc['name']}: diff={oc['diff']:.1f}px")
+
+        print("  • Sample Phrase Renderings:")
+        for pt in eval_res.get('phraseTexts', []):
+            print(f"      - {pt['german']}: {repr(pt['text'])}")
+
+        has_badge_overflow = len(overflow_contacts) > 0
+        has_phrase_duplicates = any(
+            len(pt['text'].split('\\n')) >= 2 and pt['text'].split('\\n')[0].strip() == pt['text'].split('\\n')[1].strip()
+            for pt in eval_res.get('phraseTexts', [])
+        )
     else:
         print("  ✗ Failed to evaluate DOM components via CDP!")
+        has_badge_overflow = True
+        has_phrase_duplicates = True
 
     # Check assertions
     all_passed = True
@@ -210,6 +249,10 @@ try:
         ("Culinary Cards (>=5)", eval_res and eval_res.get('foodCards', 0) >= 5),
         ("Hotel Stay Cards (>=1)", eval_res and eval_res.get('hotelCards', 0) >= 1),
         ("Packing Items (>=10)", eval_res and eval_res.get('packingItems', 0) >= 10),
+        ("Contact Cards (>=6)", eval_res and eval_res.get('contactCards', 0) >= 6),
+        ("Phrase Cards (>=5)", eval_res and eval_res.get('phraseCards', 0) >= 5),
+        ("Zero Contact Badge Overflow", not has_badge_overflow),
+        ("Zero Phrase Trans Duplicates", not has_phrase_duplicates),
     ]
 
     failed_checks = [name for name, passed in checks if not passed]

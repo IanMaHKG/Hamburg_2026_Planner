@@ -1373,11 +1373,11 @@ function renderEssentials() {
 
     return '<div class="contact-card ' + (isCrit ? 'critical-border' : '') + '">' +
              '<div class="contact-card-top">' +
-               '<div class="contact-card-title-row">' +
+               '<div class="contact-card-meta">' +
                  '<span class="contact-icon">' + c.icon + '</span>' +
-                 '<h4 class="contact-name">' + renderBilingualText(c.name) + '</h4>' +
+                 '<span class="' + badgeClass + '">' + renderBilingualText(c.badge) + '</span>' +
                '</div>' +
-               '<span class="' + badgeClass + '">' + renderBilingualText(c.badge) + '</span>' +
+               '<h4 class="contact-name">' + renderBilingualText(c.name) + '</h4>' +
              '</div>' +
              '<p class="contact-desc">' + renderBilingualText(c.desc) + '</p>' +
              '<div class="contact-action-row">' + telLink + '</div>' +
@@ -1394,14 +1394,17 @@ function renderEssentials() {
   var phrasePanelsHtml = phraseCats.map(function(cat, idx) {
     var itemsHtml = cat.items.map(function(item) {
       return '<div class="phrase-item">' +
-               '<div class="phrase-german-row">' +
-                 '<span class="phrase-german">' + item.german + '</span>' +
-                 '<button type="button" class="phrase-speech-btn" title="Listen to German pronunciation" data-phrase="' + encodeURIComponent(item.german) + '" onclick="playGermanPhrase(decodeURIComponent(this.getAttribute(\'data-phrase\')), this)">🔊</button>' +
-                 '<span class="phrase-phonetic">🗣️ [' + item.phonetic + ']</span>' +
+               '<div class="phrase-card-body">' +
+                 '<div class="phrase-header">' +
+                   '<span class="phrase-german">' + item.german + '</span>' +
+                   '<button type="button" class="phrase-speech-btn" title="Listen to German pronunciation" data-phrase="' + encodeURIComponent(item.german) + '" onclick="playGermanPhrase(decodeURIComponent(this.getAttribute(\'data-phrase\')), this)">🔊</button>' +
+                 '</div>' +
+                 '<div class="phrase-phonetic-row">' +
+                   '<span class="phrase-phonetic">🗣️ [' + item.phonetic + ']</span>' +
+                 '</div>' +
                '</div>' +
                '<div class="phrase-trans-row">' +
-                 '<span class="phrase-en">' + item.en + '</span>' +
-                 '<span class="phrase-zh">' + renderBilingualText(item) + '</span>' +
+                 '<span class="phrase-trans-text">' + renderBilingualText(item) + '</span>' +
                '</div>' +
              '</div>';
     }).join('');
