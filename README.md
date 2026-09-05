@@ -40,6 +40,14 @@
 
 ```
 Hamburg_2026_Planner/
+├── .agents/
+│   ├── AGENTS.md           ← Master AI agent rules & instructions (trilingual, architecture, styling)
+│   └── GEMINI.md           ← Gemini CLI / Antigravity rule alias
+├── .cursorrules            ← Cursor IDE AI assistant configuration & prompt rules
+├── .github/
+│   ├── copilot-instructions.md ← GitHub Copilot custom instructions
+│   └── workflows/
+│       └── deploy.yml      ← GitHub Actions automated Pages deployment
 ├── data/
 │   ├── config.js           ← Master config: identity, theme, trilingual settings, currencies, feature flags
 │   ├── site-data.js        ← Confirmed flights, hotels, overview cards, route stops, tips, packing, budget, transit
@@ -59,9 +67,12 @@ Hamburg_2026_Planner/
 │   └── currency.js         ← Live EUR/GBP exchange rates with offline fallback
 ├── assets/
 │   └── favicon.svg         ← App icon / favicon
+├── AGENTS.md               ← Universal repository root agent instructions
+├── CLAUDE.md               ← Anthropic Claude Code instructions
+├── GEMINI.md               ← Google Gemini CLI root instructions
 ├── index.html              ← Dedicated single-page shell (instant first paint, zero-flash)
 ├── manifest.json           ← PWA manifest
-└── sw.js                   ← Service worker for offline caching (v3)
+└── sw.js                   ← Service worker for offline caching
 ```
 
 ---
@@ -145,6 +156,28 @@ This planner is tailored with authentic regional flavours for each language:
 | `zh-cn` | **简中** | `zh-MY` | **马来西亚简体中文 (Malaysian Chinese)** — standard Malaysian Chinese travel phrasing (如「希思罗机场」、「搭乘S1/城铁」、「易北爱乐音乐厅」、「仓库城」、「热红酒」、「酒店」、「电召车/德士」、「办理入住/退房」). |
 
 Switch language instantly using the **EN · 繁中 · 简中** buttons in the top-right navigation bar (with full descriptive hover tooltips).
+
+---
+
+## 🤖 AI Agent Instructions & Multi-Model Rules
+
+To ensure complete consistency across AI models, coding assistants, and IDEs, this repository includes dedicated instruction files tailored to each popular tool. AI assistants are instructed to read these rules **first** before making any modifications:
+
+| File | Target AI Assistant / Environment | Focus |
+|---|---|---|
+| [`.agents/AGENTS.md`](.agents/AGENTS.md) | **Master Instructions** (Antigravity, universal) | Full guidelines: trilingual rules, architecture, responsive design, PWA caching, git conventions |
+| [`AGENTS.md`](AGENTS.md) | Universal Repo Root (Aider, Devin, generic agents) | Root-level mirror of master agent rules |
+| [`.agents/GEMINI.md`](.agents/GEMINI.md) · [`GEMINI.md`](GEMINI.md) | Google Gemini CLI & Antigravity IDE | Gemini-specific alias and quick reference |
+| [`CLAUDE.md`](CLAUDE.md) | Anthropic Claude Code CLI | Claude Code project context, commands, and critical rules |
+| [`.cursorrules`](.cursorrules) | Cursor IDE | Pair-programming instructions for Cursor Composer & Chat |
+| [`.github/copilot-instructions.md`](.github/copilot-instructions.md) | GitHub Copilot (VS Code & Workspace) | Copilot prompt guidelines for commits, suggestions, and PRs |
+
+### Core Architectural Directives for Agents:
+1. **Strict Trilingual Parity**: Every user-facing string in `data/` must have `en` (UK English), `zh` (HK Traditional Chinese), and `zh-cn` (Malaysian Simplified Chinese).
+2. **Data-Driven Isolation**: Text content lives strictly in `data/config.js`, `data/site-data.js`, and `data/itinerary-data.js`. Never hardcode destination strings in `js/` or `index.html`.
+3. **Responsive Edge-to-Edge**: Layouts must dynamically fit the screen width with zero horizontal overflow. Always use `auto-fit` with bounded minmax (`minmax(min(Xpx, 100%), 1fr)`). Never use `auto-fill` (which leaves empty tracks) or `100vw` (causes scrollbar gutters).
+4. **PWA Cache Bumping**: Always increment `CACHE_NAME` in `sw.js` whenever editing CSS, JS, HTML, or data files.
+5. **Anti-Drift Requirement**: Always keep `README.md` and agent instructions strictly aligned with live code changes.
 
 ---
 

@@ -1,0 +1,23 @@
+# Cursor Rules — Hamburg 2026 Planner
+# Master instructions located at: .agents/AGENTS.md
+
+You are an expert pair programmer working on Hamburg 2026 Winter City Break (Nov 26–28, 2026).
+Follow these guidelines on every response and code modification:
+
+1. Always read `.agents/AGENTS.md` before starting work.
+2. Maintain strict trilingual parity for all user-facing data strings:
+   - `en`: British English (colour, organise, favourite, centre, 26 Nov 2026).
+   - `zh`: Hong Kong Traditional Chinese (的士, 車尾箱, 貼士, 酒店, 繁體中文).
+   - `zh-cn`: Malaysian Simplified Chinese (德士, 酒店, 贴士, 行程建议, 规范简体中文).
+   - German: Authentic terms with umlauts (Speicherstadt, Elbphilharmonie, Glühwein, Moin!).
+3. Data-driven separation:
+   - Content lives exclusively in `data/config.js`, `data/site-data.js`, and `data/itinerary-data.js`.
+   - Never hardcode trip text in `index.html`, `js/render.js`, or `js/ui.js`.
+4. Responsive layout & edge-to-edge fitting:
+   - Zero horizontal overflow (`overflow-x: hidden`, `max-width: 100%`).
+   - Use `repeat(auto-fit, minmax(min(Xpx, 100%), 1fr))` on grids. Never use `auto-fill`.
+   - Avoid `100vw` (use `100%` to prevent scrollbar gutters).
+5. Service Worker cache:
+   - Increment `CACHE_NAME` in `sw.js` on every CSS/JS/HTML/data edit.
+6. Documentation integrity:
+   - Update `README.md` and `.agents/AGENTS.md` whenever architecture, CSS tokens, or features change.
