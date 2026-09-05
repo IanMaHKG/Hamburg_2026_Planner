@@ -47,6 +47,7 @@
         <a href="#itinerary"><span class="lang-primary lang-en">Itinerary</span><span class="lang-secondary lang-zh">詳細行程</span><span class="lang-tertiary lang-zh-cn">详细行程</span></a>
         <a href="#food"><span class="lang-primary lang-en">Food &amp; Dining</span><span class="lang-secondary lang-zh">美食品味</span><span class="lang-tertiary lang-zh-cn">美食品味</span></a>
         <a href="#packing"><span class="lang-primary lang-en">Packing</span><span class="lang-secondary lang-zh">行前清單</span><span class="lang-tertiary lang-zh-cn">行前清单</span></a>
+        <a href="#essentials"><span class="lang-primary lang-en">Essentials</span><span class="lang-secondary lang-zh">緊急與實用</span><span class="lang-tertiary lang-zh-cn">紧急与实用</span></a>
         <a href="#budget"><span class="lang-primary lang-en">Budget</span><span class="lang-secondary lang-zh">費用預算</span><span class="lang-tertiary lang-zh-cn">费用预算</span></a>
         <a href="#hotels"><span class="lang-primary lang-en">Hotels</span><span class="lang-secondary lang-zh">精選住宿</span><span class="lang-tertiary lang-zh-cn">精选住宿</span></a>
         <a href="#transit"><span class="lang-primary lang-en">Transit</span><span class="lang-secondary lang-zh">交通方案</span><span class="lang-tertiary lang-zh-cn">交通方案</span></a>
@@ -66,6 +67,7 @@
       </div>
     </div>
   </nav>
+  <div class="reading-progress-bar" id="reading-progress"></div>
 
   <!-- ═══════════════════════════════════════════════════
        TRIP CONTENT (Direct & Instant First Paint)
@@ -88,6 +90,7 @@
           <span class="lang-tertiary lang-zh-cn">探索完整行程</span>
           <span>↓</span>
         </a>
+        <div id="hero-countdown" class="hero-countdown"></div>
       </div>
       <div class="scroll-indicator">
         <div class="scroll-mouse"><div class="scroll-dot"></div></div>
@@ -110,6 +113,7 @@
           </p>
         </div>
         <div class="overview-grid" id="overview-cards-container"></div>
+        <div id="weather-widget" class="weather-widget-container" style="margin-top: 36px;"></div>
         <div id="route-board-mount" style="margin-top: 36px;"></div>
       </div>
     </section>
@@ -187,6 +191,7 @@
              <span class="lang-tertiary lang-zh-cn">涵盖每日早午晚时段活动、交通时间、亮点特色与精选景点。</span>
           </p>
         </div>
+        <div class="itinerary-toolbar-container" id="itinerary-toolbar-container"></div>
         <div class="day-filters" id="day-filters-container"></div>
         <div class="timeline" id="itinerary-timeline-container"></div>
       </div>
@@ -253,12 +258,32 @@
              <span class="lang-tertiary lang-zh-cn">分类清晰的打包清单，自动保存勾选进度，确保行前准备万无一失。</span>
           </p>
         </div>
+        <div id="packing-progress-mount" class="packing-progress-container"></div>
         <div class="packing-grid" id="packing-grid-container"></div>
       </div>
     </section>
 
+    <!-- 6.5 TRAVEL ESSENTIALS & EMERGENCY CONTACTS -->
+    <section id="essentials" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="lang-primary lang-en">Travel Essentials &amp; German Phrases</span>
+            <span class="lang-secondary lang-zh">緊急求助電話與實用德語對照</span>
+            <span class="lang-tertiary lang-zh-cn">紧急求助电话与实用德语对照</span>
+          </h2>
+          <p class="section-subtitle">
+            <span class="lang-primary lang-en">24/7 direct-dial emergency hotlines, consular support, and essential German phrases with pronunciation for Christmas markets and dining.</span>
+            <span class="lang-secondary lang-zh">24小時直撥緊急求助熱線、領事保護電話及聖誕市集與點餐必備德語拼音對照。</span>
+            <span class="lang-tertiary lang-zh-cn">24小时直拨紧急求助热线、领事保护电话及圣诞市集与点餐必备德语拼音对照。</span>
+          </p>
+        </div>
+        <div id="essentials-container"></div>
+      </div>
+    </section>
+
     <!-- 7. BUDGET -->
-    <section id="budget" class="section section-alt">
+    <section id="budget" class="section">
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">
@@ -275,6 +300,7 @@
         <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
           <div class="currency-switcher"></div>
         </div>
+        <div id="budget-summary-mount" class="budget-summary-container"></div>
         <div class="budget-table-wrap">
           <table class="budget-table">
             <thead>
@@ -356,6 +382,121 @@
         </div>
       </div>
     </footer>
+
+    <!-- Floating Back to Top Button -->
+    <button class="back-to-top-btn" id="back-to-top-btn" aria-label="Back to Top" title="Back to Top">
+      <span>↑</span>
+    </button>
+
+    <!-- Mobile Bottom Navigation Bar (Glassmorphic, 5 thumb targets) -->
+    <nav class="mobile-bottom-nav" id="mobile-bottom-nav" aria-label="Mobile Bottom Navigation">
+      <a href="#itinerary" class="mobile-nav-tab" data-section="itinerary">
+        <span class="mobile-nav-icon">📅</span>
+        <span class="mobile-nav-label">
+          <span class="lang-primary lang-en">Plan</span>
+          <span class="lang-secondary lang-zh">行程</span>
+          <span class="lang-tertiary lang-zh-cn">行程</span>
+        </span>
+      </a>
+      <a href="#map" class="mobile-nav-tab" data-section="map">
+        <span class="mobile-nav-icon">🗺️</span>
+        <span class="mobile-nav-label">
+          <span class="lang-primary lang-en">Map</span>
+          <span class="lang-secondary lang-zh">地圖</span>
+          <span class="lang-tertiary lang-zh-cn">地图</span>
+        </span>
+      </a>
+      <a href="#food" class="mobile-nav-tab" data-section="food">
+        <span class="mobile-nav-icon">🍽️</span>
+        <span class="mobile-nav-label">
+          <span class="lang-primary lang-en">Food</span>
+          <span class="lang-secondary lang-zh">美食</span>
+          <span class="lang-tertiary lang-zh-cn">美食</span>
+        </span>
+      </a>
+      <a href="#flights" class="mobile-nav-tab" data-section="flights">
+        <span class="mobile-nav-icon">✈️</span>
+        <span class="mobile-nav-label">
+          <span class="lang-primary lang-en">Flights</span>
+          <span class="lang-secondary lang-zh">航班</span>
+          <span class="lang-tertiary lang-zh-cn">航班</span>
+        </span>
+      </a>
+      <button type="button" class="mobile-nav-tab mobile-nav-taxi-btn" id="mobile-taxi-trigger" onclick="openTaxiModal()">
+        <span class="mobile-nav-icon">🚕</span>
+        <span class="mobile-nav-label">
+          <span class="lang-primary lang-en">Taxi Card</span>
+          <span class="lang-secondary lang-zh">的士卡</span>
+          <span class="lang-tertiary lang-zh-cn">出租卡</span>
+        </span>
+      </button>
+    </nav>
+
+    <!-- German Taxi & Destination Flashcard Modal -->
+    <div class="taxi-modal" id="taxi-modal" role="dialog" aria-modal="true" aria-labelledby="taxi-modal-title" style="display: none;">
+      <div class="taxi-modal-backdrop" onclick="closeTaxiModal()"></div>
+      <div class="taxi-modal-dialog">
+        <button class="taxi-modal-close" onclick="closeTaxiModal()" aria-label="Close modal">✕</button>
+        <div class="taxi-modal-header">
+          <div class="taxi-modal-icon">🚕</div>
+          <div>
+            <h3 class="taxi-modal-title" id="taxi-modal-title">
+              <span class="lang-primary lang-en">German Taxi &amp; Destination Card</span>
+              <span class="lang-secondary lang-zh">德語的士與導航卡</span>
+              <span class="lang-tertiary lang-zh-cn">德语出租车与导航卡</span>
+            </h3>
+            <p class="taxi-modal-sub">
+              <span class="lang-primary lang-en">Show this directly to a taxi driver or local in Hamburg.</span>
+              <span class="lang-secondary lang-zh">乘搭的士或問路時，可直接向司機出示此德語卡片。</span>
+              <span class="lang-tertiary lang-zh-cn">乘搭出租车或问路时，可直接向司机出示此德语卡片。</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="taxi-destination-toggle">
+          <button class="taxi-toggle-btn active" id="taxi-btn-hotel" data-dest="hotel" onclick="switchTaxiDestination('hotel')">
+            🏨 <span class="lang-primary lang-en">Courtyard Marriott</span><span class="lang-secondary lang-zh">萬怡酒店</span><span class="lang-tertiary lang-zh-cn">万怡酒店</span>
+          </button>
+          <button class="taxi-toggle-btn" id="taxi-btn-airport" data-dest="airport" onclick="switchTaxiDestination('airport')">
+            ✈️ <span class="lang-primary lang-en">Hamburg Airport (T2)</span><span class="lang-secondary lang-zh">漢堡機場 (T2)</span><span class="lang-tertiary lang-zh-cn">汉堡机场 (T2)</span>
+          </button>
+        </div>
+
+        <div class="taxi-card-display" id="taxi-display-hotel">
+          <div class="taxi-german-box">
+            <span class="taxi-phrase-label">Bitte bringen Sie uns zum:</span>
+            <div class="taxi-target-name">Courtyard by Marriott Hamburg City</div>
+            <div class="taxi-target-address">Adenauerallee 52, 20097 Hamburg</div>
+            <div class="taxi-target-landmark">📍 Nähe Berliner Tor / Hauptbahnhof</div>
+          </div>
+          <div class="taxi-card-actions">
+            <button class="taxi-action-btn" type="button" onclick="copyToClipboard('Adenauerallee 52, 20097 Hamburg')">
+              📋 <span class="lang-primary lang-en">Copy Address</span><span class="lang-secondary lang-zh">複製地址</span><span class="lang-tertiary lang-zh-cn">复制地址</span>
+            </button>
+            <a class="taxi-action-btn primary" href="https://maps.google.com/?q=Adenauerallee+52+Hamburg" target="_blank" rel="noopener">
+              🗺️ <span class="lang-primary lang-en">Google Maps ↗</span><span class="lang-secondary lang-zh">打開地圖 ↗</span><span class="lang-tertiary lang-zh-cn">打开地图 ↗</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="taxi-card-display" id="taxi-display-airport" style="display: none;">
+          <div class="taxi-german-box">
+            <span class="taxi-phrase-label">Bitte bringen Sie uns zum:</span>
+            <div class="taxi-target-name">Flughafen Hamburg (HAM) · Terminal 2</div>
+            <div class="taxi-target-address">Flughafenstraße 1–3, 22335 Hamburg</div>
+            <div class="taxi-target-landmark">✈️ Abflug British Airways (T2)</div>
+          </div>
+          <div class="taxi-card-actions">
+            <button class="taxi-action-btn" type="button" onclick="copyToClipboard('Flughafenstr. 1-3, 22335 Hamburg')">
+              📋 <span class="lang-primary lang-en">Copy Address</span><span class="lang-secondary lang-zh">複製地址</span><span class="lang-tertiary lang-zh-cn">复制地址</span>
+            </button>
+            <a class="taxi-action-btn primary" href="https://maps.google.com/?q=Hamburg+Airport+Terminal+2" target="_blank" rel="noopener">
+              🗺️ <span class="lang-primary lang-en">Google Maps ↗</span><span class="lang-secondary lang-zh">打開地圖 ↗</span><span class="lang-tertiary lang-zh-cn">打开地图 ↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div><!-- /#trip-content -->
 

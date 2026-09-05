@@ -54,6 +54,11 @@ const ITINERARY_DATA = [
             zh: "<strong>早午餐 / 咖啡：</strong><em>巴黎咖啡館 (Café Paris)</em>位於市政廳 (Rathaus) 附近，1882年創立的漢堡老字號，在新藝術瓷磚穹頂下享用熱騰騰的法式煎蛋卷、煙三文魚薄餅與香濃拿鐵。",
             "zh-cn": "<strong>早午餐 / 咖啡：</strong><em>巴黎咖啡馆 (Café Paris)</em>位于市政厅 (Rathaus) 附近，1882年创立的汉堡老字号，在新艺术瓷砖穹顶下享用热腾腾的法式煎蛋卷、烟三文鱼薄饼与香浓拿铁。"
           },
+          walkingInfo: {
+            en: "🚶 4 min walk (300m) from Berliner Tor to Courtyard by Marriott",
+            zh: "🚶 柏林門站至萬怡酒店步行約4分鐘 (300米)",
+            "zh-cn": "🚶 柏林门站至万怡酒店步行约4分钟 (300米)"
+          },
           locations: [
             { lat: 53.6303, lng: 9.9882, label: { en: "Hamburg Airport (HAM T2)", zh: "漢堡機場 (Flughafen Hamburg T2)", "zh-cn": "汉堡机场 (Flughafen Hamburg T2)" } },
             { lat: 53.5534, lng: 10.0105, label: { en: "Courtyard by Marriott Hamburg City", zh: "漢堡市萬怡酒店 (Courtyard by Marriott)", "zh-cn": "汉堡市万怡酒店 (Courtyard by Marriott)" } },
@@ -78,11 +83,22 @@ const ITINERARY_DATA = [
             zh: "從市中心乘地鐵或步行約15分鐘南下聯合國教科文組織世界遺產<strong>倉庫城 (Speicherstadt)</strong>，漫步於1888年建造的新哥德式紅磚運河島嶼群。隨後參觀歐洲人氣極高的<strong>微型奇蹟世界 (Miniatur Wunderland)</strong>，欣賞極其逼真細膩的微縮漢堡港、斯堪的納維亞與阿爾卑斯鐵路模型世界（請提前網上預約指定時段門票以節省排隊時間）。",
             "zh-cn": "从市中心乘地铁或步行约15分钟南下联合国教科文组织世界遗产<strong>仓库城 (Speicherstadt)</strong>，漫步于1888年建造的新哥德式红砖运河岛屿群。随后参观欧洲人气极高的<strong>微型奇迹世界 (Miniatur Wunderland)</strong>，欣赏极其逼真细腻的微缩汉堡港、斯堪的纳维亚与阿尔卑斯铁路模型世界（请提前网上预约指定时段门票以节省排队时间）。"
           },
+          bookingUrl: "https://www.miniatur-wunderland.com/visit/tickets/",
+          photoTip: {
+            en: "📸 Photo Spot: Stand on Poggenmühlenbrücke bridge for the iconic Wasserschloss reflection shot. Best at dusk (~16:00) when the red brick glows.",
+            zh: "📸 經典拍照機位：站在波根米倫橋 (Poggenmühlenbrücke) 上，取景著名的水上城堡 (Wasserschloss) 運河倒影，傍晚16:00紅磚亮燈時最夢幻。",
+            "zh-cn": "📸 经典拍照机位：站在波根米伦桥 (Poggenmühlenbrücke) 上，取景著名的水上城堡 (Wasserschloss) 运河倒影，傍晚16:00红砖亮灯时最梦幻。"
+          },
           meal: {
             icon: "🥨",
             en: "<strong>Afternoon Warm-up:</strong> Grab a warm <em>Franzbrötchen</em> (Hamburg cinnamon sugar pastry) and hot chocolate from a Speicherstadt bakery kiosk.",
             zh: "<strong>午後暖心小點：</strong>在倉庫城烘焙攤買個剛出爐的 <em>Franzbrötchen (肉桂酥餅)</em> 配熱可可，迅速補充冬日熱量。",
             "zh-cn": "<strong>午后暖心小点：</strong>在仓库城烘焙摊买个刚出炉的 <em>Franzbrötchen (肉桂酥饼)</em> 配热可可，迅速补充冬日热量。"
+          },
+          walkingInfo: {
+            en: "🚶 ~8 min walk (650m) from Baumwall to Miniatur Wunderland",
+            zh: "🚶 Baumwall站至微型奇蹟世界步行約8分鐘 (650米)",
+            "zh-cn": "🚶 Baumwall站至微型奇迹世界步行约8分钟 (650米)"
           },
           locations: [
             { lat: 53.5435, lng: 9.9938, label: { en: "Speicherstadt", zh: "倉庫城 (Speicherstadt)", "zh-cn": "仓库城 (Speicherstadt)" } },
@@ -113,6 +129,11 @@ const ITINERARY_DATA = [
             zh: "<strong>舒壓暖身：</strong>在房內泡杯香熱花草茶，亦可體驗萬怡酒店附設的芬蘭桑拿浴室 (Finnish Sauna)，徹底驅散戶外寒意。",
             "zh-cn": "<strong>舒压暖身：</strong>在房内泡杯香热花草茶，亦可体验万怡酒店附设的芬兰桑拿浴室 (Finnish Sauna)，彻底驱散户外寒意。"
           },
+          walkingInfo: {
+            en: "🚶 4 min walk (300m) from Berliner Tor station",
+            zh: "🚶 柏林門站出站步行4分鐘 (300米)",
+            "zh-cn": "🚶 柏林门站出站步行4分钟 (300米)"
+          },
           locations: [
             { lat: 53.5534, lng: 10.0105, label: { en: "Courtyard by Marriott Hamburg City", zh: "漢堡市萬怡酒店 (Courtyard by Marriott)", "zh-cn": "汉堡市万怡酒店 (Courtyard by Marriott)" } },
             { lat: 53.5532, lng: 10.0248, label: { en: "Berliner Tor Station", zh: "柏林門站 (Berliner Tor)", "zh-cn": "柏林门站 (Berliner Tor)" } }
@@ -136,11 +157,22 @@ const ITINERARY_DATA = [
             zh: "養精蓄銳後乘U3至Baumwall站。搭乘標誌性弧形電梯登上<strong>易北愛樂廳觀景台 (Elbphilharmonie Plaza)</strong>（需免費廣場票），飽覽黃昏時分易北河 (Elbe)、港城與漢堡港360°夕陽全景。隨後漫步10分鐘至精緻浪漫的<strong>弗萊廷島聖誕市集 (Weihnachtsmarkt Fleetinsel)</strong>——運河水面倒映著金黃彩燈，手捧熱紅酒挑選工藝禮品，滿溢節日溫馨。",
             "zh-cn": "养精蓄锐后乘U3至Baumwall站。搭乘标志性弧形电梯登上<strong>易北爱乐厅观景台 (Elbphilharmonie Plaza)</strong>（需免费广场票），饱览黄昏时分易北河 (Elbe)、港城与汉堡港360°夕阳全景。随后漫步10分钟至精致浪漫的<strong>弗莱廷岛圣诞市集 (Weihnachtsmarkt Fleetinsel)</strong>——运河水面倒映着金黄彩灯，手捧热红酒挑选工艺礼品，满溢节日温馨。"
           },
+          bookingUrl: "https://www.elbphilharmonie.de/en/plaza-tickets",
+          photoTip: {
+            en: "📸 Photo Spot: Visit the Plaza level (37m high). Face west for the harbour sunset panorama, then capture the iconic curved glass wave ceiling.",
+            zh: "📸 經典拍照機位：登上37米高的易北愛樂廳觀景台 (Plaza)，面朝西側遠眺港口落日全景，回頭還可打卡標誌性波浪弧形玻璃穹頂。",
+            "zh-cn": "📸 经典拍照机位：登上37米高的易北爱乐厅观景台 (Plaza)，面朝西侧远眺港口落日全景，回头还可打卡标志性波浪弧形玻璃穹顶。"
+          },
           meal: {
             icon: "🍺",
             en: "<strong>Dinner:</strong> <em>Gröninger Privatbrauerei</em> (Altstadt) — Hamburg's oldest brewery tavern (1793). Crackling roast pork knuckle and unfiltered Gröninger Pils poured straight from oak barrels. Hearty, authentic, and close to your hotel.",
             zh: "<strong>晚餐：</strong><em>格勒寧格私家釀酒坊 (Gröninger Privatbrauerei)</em>位於老城區 (Altstadt)，是漢堡現存最古老釀酒坊（始建於1793年）。品嚐橡木桶直送未過濾皮爾森啤酒與皮脆肉嫩的烤豬手，氣氛熱烈地道，且鄰近地鐵便於返回酒店。",
             "zh-cn": "<strong>晚餐：</strong><em>格勒宁格私家酿酒坊 (Gröninger Privatbrauerei)</em>位于老城区 (Altstadt)，是汉堡现存最古老酿酒坊（始建于1793年）。品尝橡木桶直送未过滤皮尔森啤酒与皮脆肉嫩的烤猪手，气氛热烈地道，且邻近地铁便于返回酒店。"
+          },
+          walkingInfo: {
+            en: "🚶 ~10 min scenic walk (800m) from Elbphilharmonie to Fleetinsel",
+            zh: "🚶 易北愛樂廳至弗萊廷島市集步行約10分鐘 (800米)",
+            "zh-cn": "🚶 易北爱乐厅至弗莱廷岛市集步行约10分钟 (800米)"
           },
           locations: [
             { lat: 53.5413, lng: 9.9841, label: { en: "Elbphilharmonie Plaza", zh: "易北愛樂廳觀景台 (Elbphilharmonie Plaza)", "zh-cn": "易北爱乐厅观景台 (Elbphilharmonie Plaza)" } },
@@ -201,6 +233,16 @@ const ITINERARY_DATA = [
             zh: "<strong>早餐 / 咖啡：</strong>在運河畔咖啡館享用傳統德式早餐拼盤 (Frühstücksbrettchen)：新鮮黑麥麵包、精選起司、煙燻火腿與香濃拿鐵咖啡，倚窗欣賞水岸晨景。",
             "zh-cn": "<strong>早餐 / 咖啡：</strong>在运河畔咖啡馆享用传统德式早餐拼盘 (Frühstücksbrettchen)：新鲜黑麦面包、精选起司、烟熏火腿与香浓拿铁咖啡，倚窗欣赏水岸晨景。"
           },
+          walkingInfo: {
+            en: "🚶 ~3 min stroll (250m) along Kleine Alster canal",
+            zh: "🚶 沿小阿爾斯特運河漫步約3分鐘 (250米)",
+            "zh-cn": "🚶 沿小阿尔斯特运河漫步约3分钟 (250米)"
+          },
+          photoTip: {
+            en: "📸 Photo Spot: Walk along Kleine Alster to capture the white arches of Alsterarkaden with the neo-Renaissance Rathaus tower and swans in frame.",
+            zh: "📸 經典拍照機位：沿著小阿爾斯特運河漫步，將阿爾斯特純白拱廊 (Alsterarkaden) 與壯麗市政廳塔樓、運河天鵝同框拍攝，古典優雅。",
+            "zh-cn": "📸 经典拍照机位：沿着小阿尔斯特运河漫步，将阿尔斯特纯白拱廊 (Alsterarkaden) 与壮丽市政厅塔楼、运河天鹅同框拍摄，古典优雅。"
+          },
           locations: [
             { lat: 53.5503, lng: 9.9998, label: { en: "Hamburg Rathaus", zh: "漢堡市政廳 (Hamburger Rathaus)", "zh-cn": "汉堡市政厅 (Hamburger Rathaus)" } },
             { lat: 53.5498, lng: 9.9988, label: { en: "Alsterarkaden", zh: "阿爾斯特拱廊 (Alsterarkaden)", "zh-cn": "阿尔斯特拱廊 (Alsterarkaden)" } }
@@ -230,6 +272,16 @@ const ITINERARY_DATA = [
             zh: "<strong>下午茶休閒：</strong><em>Zeit für Brot 手工有機烘焙坊</em> (Große Bleichen)——全漢堡公認最頂級的現烤熱肉桂蝸牛卷 (Zimtschnecken) 配燕麥奶白咖啡，暖胃舒心。",
             "zh-cn": "<strong>下午茶休闲：</strong><em>Zeit für Brot 手工有机烘焙坊</em> (Große Bleichen)——全汉堡公认最顶级的现烤热肉桂蜗牛卷 (Zimtschnecken) 配燕麦奶白咖啡，暖胃舒心。"
           },
+          walkingInfo: {
+            en: "🚶 ~5 min walk (400m) along Jungfernstieg to Europa Passage",
+            zh: "🚶 少女大道至歐洲廣場步行約5分鐘 (400米)",
+            "zh-cn": "🚶 少女大道至欧洲广场步行约5分钟 (400米)"
+          },
+          photoTip: {
+            en: "📸 Photo Spot: Walk to Lombardsbrücke bridge for the classic postcard view: the entire Binnenalster lake reflecting the city skyline and holiday lights.",
+            zh: "📸 經典拍照機位：步至倫巴第橋 (Lombardsbrücke)，可拍下經典明信片角度：整片內阿爾斯特湖水倒映著城市天際線與聖誕節慶燈海。",
+            "zh-cn": "📸 经典拍照机位：步至伦巴第桥 (Lombardsbrücke)，可拍下经典明信片角度：整片内阿尔斯特湖水倒映着城市天际线与圣诞节庆灯海。"
+          },
           locations: [
             { lat: 53.5535, lng: 9.9945, label: { en: "Jungfernstieg", zh: "少女大道 (Jungfernstieg)", "zh-cn": "少女大道 (Jungfernstieg)" } },
             { lat: 53.5537, lng: 10.0003, label: { en: "Europa Passage", zh: "歐洲廣場 (Europa Passage)", "zh-cn": "欧洲广场 (Europa Passage)" } },
@@ -252,13 +304,23 @@ const ITINERARY_DATA = [
           desc: {
             en: "As dusk falls at 4:30 PM, the grand Rathausmarkt Christmas Market glows with thousands of golden lights framing the floodlit town hall. Sip spiced Glühwein, nibble hot roasted almonds, and admire artisan woodcarvings. For dinner, head 10 minutes by U3 to the hip Sternschanze quarter for a memorable Friday night dinner at celebrity chef Tim Mälzer's Bullerei (or Jim Block on Jungfernstieg for a relaxed gourmet burger).",
             zh: "下午4:30入黑後，整個<strong>市政廳廣場聖誕市集 (Weihnachtsmarkt auf dem Rathausmarkt)</strong>化身閃耀童話仙境，市政廳被金光照亮。手握香料熱紅酒 (Glühwein)，品嚐銅鍋現炒焦糖杏仁與德式脆薯餅。晚餐乘U3約10分鐘至熱門的<strong>桑切斯文創區 (Sternschanze)</strong>，在名廚 Tim Mälzer 的舊屠宰場紅磚餐廳 <strong>Bullerei</strong> 享用果木牛扒與特調雞尾酒，盡享週五迷人夜生活！",
-            "zh-cn": "下午4:30入黑后，整个<strong>市政厅广场圣诞市集 (Weihnachtsmarkt auf dem Rathausmarkt)</strong>化身闪耀童话仙境，市政厅被金光照亮。手握香料热红酒 (Glühwein)，品尝铜锅现炒焦糖杏仁与德式脆薯饼。晚餐乘U3约10分钟至热门的<strong>桑切斯文创区 (Sternschanze)</strong>，在名厨 Tim Mälzer 的旧屠宰场红砖餐厅 <strong>Bullerei</strong> 享用果木牛扒与特调鸡尾酒，尽享周五迷人夜生活！"
+            "zh-cn": "下午4:30入黑后，整个<strong>市政厅广场圣诞市集 (Weihnachtsmarkt auf dem Rathausmarkt)</strong>化身闪耀童话仙境，市政厅被金光照亮。手握香料热红酒 (Glühwein)，品尝铜锅现炒焦糖杏仁与德式脆薯饼。晚餐乘U3约10分钟至热门的<strong>桑切斯文创区 (Sternschanze)</strong>，在名厨 Tim Mälzer 的旧屠宰场红餐厅 <strong>Bullerei</strong> 享用果木牛扒与特调鸡尾酒，尽享周五迷人夜生活！"
           },
           meal: {
             icon: "🍷",
             en: "<strong>Friday Night Dinner:</strong> <em>Bullerei</em> (Sternschanze) — flame-grilled dry-aged steaks, seasonal roasted roots, and artisanal cocktails in an atmospheric loft setting. (Book well in advance).",
             zh: "<strong>週五精選晚餐：</strong><em>Bullerei 明星名廚時髦餐館</em> (Sternschanze)——炭火炙烤乾式熟成牛扒、烤時令冬蔬菜與迷迭香煙燻特調雞尾酒，挑高工業Loft燭光氣氛非凡（請務必提前預約）。",
             "zh-cn": "<strong>周五精选晚餐：</strong><em>Bullerei 明星名厨时髦餐馆</em> (Sternschanze)——炭火炙烤干式熟成牛扒、烤时令冬蔬菜与迷迭香烟熏特调鸡尾酒，挑高工业Loft烛光气氛非凡（请务必提前预约）。"
+          },
+          walkingInfo: {
+            en: "🚶 ~2 min walk from Rathausmarkt to U3 Rathaus station",
+            zh: "🚶 市政廳廣場步行約2分鐘至U3 Rathaus站",
+            "zh-cn": "🚶 市政厅广场步行约2分钟至U3 Rathaus站"
+          },
+          photoTip: {
+            en: "📸 Photo Spot: Position yourself at the south end facing the illuminated Rathaus with the giant Christmas tree in frame after 16:30 lights turn on.",
+            zh: "📸 經典拍照機位：下午16:30亮燈後，站在市集南端仰拍被千盞彩燈照耀的市政廳與巨型聖誕樹，節日氣氛絕頂震撼。",
+            "zh-cn": "📸 经典拍照机位：下午16:30亮灯后，站在市集南端仰拍被千盏彩灯照耀的市政厅与巨型圣诞树，节日气氛绝顶震撼。"
           },
           locations: [
             { lat: 53.5503, lng: 9.9998, label: { en: "Rathausmarkt Christmas Market", zh: "市政廳聖誕市集 (Weihnachtsmarkt Rathausmarkt)", "zh-cn": "市政厅圣诞市集 (Weihnachtsmarkt Rathausmarkt)" } },
@@ -318,6 +380,11 @@ const ITINERARY_DATA = [
             zh: "<strong>晨光早餐：</strong>在萬怡酒店 Böckmann's 餐廳享用豐富自助早餐，或步行至附近街角咖啡館品嚐熱咖啡與牛角包。",
             "zh-cn": "<strong>晨光早餐：</strong>在万怡酒店 Böckmann's 餐厅享用丰富自助早餐，或步行至附近街角咖啡馆品尝热咖啡与牛角包。"
           },
+          walkingInfo: {
+            en: "🚶 ~4 min walk (300m) to Berliner Tor station",
+            zh: "🚶 步行約4分鐘 (300米) 至柏林門站",
+            "zh-cn": "🚶 步行约4分钟 (300米) 至柏林门站"
+          },
           locations: [
             { lat: 53.5534, lng: 10.0105, label: { en: "Courtyard by Marriott Hamburg City", zh: "漢堡市萬怡酒店 (Courtyard by Marriott)", "zh-cn": "汉堡市万怡酒店 (Courtyard by Marriott)" } },
             { lat: 53.5479, lng: 10.0009, label: { en: "Chilehaus", zh: "智利大廈 (Chilehaus)", "zh-cn": "智利大厦 (Chilehaus)" } }
@@ -346,6 +413,16 @@ const ITINERARY_DATA = [
             en: "<strong>Harbour Lunch:</strong> <em>Brücke 10</em> (Pier 10) — Hamburg's best North Sea shrimp (Krabbenbrötchen) and pickled herring rolls on warm crusty baguettes with scenic waterfront seating.",
             zh: "<strong>海濱午餐：</strong><em>Brücke 10 碼頭魚堡</em> (10號碼頭)——品嚐全城馳名的北海鮮蝦脆卷 (Krabbenbrötchen) 或俾斯麥鯡魚堡，坐在水岸長凳邊吃邊欣賞海港景致。",
             "zh-cn": "<strong>海滨午餐：</strong><em>Brücke 10 码头鱼堡</em> (10号码头)——品尝全城驰名的北海鲜虾脆卷 (Krabbenbrötchen) 或俾斯麦鲱鱼堡，坐在水岸长凳边吃边欣赏海港景致。"
+          },
+          walkingInfo: {
+            en: "🚶 ~5 min stroll (350m) along floating piers to Brücke 10",
+            zh: "🚶 沿水上浮動碼頭漫步約5分鐘 (350米) 即達10號碼頭",
+            "zh-cn": "🚶 沿水上浮动码头漫步约5分钟 (350米) 即达10号码头"
+          },
+          photoTip: {
+            en: "📸 Photo Spot: Walk up to the Stintfang viewpoint (above U3 Landungsbrücken station) for the best panoramic view of the Elbe river, docks, and Elbphilharmonie.",
+            zh: "📸 經典拍照機位：登上U3碼頭站上方的斯廷特芳觀景台 (Stintfang)，居高臨下將整個易北河、港口巨輪碼頭與易北愛樂廳盡收鏡頭底！",
+            "zh-cn": "📸 经典拍照机位：登上U3码头站上方的斯廷特芳观景台 (Stintfang)，居高临下将整个易北河、港口巨轮码头与易北爱乐厅尽收镜头底！"
           },
           locations: [
             { lat: 53.5450, lng: 9.9672, label: { en: "Landungsbrücken Piers", zh: "輪船碼頭 (Landungsbrücken)", "zh-cn": "轮船码头 (Landungsbrücken)" } },
@@ -376,6 +453,11 @@ const ITINERARY_DATA = [
             en: "<strong>Pre-flight Snack:</strong> Grab a gourmet burger at <em>Jim Block</em> inside Airport Terminal 1/2 or relax in the departure lounge before boarding.",
             zh: "<strong>候機美食：</strong>登機前可於機場航站樓的 <em>Jim Block 漢堡店 (Jim Block)</em> 品嚐正宗漢堡包，或在候機廳悠然品茶候機。",
             "zh-cn": "<strong>候机美食：</strong>登机前可于机场航站楼的 <em>Jim Block 汉堡店 (Jim Block)</em> 品尝正宗汉堡包，或在候机厅悠然品茶候机。"
+          },
+          walkingInfo: {
+            en: "🚶 4 min walk from Courtyard to Berliner Tor S1 platform",
+            zh: "🚶 萬怡酒店步行4分鐘至柏林門站S1月台",
+            "zh-cn": "🚶 万怡酒店步行4分钟至柏林门站S1月台"
           },
           locations: [
             { lat: 53.5534, lng: 10.0105, label: { en: "Courtyard by Marriott Hamburg City", zh: "漢堡市萬怡酒店 (Courtyard by Marriott)", "zh-cn": "汉堡市万怡酒店 (Courtyard by Marriott)" } },

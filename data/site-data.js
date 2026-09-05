@@ -973,6 +973,247 @@ const SITE_DATA = {
         url: "https://maps.google.com/?q=Zeit+fuer+Brot+Hamburg"
       }
     ]
+  },
+
+  /* ══════════════════════════════════════════════════
+     8. WEATHER & CLIMATE SUMMARY (Late-November Hamburg)
+     ══════════════════════════════════════════════════ */
+  weather: {
+    city: "Hamburg, Germany",
+    period: {
+      en: "Late November (Trip Dates: 26–28 Nov 2026)",
+      zh: "11月下旬（旅程日期：2026年11月26–28日）",
+      "zh-cn": "11月下旬（旅程日期：2026年11月26–28日）"
+    },
+    averages: {
+      high: "6°C",
+      low: "1°C",
+      rainChance: "65%",
+      wind: "20–30 km/h (Brisk Elbe Wind)",
+      daylight: "8h 10m",
+      sunrise: "08:05 CET",
+      sunset: "16:15 CET"
+    },
+    clothingTip: {
+      en: "🧤 Hamburg late-Nov is crisp and maritime (typical 'Schmuddelwetter' drizzle possible). Pack a windproof & waterproof warm coat, fleece/wool layers, sturdy walking boots, scarf, and touch-screen gloves for photos!",
+      zh: "🧤 漢堡11月下旬氣溫清冽偏冷，受易北河海風影響（可能遇上典型的細雨Schmuddelwetter）。強烈建議備妥防風防水厚大衣、毛衣/抓絨保暖層、舒適防滑健行鞋、圍巾及拍照觸屏手套！",
+      "zh-cn": "🧤 汉堡11月下旬气温清冽偏冷，受易北河海风影响（可能遇上典型的细雨Schmuddelwetter）。强烈建议备妥防风防水厚大衣、毛衣/抓绒保暖层、舒适防滑健行鞋、围巾及拍照触屏手套！"
+    },
+    dailyForecast: [
+      {
+        date: "2026-11-26",
+        dayLabel: { en: "Thu 26 Nov", zh: "11月26日 (週四)", "zh-cn": "11月26日 (周四)" },
+        high: "6°C",
+        low: "2°C",
+        condition: { en: "Morning Drizzle, Twilight Clearing", zh: "晨間微雨，傍晚轉乾", "zh-cn": "晨间微雨，傍晚转干" },
+        icon: "🌦️",
+        wind: "22 km/h WNW",
+        sunset: "16:16",
+        tip: {
+          en: "Speicherstadt warehouse reflections look dramatic under moody cloud cover at 16:00 dusk.",
+          zh: "下午16:00黃昏倉庫城在雲層倒影下極富氛圍感，漫步紅磚橋樑拍照極佳。",
+          "zh-cn": "下午16:00黄昏仓库城在云层倒影下极富氛围感，漫步红砖桥梁拍照极佳。"
+        }
+      },
+      {
+        date: "2026-11-27",
+        dayLabel: { en: "Fri 27 Nov", zh: "11月27日 (週五)", "zh-cn": "11月27日 (周五)" },
+        high: "5°C",
+        low: "1°C",
+        condition: { en: "Crisp & Partly Cloudy", zh: "晴朗清冽，體感乾爽", "zh-cn": "晴朗清冽，体感干爽" },
+        icon: "🌤️",
+        wind: "18 km/h NW",
+        sunset: "16:15",
+        tip: {
+          en: "Clear evening — spectacular for Rathausmarkt Christmas Market fairy lights and warm Glühwein.",
+          zh: "晴朗夜空——市政廳聖誕市集暖光燈海最璀璨，喝熱紅酒暖手暖胃體驗最佳。",
+          "zh-cn": "晴朗夜空——市政厅圣诞市集暖光灯海最璀璨，喝热红酒暖手暖胃体验最佳。"
+        }
+      },
+      {
+        date: "2026-11-28",
+        dayLabel: { en: "Sat 28 Nov", zh: "11月28日 (週六)", "zh-cn": "11月28日 (周六)" },
+        high: "6°C",
+        low: "2°C",
+        condition: { en: "Brisk Maritime Breeze", zh: "易北河海風清勁，微有晴光", "zh-cn": "易北河海风清劲，微有晴光" },
+        icon: "💨",
+        wind: "25 km/h W",
+        sunset: "16:14",
+        tip: {
+          en: "Dress warmly for Landungsbrücken docks & Elbe Ferry 62 before returning to airport.",
+          zh: "搭乘62號渡輪及漫步碼頭風大，請扣緊防風外衣，暖意滿滿前往機場。",
+          "zh-cn": "搭乘62号渡轮及漫步码头风大，请扣紧防风外衣，暖意满满前往机场。"
+        }
+      }
+    ]
+  },
+
+  /* ══════════════════════════════════════════════════
+     9. TRAVEL ESSENTIALS & EMERGENCY CONTACTS
+     ══════════════════════════════════════════════════ */
+  essentials: {
+    emergencyContacts: [
+      {
+        name: { en: "European Emergency Services", zh: "歐洲通用緊急求助 (急救 / 火警)", "zh-cn": "欧洲通用紧急求助 (急救 / 火警)" },
+        number: "112",
+        displayNumber: "112",
+        desc: {
+          en: "Ambulance & Fire brigade. Toll-free, 24/7 across all EU countries. Works even on locked phones without SIM.",
+          zh: "救護車與消防通用電話。全歐盟24小時免費直撥，鎖屏無SIM卡亦可撥打。",
+          "zh-cn": "救护车与消防通用电话。全欧盟24小时免费直拨，锁屏无SIM卡亦可拨打。"
+        },
+        badge: { en: "Emergency (Ambulance / Fire)", zh: "緊急救助", "zh-cn": "紧急救助" },
+        icon: "🚨",
+        priority: "critical"
+      },
+      {
+        name: { en: "German Federal Police", zh: "德國聯邦警察 (Polizei)", "zh-cn": "德国联邦警察 (Polizei)" },
+        number: "110",
+        displayNumber: "110",
+        desc: {
+          en: "Direct line for police emergencies, theft, or urgent safety matters in Germany.",
+          zh: "德國警方緊急報案專線，遇盜竊、失竊或即時人身安全事故專用。",
+          "zh-cn": "德国警方紧急报案专线，遇盗窃、失窃或即时人身安全事故专用。"
+        },
+        badge: { en: "Police Emergency", zh: "警察報案", "zh-cn": "警察报案" },
+        icon: "👮",
+        priority: "critical"
+      },
+      {
+        name: { en: "British Airways Customer Care", zh: "英國航空客戶服務熱線", "zh-cn": "英国航空客户服务热线" },
+        number: "+443444930787",
+        displayNumber: "+44 344 493 0787",
+        desc: {
+          en: "24/7 flight assistance, rebooking, baggage issues, and Executive Club support.",
+          zh: "24小時航班協助、改簽、行李追蹤及會員服務熱線。",
+          "zh-cn": "24小时航班协助、改签、行李追踪及会员服务热线。"
+        },
+        badge: { en: "Airline Support", zh: "航司客服", "zh-cn": "航司客服" },
+        icon: "✈️",
+        priority: "important"
+      },
+      {
+        name: { en: "British Embassy Berlin (Consular)", zh: "英國駐德國大使館（領事服務處）", "zh-cn": "英国驻德国大使馆（领事服务处）" },
+        number: "+4930204570",
+        displayNumber: "+49 30 204570",
+        desc: {
+          en: "For UK nationals requiring urgent consular assistance, emergency passports, or legal support.",
+          zh: "為英國籍公民提供緊急領事保護、緊急旅行證件辦理及法律支援。",
+          "zh-cn": "为英国籍公民提供紧急领事保护、紧急旅行证件办理及法律支援。"
+        },
+        badge: { en: "UK Consular Assistance", zh: "英國領事保護", "zh-cn": "英国领事保护" },
+        icon: "🏛️",
+        priority: "important"
+      },
+      {
+        name: { en: "Courtyard by Marriott Hamburg City", zh: "漢堡市萬怡酒店前台", "zh-cn": "汉堡市万怡酒店前台" },
+        number: "+4940308060",
+        displayNumber: "+49 40 30 80 60",
+        desc: {
+          en: "Hotel front desk, 24-hour reception, early luggage drop, or room assistance.",
+          zh: "酒店24小時前台接待、提早寄放行李或房間諮詢協助。",
+          "zh-cn": "酒店24小时前台接待、提早寄放行李或房间咨询协助。"
+        },
+        badge: { en: "Hotel Front Desk", zh: "酒店前台", "zh-cn": "酒店前台" },
+        icon: "🏨",
+        priority: "normal"
+      },
+      {
+        name: { en: "Hamburg Central Lost Property Office", zh: "漢堡中央失物招領處 (Fundbüro)", "zh-cn": "汉堡中央失物招领处 (Fundbüro)" },
+        number: "+4940428653040",
+        displayNumber: "+49 40 42 86 53 040",
+        desc: {
+          en: "Hamburg central lost and found for items misplaced in U-Bahn, S-Bahn, buses, or city streets.",
+          zh: "若於地鐵、城鐵、巴士或漢堡市區遺失隨身物品，可致電中央失物處查詢登記。",
+          "zh-cn": "若于地铁、城铁、巴士或汉堡市区遗失随身物品，可致电中央失物处查询登记。"
+        },
+        badge: { en: "Transit & City Lost Property", zh: "失物招領", "zh-cn": "失物招领" },
+        icon: "🧳",
+        priority: "normal"
+      },
+      {
+        name: { en: "Non-Emergency Medical On-Call (Doctor)", zh: "德國夜間/週末非緊急值班醫生 (Ärztlicher Notdienst)", "zh-cn": "德国夜间/周末非紧急值班医生 (Ärztlicher Notdienst)" },
+        number: "116117",
+        displayNumber: "116 117",
+        desc: {
+          en: "For non-life-threatening illnesses requiring medical care outside normal clinic hours.",
+          zh: "若在夜間或週末突感身體不適但不危及生命，可撥打此熱線尋求全德值班門診安排。",
+          "zh-cn": "若在夜间或周末突感身体不适但不危及生命，可拨打此热线寻求全德值班门诊安排。"
+        },
+        badge: { en: "On-Call Doctor", zh: "值班醫生", "zh-cn": "值班医生" },
+        icon: "🩺",
+        priority: "normal"
+      },
+      {
+        name: { en: "Poison Information Centre North", zh: "德國北部毒物諮詢中心 (Giftnotruf)", "zh-cn": "德国北部毒物咨询中心 (Giftnotruf)" },
+        number: "+4955119240",
+        displayNumber: "+49 551 19 240",
+        desc: {
+          en: "24-hour toxicological emergency guidance (food poisoning, allergic reactions, medication errors).",
+          zh: "24小時中毒與急救諮詢中心（食物中毒、嚴重過敏或用藥錯誤諮詢）。",
+          "zh-cn": "24小时中毒与急救咨询中心（食物中毒、严重过敏或用药错误咨询）。"
+        },
+        badge: { en: "Tox Support", zh: "中毒諮詢", "zh-cn": "中毒咨询" },
+        icon: "🧪",
+        priority: "normal"
+      }
+    ],
+
+    phrases: [
+      {
+        category: "greetings",
+        categoryName: { en: "Greetings & Basics", zh: "問候與禮貌", "zh-cn": "问候与礼貌" },
+        icon: "👋",
+        items: [
+          { german: "Hallo / Guten Tag", phonetic: "HAH-loh / GOO-ten TAHK", en: "Hello / Good day", zh: "你好 / 日安", "zh-cn": "你好 / 日安" },
+          { german: "Moin! (Hamburg local)", phonetic: "MOYN", en: "Hi! / Morning! (Hamburg classic greeting anytime)", zh: "漢堡在地經典問候！任何時段皆適用", "zh-cn": "汉堡在地经典问候！任何时段皆适用" },
+          { german: "Tschüss!", phonetic: "CHOOSS", en: "Bye! / See you!", zh: "再見！/ 拜拜！", "zh-cn": "再见！/ 拜拜！" },
+          { german: "Danke schön / Vielen Dank", phonetic: "DAHN-kuh shurn / FEE-len DAHNK", en: "Thank you / Thank you very much", zh: "謝謝 / 非常感謝", "zh-cn": "谢谢 / 非常感谢" },
+          { german: "Bitte / Bitte schön", phonetic: "BIT-tuh / BIT-tuh shurn", en: "Please / You're welcome", zh: "請 / 不客氣", "zh-cn": "请 / 不客气" },
+          { german: "Entschuldigung", phonetic: "ent-SHOOL-dee-goong", en: "Excuse me / Sorry", zh: "不好意思 / 打擾一下", "zh-cn": "不好意思 / 打扰一下" },
+          { german: "Sprechen Sie Englisch?", phonetic: "SHPREKH-en zee ENG-lish?", en: "Do you speak English?", zh: "您會說英語嗎？", "zh-cn": "您会说英语吗？" }
+        ]
+      },
+      {
+        category: "dining",
+        categoryName: { en: "Food & Drinks", zh: "餐飲與美食", "zh-cn": "餐饮与美食" },
+        icon: "🍽️",
+        items: [
+          { german: "Die Rechnung, bitte!", phonetic: "dee REKH-noong BIT-tuh", en: "The bill, please!", zh: "請結帳買單！", "zh-cn": "请结账买单！" },
+          { german: "Kann ich mit Karte zahlen?", phonetic: "kahn ikh mit KAR-tuh TSAH-len?", en: "Can I pay by card?", zh: "可以刷卡嗎？", "zh-cn": "可以刷卡吗？" },
+          { german: "Ein Bier bitte / Zwei Bier", phonetic: "eyn BEER BIT-tuh / tsvye BEER", en: "One beer please / Two beers", zh: "請給我一杯啤酒 / 兩杯啤酒", "zh-cn": "请给我一杯啤酒 / 两杯啤酒" },
+          { german: "Ein Franzbrötchen bitte!", phonetic: "eyn FRAHNTS-brurt-khen BIT-tuh", en: "One cinnamon Franzbrötchen pastry please!", zh: "請給我一個肉桂法式捲！", "zh-cn": "请给我一个肉桂法式卷！" },
+          { german: "Ein Fischbrötchen mit Bismarckhering", phonetic: "eyn FISH-brurt-khen mit BIS-mark-hay-ring", en: "One fish bun with pickled herring please", zh: "請給我一個醃青魚麵包", "zh-cn": "请给我一个腌青鱼面包" },
+          { german: "Prost!", phonetic: "PROHST", en: "Cheers!", zh: "乾杯！", "zh-cn": "干杯！" },
+          { german: "Sehr lecker!", phonetic: "zayr LEK-er", en: "Very delicious!", zh: "非常好吃！", "zh-cn": "非常好吃！" }
+        ]
+      },
+      {
+        category: "christmas",
+        categoryName: { en: "Christmas Market", zh: "聖誕市集專用", "zh-cn": "圣诞市集专用" },
+        icon: "🎄",
+        items: [
+          { german: "Einen Glühwein, bitte!", phonetic: "EYE-nen GLOO-vyne BIT-tuh", en: "One mulled wine, please!", zh: "請來一杯熱紅酒！", "zh-cn": "请来一杯热红酒！" },
+          { german: "Mit Schuss? (Rum / Amaretto)", phonetic: "mit SHOOS", en: "With an extra shot of rum/amaretto?", zh: "要加烈酒（蘭姆酒/杏仁酒）嗎？", "zh-cn": "要加烈酒（朗姆酒/杏仁酒）吗？" },
+          { german: "Kinderpunsch (Alkoholfrei)", phonetic: "KIN-der-poonsh", en: "Non-alcoholic hot fruit punch", zh: "無酒精熱水果賓治暖飲", "zh-cn": "无酒精热水果宾治暖饮" },
+          { german: "Pfand (Deposit on the souvenir mug)", phonetic: "PFAHNT", en: "Mug deposit (~€3–€4). Keep the mug as souvenir or return it for refund!", zh: "馬克杯押金（約€3–€4）。可直接帶走作紀念品或退還領押金！", "zh-cn": "马克杯押金（约€3–€4）。可直接带走作纪念品或退还领押金！" },
+          { german: "Gebrannte Mandeln bitte", phonetic: "guh-BRAHN-tuh MAHN-deln BIT-tuh", en: "Roasted candied almonds, please", zh: "請來一份現炒焦糖脆杏仁", "zh-cn": "请来一份现炒焦糖脆杏仁" },
+          { german: "Eine Bratwurst im Brötchen", phonetic: "EYE-nuh BRAHT-voorst im BRURT-khen", en: "One grilled sausage in a crusty bread roll", zh: "一份德式脆皮烤香腸夾麵包", "zh-cn": "一份德式脆皮烤香肠夹面包" }
+        ]
+      },
+      {
+        category: "navigation",
+        categoryName: { en: "Getting Around", zh: "交通問路", "zh-cn": "交通问路" },
+        icon: "🧭",
+        items: [
+          { german: "Wo ist die U-Bahn / S-Bahn?", phonetic: "voh ist dee OO-bahn / ESS-bahn?", en: "Where is the subway / urban train station?", zh: "請問地鐵 / 城鐵站在哪裡？", "zh-cn": "请问地铁 / 城铁站在哪里？" },
+          { german: "Fährt dieser Zug zum Flughafen?", phonetic: "fayt DEE-zer tsook tsoom FLOOK-hah-fen?", en: "Does this train go to Hamburg Airport?", zh: "這班車是開往漢堡機場的嗎？", "zh-cn": "这班车是开往汉堡机场的吗？" },
+          { german: "Links / Rechts / Geradeaus", phonetic: "LINKS / REKHTS / geh-RAH-duh-ows", en: "Left / Right / Straight ahead", zh: "左轉 / 右轉 / 直行", "zh-cn": "左转 / 右转 / 直行" },
+          { german: "Der Hauptbahnhof", phonetic: "dayr HOWPT-bahn-hohf", en: "The Central Station (Hamburg Hbf)", zh: "漢堡中央車站", "zh-cn": "汉堡中央车站" },
+          { german: "Ein Ticket nach Berliner Tor", phonetic: "eyn TIK-et nahkh ber-LEEN-er tor", en: "One ticket to Berliner Tor station", zh: "一張到柏林門站的車票", "zh-cn": "一张到柏林门站的车票" }
+        ]
+      }
+    ]
   }
 };
 
@@ -980,3 +1221,4 @@ const SITE_DATA = {
 if (typeof window !== 'undefined') {
   window.SITE_DATA = SITE_DATA;
 }
+

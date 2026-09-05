@@ -198,6 +198,7 @@ const TRIP_CONFIG = {
     showItinerary: true,
     showFood: true,
     showPacking: true,
+    showEssentials: true,
     showBudget: true,
     showHotels: true,
     showTransit: true

@@ -172,6 +172,70 @@ function renderHero() {
       return '<div class="badge"><span>' + (b.icon || '📍') + '</span>' + renderBilingualText(b.text) + '</div>';
     }).join('');
   }
+
+  // Hero Countdown Timer
+  var countdownEl = document.getElementById('hero-countdown');
+  if (countdownEl) {
+    function updateCountdown() {
+      // Outbound departure: Nov 26, 2026 at 07:30 GMT (BA960)
+      var targetDate = new Date('2026-11-26T07:30:00Z');
+      var returnDate = new Date('2026-11-28T17:25:00Z');
+      var now = new Date();
+      var diff = targetDate - now;
+
+      if (diff > 0) {
+        var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        var secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        countdownEl.innerHTML =
+          '<div class="countdown-card">' +
+            '<div class="countdown-header">' +
+              '<span class="countdown-icon">⏳</span> ' +
+              renderBilingualText({
+                en: 'Countdown to Hamburg Departure (BA960)',
+                zh: '漢堡啟程倒數計時（英航 BA960）',
+                'zh-cn': '汉堡启程倒数计时（英航 BA960）'
+              }) +
+            '</div>' +
+            '<div class="countdown-grid">' +
+              '<div class="countdown-item"><span class="countdown-num">' + days + '</span><span class="countdown-unit">' + renderBilingualText({ en: 'Days', zh: '天', 'zh-cn': '天' }) + '</span></div>' +
+              '<div class="countdown-sep">:</div>' +
+              '<div class="countdown-item"><span class="countdown-num">' + String(hours).padStart(2, '0') + '</span><span class="countdown-unit">' + renderBilingualText({ en: 'Hours', zh: '時', 'zh-cn': '时' }) + '</span></div>' +
+              '<div class="countdown-sep">:</div>' +
+              '<div class="countdown-item"><span class="countdown-num">' + String(mins).padStart(2, '0') + '</span><span class="countdown-unit">' + renderBilingualText({ en: 'Mins', zh: '分', 'zh-cn': '分' }) + '</span></div>' +
+              '<div class="countdown-sep">:</div>' +
+              '<div class="countdown-item"><span class="countdown-num">' + String(secs).padStart(2, '0') + '</span><span class="countdown-unit">' + renderBilingualText({ en: 'Secs', zh: '秒', 'zh-cn': '秒' }) + '</span></div>' +
+            '</div>' +
+          '</div>';
+      } else if (now < returnDate) {
+        countdownEl.innerHTML =
+          '<div class="countdown-card active-trip">' +
+            '<span class="countdown-icon">🎄</span> ' +
+            renderBilingualText({
+              en: 'You are in Hamburg! Enjoy the festive magic & harbour lights!',
+              zh: '您正置身於漢堡！盡情享受冬日聖誕市集與港口浪漫！',
+              'zh-cn': '您正置身于汉堡！尽情享受冬日圣诞市集与港口浪漫！'
+            }) +
+          '</div>';
+      } else {
+        countdownEl.innerHTML =
+          '<div class="countdown-card completed-trip">' +
+            '<span class="countdown-icon">✨</span> ' +
+            renderBilingualText({
+              en: 'Trip Completed · Unforgettable Hamburg Winter Memories',
+              zh: '旅程圓滿結束 · 難忘的漢堡冬日回憶',
+              'zh-cn': '旅程圆满结束 · 难忘的汉堡冬日回忆'
+            }) +
+          '</div>';
+      }
+    }
+
+    updateCountdown();
+    if (window._heroCountdownInterval) clearInterval(window._heroCountdownInterval);
+    window._heroCountdownInterval = setInterval(updateCountdown, 1000);
+  }
 }
 
 
@@ -426,6 +490,24 @@ function renderItinerary() {
   var container = document.getElementById('itinerary-timeline-container') || document.getElementById('itinerary-list');
   if (!container) return;
 
+  // Render Itinerary Action Toolbar (Calendar .ics, Expand/Collapse All, Print)
+  var toolbarMount = document.getElementById('itinerary-toolbar-container');
+  if (toolbarMount) {
+    toolbarMount.innerHTML =
+      '<div class="itinerary-toolbar">' +
+        '<button type="button" class="itinerary-tool-btn btn-calendar" onclick="downloadItineraryICS()">' +
+          '<span>📅</span> ' + renderBilingualText({ en: 'Add to Calendar (.ics)', zh: '導出日曆 (.ics)', 'zh-cn': '导出日历 (.ics)' }) +
+        '</button>' +
+        '<button type="button" class="itinerary-tool-btn" id="itinerary-toggle-all-btn" onclick="toggleAllAccordions()">' +
+          '<span id="itinerary-toggle-all-icon">📂</span> ' +
+          '<span id="itinerary-toggle-all-label">' + renderBilingualText({ en: 'Expand All', zh: '全部展開', 'zh-cn': '全部展开' }) + '</span>' +
+        '</button>' +
+        '<button type="button" class="itinerary-tool-btn" onclick="window.print()">' +
+          '<span>🖨️</span> ' + renderBilingualText({ en: 'Print / Save PDF', zh: '列印 / 保存PDF', 'zh-cn': '打印 / 保存PDF' }) +
+        '</button>' +
+      '</div>';
+  }
+
   container.innerHTML = itinerary.map(function(day, index) {
     var isFirst = index === 0;
     var tagsHtml = (day.tags || []).map(function(tag) {
@@ -437,25 +519,58 @@ function renderItinerary() {
     }).join('');
 
     var blocksHtml = (day.blocks || []).map(function(block) {
-      var metaPills = '';
-      if (block.location || block.transport) {
-        var locationPill = block.location
-          ? '<span class="badge" style="font-size: 0.78rem; padding: 3px 8px;">📍 ' + renderBilingualText(block.location.name || block.location) + '</span>'
-          : '';
-        var transportPill = block.transport
-          ? '<span class="badge" style="font-size: 0.78rem; padding: 3px 8px;">' + (block.transport.icon || '🚆') + ' ' + renderBilingualText(block.transport.text || block.transport) + '</span>'
-          : '';
-        metaPills = '<div class="activity-meta-pills" style="display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap;">' + locationPill + transportPill + '</div>';
+      var locationPills = '';
+      if (block.activity && block.activity.locations && block.activity.locations.length > 0) {
+        locationPills = block.activity.locations.map(function(loc) {
+          var mapUrl = 'https://maps.google.com/?q=' + loc.lat + ',' + loc.lng;
+          return '<a href="' + mapUrl + '" target="_blank" rel="noopener noreferrer" class="badge location-badge" title="Open in Google Maps">' +
+                   '📍 ' + renderBilingualText(loc.label) + ' <span class="ext-icon">↗</span>' +
+                 '</a>';
+        }).join('');
+      } else if (block.location) {
+        locationPills = '<span class="badge" style="font-size: 0.78rem; padding: 3px 8px;">📍 ' + renderBilingualText(block.location.name || block.location) + '</span>';
       }
-      var mealHtml = block.activity.meal
+
+      var walkingPill = (block.activity && block.activity.walkingInfo)
+        ? '<span class="badge walking-badge">' + renderBilingualText(block.activity.walkingInfo) + '</span>'
+        : '';
+
+      var transportPill = block.transport
+        ? '<span class="badge transport-badge" style="font-size: 0.78rem; padding: 3px 8px;">' + (block.transport.icon || '🚆') + ' ' + renderBilingualText(block.transport.text || block.transport) + '</span>'
+        : '';
+
+      var metaPills = '';
+      if (locationPills || walkingPill || transportPill) {
+        metaPills = '<div class="activity-meta-pills" style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">' +
+                      locationPills + walkingPill + transportPill +
+                    '</div>';
+      }
+
+      var photoTipHtml = (block.activity && block.activity.photoTip)
+        ? '<div class="photo-tip-box">' +
+            '<span class="photo-tip-icon">📸</span>' +
+            '<div class="photo-tip-text">' + renderBilingualText(block.activity.photoTip) + '</div>' +
+          '</div>'
+        : '';
+
+      var bookingHtml = (block.activity && block.activity.bookingUrl)
+        ? '<div class="activity-booking-wrap">' +
+            '<a href="' + block.activity.bookingUrl + '" target="_blank" rel="noopener noreferrer" class="activity-booking-btn">' +
+              '🎟️ ' + renderBilingualText({ en: 'Book Timed Tickets Online', zh: '官方時段門票預約', 'zh-cn': '官方时段门票预约' }) + ' ↗' +
+            '</a>' +
+          '</div>'
+        : '';
+
+      var mealHtml = (block.activity && block.activity.meal)
         ? '<div class="activity-meal"><span>' + (block.activity.meal.icon || '🍽️') + '</span><div>' + renderBilingualText(block.activity.meal) + '</div></div>'
         : '';
+
       return '<div class="time-slot">' +
                '<div class="time-label-wrap"><span class="time-slot-label">' + renderBilingualText(block.time) + '</span></div>' +
                '<div class="time-slot-content">' +
                  '<h4 class="activity-title">' + renderBilingualText(block.activity.title) + '</h4>' +
                  '<p class="activity-desc">' + renderBilingualText(block.activity.desc) + '</p>' +
-                 metaPills + mealHtml +
+                 metaPills + photoTipHtml + bookingHtml + mealHtml +
                '</div>' +
              '</div>';
     }).join('');
@@ -515,10 +630,16 @@ function renderPacking() {
 
   var savedChecks = JSON.parse(localStorage.getItem('trip-packing-state') || '{}');
 
-  container.innerHTML = packingList.map(function(cat) {
+  var totalItems = 0;
+  var checkedItems = 0;
+
+  var cardsHtml = packingList.map(function(cat) {
     var itemsHtml = (cat.items || []).map(function(item, idx) {
+      totalItems++;
       var itemId    = item.id || ('pack-' + (cat.icon || 'item') + '-' + idx);
       var isChecked = !!savedChecks[itemId];
+      if (isChecked) checkedItems++;
+
       return '<label class="packing-item' + (isChecked ? ' checked' : '') + '" data-item-id="' + itemId + '">' +
                '<input type="checkbox"' + (isChecked ? ' checked' : '') + ' onchange="togglePackingItem(\'' + itemId + '\', this)">' +
                '<span class="packing-item-text">' + renderBilingualText(item) + '</span>' +
@@ -532,14 +653,35 @@ function renderPacking() {
              '<div class="packing-items-list">' + itemsHtml + '</div>' +
            '</div>';
   }).join('');
+
+  container.innerHTML = cardsHtml;
+
+  // Render Live Packing Progress Bar
+  var progressMount = document.getElementById('packing-progress-mount');
+  if (progressMount && totalItems > 0) {
+    var pct = Math.round((checkedItems / totalItems) * 100);
+    progressMount.innerHTML =
+      '<div class="packing-progress-header">' +
+        '<div class="packing-progress-title">' +
+          '<span>🎒</span> ' +
+          renderBilingualText({ en: 'Packing Progress', zh: '行前準備進度', 'zh-cn': '行前准备进度' }) +
+        '</div>' +
+        '<span class="packing-progress-pct" id="packing-pct">' + pct + '%</span>' +
+      '</div>' +
+      '<div class="packing-progress-track">' +
+        '<div class="packing-progress-fill" id="packing-fill" style="width: ' + pct + '%;"></div>' +
+      '</div>' +
+      '<div class="packing-progress-footer">' +
+        '<span id="packing-count-text">' + checkedItems + ' / ' + totalItems + ' ' + renderBilingualText({ en: 'items packed', zh: '項已收拾', 'zh-cn': '项已收拾' }) + '</span>' +
+        '<button type="button" class="packing-reset-btn" onclick="resetPackingChecklist()">' +
+          renderBilingualText({ en: 'Reset checklist', zh: '重設所有勾選', 'zh-cn': '重置所有勾选' }) +
+        '</button>' +
+      '</div>';
+  }
 }
 
 /**
- * Toggles a packing item's checked state and persists it to localStorage.
- * Called inline via onchange from rendered checkbox labels.
- *
- * @param {string} itemId - Unique identifier for the packing item.
- * @param {HTMLInputElement} checkbox - The checkbox element.
+ * Toggles a packing item's checked state, persists it, and updates progress bar.
  */
 function togglePackingItem(itemId, checkbox) {
   var savedChecks = JSON.parse(localStorage.getItem('trip-packing-state') || '{}');
@@ -547,7 +689,40 @@ function togglePackingItem(itemId, checkbox) {
   localStorage.setItem('trip-packing-state', JSON.stringify(savedChecks));
   var parent = checkbox.closest('.packing-item');
   if (parent) parent.classList.toggle('checked', checkbox.checked);
+
+  // Recalculate packing progress
+  var allBoxes = document.querySelectorAll('.packing-item input[type="checkbox"]');
+  if (allBoxes.length > 0) {
+    var total = allBoxes.length;
+    var checked = 0;
+    allBoxes.forEach(function(b) { if (b.checked) checked++; });
+    var pct = Math.round((checked / total) * 100);
+
+    var pctEl = document.getElementById('packing-pct');
+    var fillEl = document.getElementById('packing-fill');
+    var countEl = document.getElementById('packing-count-text');
+
+    if (pctEl) pctEl.innerText = pct + '%';
+    if (fillEl) fillEl.style.width = pct + '%';
+    if (countEl) {
+      countEl.innerHTML = checked + ' / ' + total + ' ' + renderBilingualText({ en: 'items packed', zh: '項已收拾', 'zh-cn': '项已收拾' });
+    }
+  }
 }
+
+function resetPackingChecklist() {
+  var msg = {
+    en: 'Are you sure you want to reset all checked packing items?',
+    zh: '確認要重設並清空所有已勾選的行李項目嗎？',
+    'zh-cn': '确认要重置并清空所有已勾选的行李项目吗？'
+  };
+  if (confirm(t(msg))) {
+    localStorage.removeItem('trip-packing-state');
+    renderPacking();
+    showToast({ en: '✓ Packing checklist reset', zh: '✓ 已重設行前準備清單', 'zh-cn': '✓ 已重设行前准备清单' });
+  }
+}
+window.resetPackingChecklist = resetPackingChecklist;
 
 
 /* =======================================================
@@ -568,6 +743,61 @@ function renderBudget() {
   var data = window.SITE_DATA;
   if (!data || !data.budget) return;
 
+  // 1. Render Executive Budget Stat Cards & Breakdown Bar
+  var summaryMount = document.getElementById('budget-summary-mount');
+  if (summaryMount) {
+    summaryMount.innerHTML =
+      '<div class="budget-stats-grid">' +
+        '<div class="budget-stat-card highlight">' +
+          '<div class="budget-stat-top">' +
+            '<span class="budget-stat-label">' + renderBilingualText({ en: 'Total Estimated Budget', zh: '行程總估算預算', 'zh-cn': '行程总估算预算' }) + '</span>' +
+            '<span class="budget-stat-icon">💰</span>' +
+          '</div>' +
+          '<div class="budget-stat-val converted-val" data-min="899" data-max="999">—</div>' +
+          '<div class="budget-stat-sub">' + renderBilingualText({ en: 'Base: €899 – €999 · 2 Adults', zh: '基數：€899 – €999 · 2位成人', 'zh-cn': '基数：€899 – €999 · 2位成人' }) + '</div>' +
+        '</div>' +
+
+        '<div class="budget-stat-card">' +
+          '<div class="budget-stat-top">' +
+            '<span class="budget-stat-label">' + renderBilingualText({ en: 'Prepaid & Confirmed', zh: '出發前已付清款項', 'zh-cn': '出发前已付清款项' }) + '</span>' +
+            '<span class="budget-stat-icon">💳</span>' +
+          '</div>' +
+          '<div class="budget-stat-val converted-val" data-min="529" data-max="529">—</div>' +
+          '<div class="budget-stat-sub">' + renderBilingualText({ en: 'BA Flights (£212.70) + Marriott 2N (€279)', zh: '英航來回(£212.70) + 萬怡2晚(€279)', 'zh-cn': '英航往返(£212.70) + 万怡2晚(€279)' }) + '</div>' +
+        '</div>' +
+
+        '<div class="budget-stat-card">' +
+          '<div class="budget-stat-top">' +
+            '<span class="budget-stat-label">' + renderBilingualText({ en: 'On-Site Spending Est.', zh: '當地現場開支預算', 'zh-cn': '当地现场开支预算' }) + '</span>' +
+            '<span class="budget-stat-icon">💶</span>' +
+          '</div>' +
+          '<div class="budget-stat-val converted-val" data-min="370" data-max="470">—</div>' +
+          '<div class="budget-stat-sub">' + renderBilingualText({ en: 'Dining, Hamburg Cards, Markets & Souvenirs', zh: '餐飲美食、漢堡卡、市集與紀念品', 'zh-cn': '餐饮美食、汉堡卡、市集与纪念品' }) + '</div>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="budget-breakdown-card">' +
+        '<div class="budget-breakdown-header">' +
+          '<div class="budget-breakdown-title">📊 ' + renderBilingualText({ en: 'Trip Expenditure Allocation', zh: '各項支出比例分佈', 'zh-cn': '各项支出比例分布' }) + '</div>' +
+        '</div>' +
+        '<div class="budget-dist-bar">' +
+          '<div class="dist-seg seg-hotel" style="width: 31%;" title="Hotel 31%"></div>' +
+          '<div class="dist-seg seg-flights" style="width: 28%;" title="Flights 28%"></div>' +
+          '<div class="dist-seg seg-food" style="width: 22%;" title="Food & Markets 22%"></div>' +
+          '<div class="dist-seg seg-transit" style="width: 10%;" title="Transit 10%"></div>' +
+          '<div class="dist-seg seg-sight" style="width: 9%;" title="Sightseeing 9%"></div>' +
+        '</div>' +
+        '<div class="budget-dist-legend">' +
+          '<span class="dist-legend-item"><span class="dist-dot" style="background:#0D9488;"></span> ' + renderBilingualText({ en: 'Hotel (31%)', zh: '住宿 (31%)', 'zh-cn': '住宿 (31%)' }) + '</span>' +
+          '<span class="dist-legend-item"><span class="dist-dot" style="background:#8B5CF6;"></span> ' + renderBilingualText({ en: 'Flights (28%)', zh: '機票 (28%)', 'zh-cn': '机票 (28%)' }) + '</span>' +
+          '<span class="dist-legend-item"><span class="dist-dot" style="background:#F59E0B;"></span> ' + renderBilingualText({ en: 'Food (22%)', zh: '餐飲 (22%)', 'zh-cn': '餐饮 (22%)' }) + '</span>' +
+          '<span class="dist-legend-item"><span class="dist-dot" style="background:#0284C7;"></span> ' + renderBilingualText({ en: 'Transit (10%)', zh: '交通 (10%)', 'zh-cn': '交通 (10%)' }) + '</span>' +
+          '<span class="dist-legend-item"><span class="dist-dot" style="background:#EC4899;"></span> ' + renderBilingualText({ en: 'Sightseeing (9%)', zh: '門票 (9%)', 'zh-cn': '门票 (9%)' }) + '</span>' +
+        '</div>' +
+      '</div>';
+  }
+
+  // 2. Render Budget Table
   var tbody = document.getElementById('budget-tbody');
   if (tbody && Array.isArray(data.budget.items)) {
     tbody.innerHTML = data.budget.items.map(function(item) {
@@ -646,7 +876,22 @@ function renderHotels() {
       var tagsHtml = (leg.tags || []).map(function(tag) { return '<span class="tag tag-city">' + tag + '</span>'; }).join('');
       var badgeClass = leg.isConfirmed ? 'hotel-leg-badge confirmed' : 'hotel-leg-badge';
       var badgePrefix = leg.isConfirmed ? '✓ ' : '';
-      var addressHtml = leg.address ? '<div class="hotel-address-tag">📍 ' + leg.address + '</div>' : '';
+      var checkinTime = leg.checkinTime || '15:00';
+      var checkoutTime = leg.checkoutTime || '12:00';
+      var timesBadgesHtml =
+        '<div class="hotel-times-strip">' +
+          '<span class="hotel-time-chip checkin">🔑 ' + renderBilingualText({ en: 'Check-in: ' + checkinTime, zh: '入住時間：' + checkinTime, 'zh-cn': '入住时间：' + checkinTime }) + '</span>' +
+          '<span class="hotel-time-chip checkout">🔓 ' + renderBilingualText({ en: 'Check-out: ' + checkoutTime, zh: '退房時間：' + checkoutTime, 'zh-cn': '退房时间：' + checkoutTime }) + '</span>' +
+        '</div>';
+
+      var gmapUrl = 'https://maps.google.com/?q=' + encodeURIComponent(leg.address || leg.dest || '');
+      var addressHtml = leg.address
+        ? '<div class="hotel-address-tag">' +
+            '<span>📍 ' + leg.address + '</span>' +
+            '<button class="copy-addr-btn" type="button" data-copy="' + encodeURIComponent(leg.address || '') + '" onclick="copyToClipboard(decodeURIComponent(this.getAttribute(\'data-copy\')))" title="Copy Address">📋</button>' +
+            '<a href="' + gmapUrl + '" target="_blank" rel="noopener noreferrer" class="hotel-map-link">🗺️ Google Maps ↗</a>' +
+          '</div>'
+        : '';
 
       var linkUrl = leg.url || ('https://www.booking.com/searchresults.html?ss=' + encodeURIComponent(leg.dest || '') + '&checkin=' + (leg.checkin || '') + '&checkout=' + (leg.checkout || '') + '&group_adults=' + partySize);
       var isOfficialMarriott = !!leg.url;
@@ -666,6 +911,7 @@ function renderHotels() {
                    '<span class="hotel-leg-dates">' + (leg.dates || '') + '</span>' +
                  '</div>' +
                  '<h4 class="hotel-leg-title">' + renderBilingualText(leg.title) + '</h4>' +
+                 timesBadgesHtml +
                  addressHtml +
                  '<p class="hotel-leg-desc">' + renderBilingualText(leg.desc || leg.description) + '</p>' +
                  '<div class="day-tags" style="margin-bottom: 16px;">' + tagsHtml + '</div>' +
@@ -727,7 +973,9 @@ function renderFlights() {
                    '<span class="flight-duration-badge">⏱️ ' + leg.duration + '</span>' +
                    '<div class="flight-plane-track">' +
                      '<div class="flight-track-line"></div>' +
-                     '<span class="flight-plane-icon">✈️</span>' +
+                     '<span class="flight-plane-icon ba-route-icon" title="British Airways">' +
+                       '<img src="assets/ba-logo.svg" alt="British Airways" class="ba-speedmarque-route">' +
+                     '</span>' +
                      '<div class="flight-track-line"></div>' +
                    '</div>' +
                    '<span style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">' + (leg.aircraft || '') + '</span>' +
@@ -750,9 +998,10 @@ function renderFlights() {
              '</div>' +
              '<div class="flight-actions-row">' +
                '<a class="flight-status-btn" href="' + (leg.statusUrl || 'https://www.britishairways.com/travel/flightstatus/public/en_gb/searchFlights') + '" target="_blank" rel="noopener noreferrer">' +
-                 '<span class="lang-primary lang-en">✈️ BA Live Flight Status ➔</span>' +
-                 '<span class="lang-secondary lang-zh">✈️ 英航即時航班動態 ➔</span>' +
-                 '<span class="lang-tertiary lang-zh-cn">✈️ 英航实时航班动态 ➔</span>' +
+                 '<img src="assets/ba-logo.svg" alt="British Airways" class="ba-speedmarque-btn">' +
+                 '<span class="lang-primary lang-en">BA Live Flight Status ➔</span>' +
+                 '<span class="lang-secondary lang-zh">英航即時航班動態 ➔</span>' +
+                 '<span class="lang-tertiary lang-zh-cn">英航实时航班动态 ➔</span>' +
                '</a>' +
              '</div>' +
            '</div>';
@@ -911,12 +1160,20 @@ function renderFood() {
                '</div>' +
              '</div>' +
              '<div class="food-card-footer">' +
-               '<span class="food-address" title="' + (spot.address || '') + '">📌 ' + (spot.address || '') + '</span>' +
-               '<button class="food-action-btn" type="button" onclick="event.stopPropagation(); if (typeof focusFoodSpot === \'function\') focusFoodSpot(\'' + spot.id + '\');">' +
-                 mapActionText +
-               '</button>' +
-             '</div>' +
-           '</div>';
+                '<div class="food-address-bar">' +
+                  '<span class="food-address" title="' + (spot.address || '') + '">📌 ' + (spot.address || '') + '</span>' +
+                  '<button class="copy-addr-btn" type="button" data-copy="' + encodeURIComponent(spot.address || '') + '" onclick="event.stopPropagation(); copyToClipboard(decodeURIComponent(this.getAttribute(\'data-copy\')));" title="Copy Address">📋</button>' +
+                '</div>' +
+                '<div class="food-card-btn-group">' +
+                  '<button class="food-action-btn" type="button" onclick="event.stopPropagation(); if (typeof focusFoodSpot === \'function\') focusFoodSpot(\'' + spot.id + '\');">' +
+                    mapActionText +
+                  '</button>' +
+                  '<a class="food-maps-btn" href="' + (spot.url || ('https://maps.google.com/?q=' + spot.lat + ',' + spot.lng)) + '" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">' +
+                    '🗺️ Maps ↗' +
+                  '</a>' +
+                '</div>' +
+              '</div>' +
+            '</div>';
   }).join('');
 
   // Bind Filter Pills click handlers
@@ -944,6 +1201,226 @@ function renderFood() {
 }
 
 
+
+/* =======================================================
+   8.6. UTILITIES: CLIPBOARD COPY & TOAST NOTIFICATION
+   ======================================================= */
+
+function copyToClipboard(text) {
+  if (!text) return;
+  var successMsg = {
+    en: '✓ Copied to clipboard: ' + text,
+    zh: '✓ 已複製至剪貼簿：' + text,
+    'zh-cn': '✓ 已复制至剪贴板：' + text
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() {
+      showToast(successMsg);
+    }).catch(function() {
+      fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+}
+window.copyToClipboard = copyToClipboard;
+
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  var successMsg = {
+    en: '✓ Copied to clipboard: ' + text,
+    zh: '✓ 已複製至剪貼簿：' + text,
+    'zh-cn': '✓ 已复制至剪贴板：' + text
+  };
+  try {
+    document.execCommand('copy');
+    showToast(successMsg);
+  } catch(e) {
+    prompt('Copy address:', text);
+  }
+  document.body.removeChild(ta);
+}
+
+function showToast(msg) {
+  var existing = document.getElementById('trip-toast');
+  if (existing) existing.remove();
+
+  var text = (typeof msg === 'object') ? t(msg) : msg;
+  var toast = document.createElement('div');
+  toast.id = 'trip-toast';
+  toast.className = 'trip-toast';
+  toast.innerText = text;
+  document.body.appendChild(toast);
+
+  setTimeout(function() {
+    toast.classList.add('show');
+  }, 10);
+
+  setTimeout(function() {
+    toast.classList.remove('show');
+    setTimeout(function() { toast.remove(); }, 300);
+  }, 2600);
+}
+window.showToast = showToast;
+
+
+/* =======================================================
+   8.7. RENDER WEATHER WIDGET (Late-November Hamburg)
+   ======================================================= */
+
+function renderWeather() {
+  var data = window.SITE_DATA;
+  if (!data || !data.weather) return;
+
+  var container = document.getElementById('weather-widget');
+  if (!container) return;
+
+  var w = data.weather;
+  var avg = w.averages || {};
+  var forecast = w.dailyForecast || [];
+
+  var forecastHtml = forecast.map(function(f) {
+    return '<div class="weather-day-card">' +
+             '<div class="weather-day-header">' +
+               '<span class="weather-day-name">' + renderBilingualText(f.dayLabel) + '</span>' +
+               '<span class="weather-day-icon">' + f.icon + '</span>' +
+             '</div>' +
+             '<div class="weather-temp-range">' +
+               '<span class="temp-high">' + f.high + '</span>' +
+               '<span class="temp-divider">/</span>' +
+               '<span class="temp-low">' + f.low + '</span>' +
+             '</div>' +
+             '<div class="weather-condition">' + renderBilingualText(f.condition) + '</div>' +
+             '<div class="weather-meta-row">' +
+               '<span>💨 ' + f.wind + '</span>' +
+               '<span>🌅 ' + f.sunset + '</span>' +
+             '</div>' +
+             '<div class="weather-day-tip">' + renderBilingualText(f.tip) + '</div>' +
+           '</div>';
+  }).join('');
+
+  container.innerHTML =
+    '<div class="weather-widget-card reveal">' +
+      '<div class="weather-widget-header">' +
+        '<div class="weather-title-wrap">' +
+          '<h3 class="weather-title">🌦️ ' + renderBilingualText({
+            en: 'Hamburg Late-November Climate &amp; Weather Outlook',
+            zh: '漢堡11月下旬氣候特徵與行程天氣預測',
+            'zh-cn': '汉堡11月下旬气候特征与行程天气预测'
+          }) + '</h3>' +
+          '<span class="weather-period-tag">' + renderBilingualText(w.period) + '</span>' +
+        '</div>' +
+        '<div class="weather-stats-strip">' +
+          '<div class="weather-stat-chip"><strong>' + avg.high + ' / ' + avg.low + '</strong><span>' + renderBilingualText({ en: 'Avg High/Low', zh: '平均氣溫', 'zh-cn': '平均气温' }) + '</span></div>' +
+          '<div class="weather-stat-chip"><strong>' + avg.rainChance + '</strong><span>' + renderBilingualText({ en: 'Rain/Snow Prob.', zh: '降水機率', 'zh-cn': '降水概率' }) + '</span></div>' +
+          '<div class="weather-stat-chip"><strong>' + avg.daylight + '</strong><span>' + renderBilingualText({ en: 'Daylight (Sunset ' + avg.sunset + ')', zh: '日照時數（日落 ' + avg.sunset + '）', 'zh-cn': '日照时数（日落 ' + avg.sunset + '）' }) + '</span></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="weather-days-grid">' + forecastHtml + '</div>' +
+      '<div class="weather-clothing-tip">' +
+        renderBilingualText(w.clothingTip) +
+      '</div>' +
+    '</div>';
+}
+
+
+/* =======================================================
+   8.8. RENDER TRAVEL ESSENTIALS & GERMAN PHRASES
+   ======================================================= */
+
+function renderEssentials() {
+  var data = window.SITE_DATA;
+  if (!data || !data.essentials) return;
+
+  var container = document.getElementById('essentials-container');
+  if (!container) return;
+
+  var contacts = data.essentials.emergencyContacts || [];
+  var phraseCats = data.essentials.phrases || [];
+
+  // 1. Emergency Contacts Cards
+  var contactsHtml = contacts.map(function(c) {
+    var isCrit = c.priority === 'critical';
+    var badgeClass = isCrit ? 'contact-badge critical' : (c.priority === 'important' ? 'contact-badge important' : 'contact-badge');
+    var telLink = c.number ? '<a href="tel:' + c.number + '" class="contact-tel-btn">📞 ' + c.displayNumber + '</a>' : '';
+
+    return '<div class="contact-card ' + (isCrit ? 'critical-border' : '') + '">' +
+             '<div class="contact-card-top">' +
+               '<div class="contact-card-title-row">' +
+                 '<span class="contact-icon">' + c.icon + '</span>' +
+                 '<h4 class="contact-name">' + renderBilingualText(c.name) + '</h4>' +
+               '</div>' +
+               '<span class="' + badgeClass + '">' + renderBilingualText(c.badge) + '</span>' +
+             '</div>' +
+             '<p class="contact-desc">' + renderBilingualText(c.desc) + '</p>' +
+             '<div class="contact-action-row">' + telLink + '</div>' +
+           '</div>';
+  }).join('');
+
+  // 2. Phrase Category Tabs and Panels
+  var phraseTabsHtml = phraseCats.map(function(cat, idx) {
+    return '<button class="phrase-tab-btn' + (idx === 0 ? ' active' : '') + '" data-phrase-cat="' + cat.category + '">' +
+             '<span>' + cat.icon + '</span> ' + renderBilingualText(cat.categoryName) +
+           '</button>';
+  }).join('');
+
+  var phrasePanelsHtml = phraseCats.map(function(cat, idx) {
+    var itemsHtml = cat.items.map(function(item) {
+      return '<div class="phrase-item">' +
+               '<div class="phrase-german-row">' +
+                 '<span class="phrase-german">' + item.german + '</span>' +
+                 '<button type="button" class="phrase-speech-btn" title="Listen to German pronunciation" data-phrase="' + encodeURIComponent(item.german) + '" onclick="playGermanPhrase(decodeURIComponent(this.getAttribute(\'data-phrase\')), this)">🔊</button>' +
+                 '<span class="phrase-phonetic">🗣️ [' + item.phonetic + ']</span>' +
+               '</div>' +
+               '<div class="phrase-trans-row">' +
+                 '<span class="phrase-en">' + item.en + '</span>' +
+                 '<span class="phrase-zh">' + renderBilingualText(item) + '</span>' +
+               '</div>' +
+             '</div>';
+    }).join('');
+
+    return '<div class="phrase-cat-panel' + (idx === 0 ? ' active' : '') + '" id="phrase-cat-' + cat.category + '">' +
+             '<div class="phrases-grid">' + itemsHtml + '</div>' +
+           '</div>';
+  }).join('');
+
+  container.innerHTML =
+    '<div class="essentials-wrapper reveal">' +
+      '<div class="essentials-block contacts-block">' +
+        '<div class="essentials-block-header">' +
+          '<h3>🚨 ' + renderBilingualText({ en: 'Emergency Hotlines & Consular Support', zh: '緊急救助電話與領事保護專線', 'zh-cn': '紧急救助电话与领事保护专线' }) + '</h3>' +
+          '<p class="essentials-desc">' + renderBilingualText({ en: 'Toll-free 112 (medical/fire) and 110 (police) work 24/7 across Germany even without a SIM card.', zh: '全德境內直撥 112（急救/火警）及 110（警察報案）均24小時免費，手機無SIM卡亦可接通。', 'zh-cn': '全德境内直拨 112（急救/火警）及 110（警察报案）均24小时免费，手机无SIM卡亦可接通。' }) + '</p>' +
+        '</div>' +
+        '<div class="contacts-grid">' + contactsHtml + '</div>' +
+      '</div>' +
+      '<div class="essentials-block phrases-block" style="margin-top: 36px;">' +
+        '<div class="essentials-block-header">' +
+          '<h3>🗣️ ' + renderBilingualText({ en: 'Handy German Travel Phrases & Phonetics', zh: '漢堡旅行常用德語與發音對照', 'zh-cn': '汉堡旅行常用德语与发音对照' }) + '</h3>' +
+          '<p class="essentials-desc">' + renderBilingualText({ en: 'Essential phrases for Christmas markets, dining, beer, and greeting locals with the classic Hamburg "Moin!".', zh: '市集採購、餐廳點餐、啤酒及以漢堡經典問候「Moin!」與當地人打招呼必備常用句。', 'zh-cn': '市集采购、餐厅点餐、啤酒及以汉堡经典问候「Moin!」与当地人打招呼必备常用句。' }) + '</p>' +
+        '</div>' +
+        '<div class="phrase-tabs-row">' + phraseTabsHtml + '</div>' +
+        '<div class="phrase-panels-container">' + phrasePanelsHtml + '</div>' +
+      '</div>' +
+    '</div>';
+
+  // Bind phrase tab switching
+  container.querySelectorAll('.phrase-tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var cat = btn.getAttribute('data-phrase-cat');
+      container.querySelectorAll('.phrase-tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      container.querySelectorAll('.phrase-cat-panel').forEach(function(p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+      var targetPanel = document.getElementById('phrase-cat-' + cat);
+      if (targetPanel) targetPanel.classList.add('active');
+    });
+  });
+}
+
 /* =======================================================
    MASTER RENDER ORCHESTRATOR
    ======================================================= */
@@ -969,12 +1446,14 @@ function renderAll() {
   // showOverview guards both the hero AND the overview cards + milestone board
   if (features.showOverview      !== false) renderHero();
   if (features.showOverview      !== false) renderOverview();
+  if (features.showOverview      !== false) renderWeather();
   if (features.showMilestoneBoard !== false && features.showOverview === false) renderOverview(); // allow standalone milestone
   if (features.showFlights       !== false) renderFlights();
   if (features.showTips          !== false) renderTips();
   if (features.showItinerary     !== false) renderItinerary();
   if (features.showFood          !== false) renderFood();
   if (features.showPacking       !== false) renderPacking();
+  if (features.showEssentials    !== false) renderEssentials();
   if (features.showBudget        !== false) renderBudget();
   if (features.showHotels        !== false) renderHotels();
   if (features.showTransit       !== false) renderTransit();

@@ -475,6 +475,15 @@ function focusFoodSpot(spotId) {
   const item = _foodMarkers.find(m => m.spot.id === spotId);
   if (!item) return;
 
+  // Smooth-scroll to food map if not currently in view
+  const mapContainer = document.querySelector('.food-map-container') || document.getElementById('food-map');
+  if (mapContainer) {
+    const rect = mapContainer.getBoundingClientRect();
+    if (rect.top < 40 || rect.bottom > window.innerHeight) {
+      mapContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
   _foodMap.flyTo({
     center: [item.spot.lng, item.spot.lat],
     zoom: 15,

@@ -288,10 +288,23 @@ function initDayFilters() {
       document.querySelectorAll('.day-card').forEach(card => {
         if (filter === 'all' || card.dataset.region === filter) {
           card.style.display = 'block';
+          if (filter !== 'all') {
+            card.classList.add('open');
+            if (typeof initDayMiniMap === 'function') {
+              setTimeout(() => { initDayMiniMap(card.id); }, 150);
+            }
+          }
         } else {
           card.style.display = 'none';
         }
       });
+
+      if (filter !== 'all') {
+        const target = document.querySelector(`.day-card[data-region="${filter}"]`);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
     });
   });
 }
@@ -307,15 +320,43 @@ function initNavigation() {
   const navbar = document.querySelector('.nav-bar');
   const toggle = document.querySelector('.nav-toggle') || document.getElementById('nav-toggle-btn');
   const links = document.querySelector('.nav-links');
+  const progressBar = document.getElementById('reading-progress');
+  const backToTopBtn = document.getElementById('back-to-top-btn');
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
+    const scrollY = window.scrollY;
+
+    // Sticky nav shadow
+    if (scrollY > 40) {
       navbar?.classList.add('scrolled');
     } else {
       navbar?.classList.remove('scrolled');
     }
+
+    // Top Reading Progress Bar
+    if (progressBar) {
+      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = totalScroll > 0 ? (scrollY / totalScroll) * 100 : 0;
+      progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+    }
+
+    // Floating Back to Top Button
+    if (backToTopBtn) {
+      if (scrollY > 350) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    }
   }, { passive: true });
 
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // Mobile Drawer Toggle
   if (toggle && links) {
     toggle.addEventListener('click', () => {
       const isOpen = links.classList.toggle('open');
@@ -342,6 +383,31 @@ function initNavigation() {
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Scroll Spy for Top Nav Links & Mobile Bottom Nav
+  const sections = document.querySelectorAll('section[id], header[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const mobileTabs = document.querySelectorAll('.mobile-bottom-nav .mobile-nav-tab[href]');
+
+  const spyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        // Desktop nav highlighting
+        navLinks.forEach(link => {
+          const href = link.getAttribute('href');
+          link.classList.toggle('active', href === `#${id}`);
+        });
+        // Mobile bottom nav tab highlighting
+        mobileTabs.forEach(tab => {
+          const sec = tab.getAttribute('data-section') || tab.getAttribute('href')?.replace('#', '');
+          tab.classList.toggle('active', sec === id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -55% 0px' });
+
+  sections.forEach(sec => spyObserver.observe(sec));
 }
 
 /* ═══════════════════════════════════════════════════
@@ -416,3 +482,233 @@ function initHotelSearch() {
     });
   }
 }
+
+/* ═══════════════════════════════════════════════════
+   7. ITINERARY ACTIONS: EXPAND ALL & .ICS CALENDAR
+   ═══════════════════════════════════════════════════ */
+
+/**
+ * Toggles all day accordions open or closed simultaneously.
+ */
+function toggleAllAccordions() {
+  const cards = document.querySelectorAll('.day-card');
+  const isAnyClosed = Array.from(cards).some(c => !c.classList.contains('open'));
+  const btnIcon = document.getElementById('itinerary-toggle-all-icon');
+  const btnLabel = document.getElementById('itinerary-toggle-all-label');
+
+  cards.forEach(card => {
+    card.classList.toggle('open', isAnyClosed);
+    if (isAnyClosed && typeof initDayMiniMap === 'function') {
+      setTimeout(() => { initDayMiniMap(card.id); }, 150);
+    }
+  });
+
+  if (btnIcon && btnLabel) {
+    if (isAnyClosed) {
+      btnIcon.innerText = '📁';
+      btnLabel.innerHTML = renderBilingualText({ en: 'Collapse All', zh: '全部收起', 'zh-cn': '全部收起' });
+    } else {
+      btnIcon.innerText = '📂';
+      btnLabel.innerHTML = renderBilingualText({ en: 'Expand All', zh: '全部展開', 'zh-cn': '全部展开' });
+    }
+  }
+}
+window.toggleAllAccordions = toggleAllAccordions;
+
+/**
+ * Generates and triggers client-side download of a complete RFC 5545 iCalendar (.ics) file.
+ */
+function downloadItineraryICS() {
+  const icsLines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Ian Ma//Hamburg 2026 Trip Planner//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'X-WR-CALNAME:Hamburg 2026 Winter City Break',
+    'X-WR-TIMEZONE:Europe/Berlin',
+
+    // Event 1: BA960 Flight Outbound
+    'BEGIN:VEVENT',
+    'UID:ba960-20261126-ianma@hamburg',
+    'DTSTAMP:20261101T000000Z',
+    'DTSTART:20261126T073000Z',
+    'DTEND:20261126T091000Z',
+    'SUMMARY:✈️ British Airways BA960: LHR T5 -> HAM T2',
+    'DESCRIPTION:Flight BA960 to Hamburg Airport (HAM Terminal 2). 23kg checked + 23kg cabin baggage. Direct S1 transit to Berliner Tor.',
+    'LOCATION:London Heathrow Airport Terminal 5 (LHR)',
+    'STATUS:CONFIRMED',
+    'END:VEVENT',
+
+    // Event 2: Hotel Check-In Courtyard by Marriott
+    'BEGIN:VEVENT',
+    'UID:marriott-checkin-20261126-ianma@hamburg',
+    'DTSTAMP:20261101T000000Z',
+    'DTSTART:20261126T140000Z',
+    'DTEND:20261126T153000Z',
+    'SUMMARY:🏨 Hotel Check-In: Courtyard by Marriott Hamburg City',
+    'DESCRIPTION:Check-in at Courtyard by Marriott Hamburg City. Adenauerallee 52\\, 20097 Hamburg. Phone: +49 40 308060.',
+    'LOCATION:Adenauerallee 52\\, 20097 Hamburg\\, Germany',
+    'STATUS:CONFIRMED',
+    'END:VEVENT',
+
+    // Event 3: Speicherstadt & Miniatur Wunderland
+    'BEGIN:VEVENT',
+    'UID:speicherstadt-20261126-ianma@hamburg',
+    'DTSTAMP:20261101T000000Z',
+    'DTSTART:20261126T113000Z',
+    'DTEND:20261126T140000Z',
+    'SUMMARY:🏙️ Speicherstadt & Miniatur Wunderland',
+    'DESCRIPTION:Explore UNESCO-listed Speicherstadt canal warehouses and Miniatur Wunderland model world. Photo at Poggenmühlenbrücke (Wasserschloss).',
+    'LOCATION:Kehrwieder 2-4/Block D\\, 20457 Hamburg',
+    'STATUS:CONFIRMED',
+    'END:VEVENT',
+
+    // Event 4: Elbphilharmonie Sunset Plaza
+    'BEGIN:VEVENT',
+    'UID:elphi-20261126-ianma@hamburg',
+    'DTSTAMP:20261101T000000Z',
+    'DTSTART:20261126T154500Z',
+    'DTEND:20261126T173000Z',
+    'SUMMARY:🌅 Elbphilharmonie Plaza & Sunset Panorama',
+    'DESCRIPTION:Curved escalator Tube to the 37m-high 360-degree viewing deck over Hamburg harbour at sunset (sunset ~16:15 CET).',
+    'LOCATION:Platz der Deutschen Einheit 1\\, 20457 Hamburg',
+    'STATUS:CONFIRMED',
+    'END:VEVENT',
+
+    // Event 5: Historic Rathausmarkt & Jungfernstieg Christmas Markets
+    'BEGIN:VEVENT',
+    'UID:xmas-market-20261127-ianma@hamburg',
+    'DTSTAMP:20261101T000000Z',
+    'DTSTART:20261127T160000Z',
+    'DTEND:20261127T193000Z',
+    'SUMMARY:🎄 Historic Christmas Markets: Rathausmarkt & White Magic Jungfernstieg',
+    'DESCRIPTION:Circus Roncalli market at the Neo-Renaissance Rathaus and White Magic on Binnenalster lake. Glühwein\\, Gebrannte Mandeln\\, and Flying Santa (17:00).',
+    'LOCATION:Rathausmarkt\\, 20095 Hamburg',
+    'STATUS:CONFIRMED',
+    'END:VEVENT',
+
+    // Event 6: Harbour, St. Pauli Landungsbrücken & HADAG Ferry 62
+    'BEGIN:VEVENT',
+    'UID:harbour-ferry-20261128-ianma@hamburg',
+    'DTSTAMP:20261101T000000Z',
+    'DTSTART:20261128T093000Z',
+    'DTEND:20261128T123000Z',
+    'SUMMARY:🚢 Landungsbrücken Piers\\, Fischbrötchen & HADAG Ferry 62 Cruise',
+    'DESCRIPTION:St. Michaelis view\\, historic Landungsbrücken pier 10 fresh Fischbrötchen\\, and panoramic roundtrip harbour cruise on HADAG public ferry 62 (covered by Hamburg Card).',
+    'LOCATION:St. Pauli-Landungsbrücken\\, 20359 Hamburg',
+    'STATUS:CONFIRMED',
+    'END:VEVENT',
+
+    // Event 7: BA967 Return Flight
+    'BEGIN:VEVENT',
+    'UID:ba967-20261128-ianma@hamburg',
+    'DTSTAMP:20261101T000000Z',
+    'DTSTART:20261128T154500Z',
+    'DTEND:20261128T172500Z',
+    'SUMMARY:✈️ British Airways BA967: HAM T2 -> LHR T5',
+    'DESCRIPTION:Return flight to London Heathrow (LHR T5). Depart Berliner Tor / Courtyard by 14:15 via S1 S-Bahn directly to HAM Terminal 2.',
+    'LOCATION:Hamburg Airport Terminal 2 (HAM)',
+    'STATUS:CONFIRMED',
+    'END:VEVENT',
+
+    'END:VCALENDAR'
+  ];
+
+  const blob = new Blob([icsLines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'Hamburg_2026_Itinerary.ics';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  showToast({
+    en: '✓ Calendar downloaded: Hamburg_2026_Itinerary.ics',
+    zh: '✓ 日曆檔案已下載：Hamburg_2026_Itinerary.ics',
+    'zh-cn': '✓ 日历文件已下载：Hamburg_2026_Itinerary.ics'
+  });
+}
+window.downloadItineraryICS = downloadItineraryICS;
+
+/* ═══════════════════════════════════════════════════
+   8. WEB SPEECH API: GERMAN AUDIO PRONUNCIATION
+   ═══════════════════════════════════════════════════ */
+
+/**
+ * Speaks a German phrase using the Web Speech API with de-DE voice.
+ */
+function playGermanPhrase(phrase, btnEl) {
+  if (!('speechSynthesis' in window)) {
+    showToast({ en: 'Speech synthesis not supported by your browser.', zh: '您的瀏覽器不支援語音朗讀功能。', 'zh-cn': '您的浏览器不支持语音朗读功能。' });
+    return;
+  }
+
+  window.speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(phrase);
+  utterance.lang = 'de-DE';
+  utterance.rate = 0.88;
+
+  const voices = window.speechSynthesis.getVoices();
+  const deVoice = voices.find(v => v.lang && (v.lang === 'de-DE' || v.lang.startsWith('de')));
+  if (deVoice) utterance.voice = deVoice;
+
+  if (btnEl) btnEl.classList.add('speaking');
+
+  utterance.onend = () => { if (btnEl) btnEl.classList.remove('speaking'); };
+  utterance.onerror = () => { if (btnEl) btnEl.classList.remove('speaking'); };
+
+  window.speechSynthesis.speak(utterance);
+}
+window.playGermanPhrase = playGermanPhrase;
+
+/* ═══════════════════════════════════════════════════
+   9. GERMAN TAXI FLASHCARD MODAL CONTROLS
+   ═══════════════════════════════════════════════════ */
+
+function openTaxiModal(dest = 'hotel') {
+  const modal = document.getElementById('taxi-modal');
+  if (modal) {
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    switchTaxiDestination(dest);
+  }
+}
+window.openTaxiModal = openTaxiModal;
+
+function closeTaxiModal() {
+  const modal = document.getElementById('taxi-modal');
+  if (modal) {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+}
+window.closeTaxiModal = closeTaxiModal;
+
+function switchTaxiDestination(dest) {
+  const hotelBtn = document.getElementById('taxi-btn-hotel');
+  const airportBtn = document.getElementById('taxi-btn-airport');
+  const hotelDisplay = document.getElementById('taxi-display-hotel');
+  const airportDisplay = document.getElementById('taxi-display-airport');
+
+  if (dest === 'airport') {
+    airportBtn?.classList.add('active');
+    hotelBtn?.classList.remove('active');
+    if (airportDisplay) airportDisplay.style.display = 'block';
+    if (hotelDisplay) hotelDisplay.style.display = 'none';
+  } else {
+    hotelBtn?.classList.add('active');
+    airportBtn?.classList.remove('active');
+    if (hotelDisplay) hotelDisplay.style.display = 'block';
+    if (airportDisplay) airportDisplay.style.display = 'none';
+  }
+}
+window.switchTaxiDestination = switchTaxiDestination;
+
+// ESC key to close modal
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeTaxiModal();
+});

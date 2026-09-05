@@ -1,0 +1,4 @@
+# Ignore local temporary/scratch files
+scratch/
+.DS_Store
+Thumbs.db

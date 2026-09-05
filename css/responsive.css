@@ -96,6 +96,10 @@
 
 /* ── Mobile Breakpoint (< 768px) ── */
 @media (max-width: 768px) {
+  body {
+    padding-bottom: 74px;
+  }
+
   .container {
     padding: 0 18px;
   }
@@ -474,6 +478,64 @@
 
   .food-card {
     padding: 18px !important;
+  }
+
+  .food-card-footer {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .food-address-bar {
+    max-width: 100% !important;
+    width: 100% !important;
+    justify-content: space-between !important;
+  }
+
+  .food-card-btn-group {
+    width: 100% !important;
+    justify-content: space-between !important;
+  }
+
+  .countdown-card {
+    padding: 14px 18px !important;
+  }
+
+  .countdown-item {
+    min-width: 44px !important;
+  }
+
+  .countdown-num {
+    font-size: 1.45rem !important;
+  }
+
+  .weather-widget-card {
+    padding: 20px !important;
+  }
+
+  .weather-days-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .contacts-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .phrase-tabs-row {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px !important;
+  }
+
+  .phrase-tab-btn {
+    flex-shrink: 0 !important;
+    font-size: 0.82rem !important;
+    padding: 8px 14px !important;
+  }
+
+  .phrases-grid {
+    grid-template-columns: 1fr !important;
   }
 }
 
