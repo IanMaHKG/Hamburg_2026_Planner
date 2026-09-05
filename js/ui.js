@@ -519,116 +519,128 @@ window.toggleAllAccordions = toggleAllAccordions;
  * Generates and triggers client-side download of a complete RFC 5545 iCalendar (.ics) file.
  */
 function downloadItineraryICS() {
+  const config = window.TRIP_CONFIG || {};
+  const siteData = window.SITE_DATA || {};
+  const itinerary = window.ITINERARY_DATA || [];
+
+  const tripTitle = (config.trip && config.trip.title && config.trip.title.en) || 'Trip Itinerary';
+  const calName = (config.trip && config.trip.title && config.trip.title.en) || 'Trip Itinerary 2026';
+  const prodId = '-//Trip Planner//EN';
+
   const icsLines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Ian Ma//Hamburg 2026 Trip Planner//EN',
+    `PRODID:${prodId}`,
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
-    'X-WR-CALNAME:Hamburg 2026 Winter City Break',
-    'X-WR-TIMEZONE:Europe/Berlin',
-
-    // Event 1: BA960 Flight Outbound
-    'BEGIN:VEVENT',
-    'UID:ba960-20261126-ianma@hamburg',
-    'DTSTAMP:20261101T000000Z',
-    'DTSTART:20261126T073000Z',
-    'DTEND:20261126T091000Z',
-    'SUMMARY:✈️ British Airways BA960: LHR T5 -> HAM T2',
-    'DESCRIPTION:Flight BA960 to Hamburg Airport (HAM Terminal 2). 23kg checked + 23kg cabin baggage. Direct S1 transit to Berliner Tor.',
-    'LOCATION:London Heathrow Airport Terminal 5 (LHR)',
-    'STATUS:CONFIRMED',
-    'END:VEVENT',
-
-    // Event 2: Hotel Check-In Courtyard by Marriott
-    'BEGIN:VEVENT',
-    'UID:marriott-checkin-20261126-ianma@hamburg',
-    'DTSTAMP:20261101T000000Z',
-    'DTSTART:20261126T140000Z',
-    'DTEND:20261126T153000Z',
-    'SUMMARY:🏨 Hotel Check-In: Courtyard by Marriott Hamburg City',
-    'DESCRIPTION:Check-in at Courtyard by Marriott Hamburg City. Adenauerallee 52\\, 20097 Hamburg. Phone: +49 40 308060.',
-    'LOCATION:Adenauerallee 52\\, 20097 Hamburg\\, Germany',
-    'STATUS:CONFIRMED',
-    'END:VEVENT',
-
-    // Event 3: Speicherstadt & Miniatur Wunderland
-    'BEGIN:VEVENT',
-    'UID:speicherstadt-20261126-ianma@hamburg',
-    'DTSTAMP:20261101T000000Z',
-    'DTSTART:20261126T113000Z',
-    'DTEND:20261126T140000Z',
-    'SUMMARY:🏙️ Speicherstadt & Miniatur Wunderland',
-    'DESCRIPTION:Explore UNESCO-listed Speicherstadt canal warehouses and Miniatur Wunderland model world. Photo at Poggenmühlenbrücke (Wasserschloss).',
-    'LOCATION:Kehrwieder 2-4/Block D\\, 20457 Hamburg',
-    'STATUS:CONFIRMED',
-    'END:VEVENT',
-
-    // Event 4: Elbphilharmonie Sunset Plaza
-    'BEGIN:VEVENT',
-    'UID:elphi-20261126-ianma@hamburg',
-    'DTSTAMP:20261101T000000Z',
-    'DTSTART:20261126T154500Z',
-    'DTEND:20261126T173000Z',
-    'SUMMARY:🌅 Elbphilharmonie Plaza & Sunset Panorama',
-    'DESCRIPTION:Curved escalator Tube to the 37m-high 360-degree viewing deck over Hamburg harbour at sunset (sunset ~16:15 CET).',
-    'LOCATION:Platz der Deutschen Einheit 1\\, 20457 Hamburg',
-    'STATUS:CONFIRMED',
-    'END:VEVENT',
-
-    // Event 5: Historic Rathausmarkt & Jungfernstieg Christmas Markets
-    'BEGIN:VEVENT',
-    'UID:xmas-market-20261127-ianma@hamburg',
-    'DTSTAMP:20261101T000000Z',
-    'DTSTART:20261127T160000Z',
-    'DTEND:20261127T193000Z',
-    'SUMMARY:🎄 Historic Christmas Markets: Rathausmarkt & White Magic Jungfernstieg',
-    'DESCRIPTION:Circus Roncalli market at the Neo-Renaissance Rathaus and White Magic on Binnenalster lake. Glühwein\\, Gebrannte Mandeln\\, and Flying Santa (17:00).',
-    'LOCATION:Rathausmarkt\\, 20095 Hamburg',
-    'STATUS:CONFIRMED',
-    'END:VEVENT',
-
-    // Event 6: Harbour, St. Pauli Landungsbrücken & HADAG Ferry 62
-    'BEGIN:VEVENT',
-    'UID:harbour-ferry-20261128-ianma@hamburg',
-    'DTSTAMP:20261101T000000Z',
-    'DTSTART:20261128T093000Z',
-    'DTEND:20261128T123000Z',
-    'SUMMARY:🚢 Landungsbrücken Piers\\, Fischbrötchen & HADAG Ferry 62 Cruise',
-    'DESCRIPTION:St. Michaelis view\\, historic Landungsbrücken pier 10 fresh Fischbrötchen\\, and panoramic roundtrip harbour cruise on HADAG public ferry 62 (covered by Hamburg Card).',
-    'LOCATION:St. Pauli-Landungsbrücken\\, 20359 Hamburg',
-    'STATUS:CONFIRMED',
-    'END:VEVENT',
-
-    // Event 7: BA967 Return Flight
-    'BEGIN:VEVENT',
-    'UID:ba967-20261128-ianma@hamburg',
-    'DTSTAMP:20261101T000000Z',
-    'DTSTART:20261128T154500Z',
-    'DTEND:20261128T172500Z',
-    'SUMMARY:✈️ British Airways BA967: HAM T2 -> LHR T5',
-    'DESCRIPTION:Return flight to London Heathrow (LHR T5). Depart Berliner Tor / Courtyard by 14:15 via S1 S-Bahn directly to HAM Terminal 2.',
-    'LOCATION:Hamburg Airport Terminal 2 (HAM)',
-    'STATUS:CONFIRMED',
-    'END:VEVENT',
-
-    'END:VCALENDAR'
+    `X-WR-CALNAME:${calName}`,
+    'X-WR-TIMEZONE:Europe/Berlin'
   ];
 
+  function escapeIcs(str) {
+    if (!str) return '';
+    return String(str).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+  }
+
+  // 1. Confirmed Flights
+  if (siteData.flights && Array.isArray(siteData.flights.legs)) {
+    siteData.flights.legs.forEach((f, idx) => {
+      const flightCode = f.flightNo || `Flight-${idx + 1}`;
+      const depDate = (f.date || '2026-11-26').replace(/-/g, '');
+      const depTime = (f.depTime || '08:00').replace(':', '') + '00';
+      const arrTime = (f.arrTime || '10:00').replace(':', '') + '00';
+      const origin = f.depAirport || f.origin || 'Origin';
+      const dest = f.arrAirport || f.dest || 'Destination';
+      const desc = (f.notes && f.notes.en) || `Flight ${flightCode} ${origin} -> ${dest}`;
+
+      icsLines.push(
+        'BEGIN:VEVENT',
+        `UID:flight-${idx}-${depDate}@tripplanner`,
+        'DTSTAMP:20261101T000000Z',
+        `DTSTART:${depDate}T${depTime}Z`,
+        `DTEND:${depDate}T${arrTime}Z`,
+        `SUMMARY:✈️ ${flightCode}: ${origin} -> ${dest}`,
+        `DESCRIPTION:${escapeIcs(desc)}`,
+        `LOCATION:${escapeIcs(origin)}`,
+        'STATUS:CONFIRMED',
+        'END:VEVENT'
+      );
+    });
+  }
+
+  // 2. Confirmed Accommodation Check-In
+  if (siteData.hotels && Array.isArray(siteData.hotels.legs)) {
+    siteData.hotels.legs.forEach((h, idx) => {
+      const checkinDate = (h.checkin || (config.trip && config.trip.dates && config.trip.dates.start) || '2026-11-26').replace(/-/g, '');
+      const hTitle = (h.title && h.title.en) || 'Hotel Stay';
+      const hDesc = (h.desc && h.desc.en) || `Check-in at ${hTitle}. Address: ${h.address || ''}`;
+      icsLines.push(
+        'BEGIN:VEVENT',
+        `UID:hotel-${idx}-${checkinDate}@tripplanner`,
+        'DTSTAMP:20261101T000000Z',
+        `DTSTART:${checkinDate}T140000Z`,
+        `DTEND:${checkinDate}T153000Z`,
+        `SUMMARY:🏨 Hotel Check-In: ${escapeIcs(hTitle)}`,
+        `DESCRIPTION:${escapeIcs(hDesc)}`,
+        `LOCATION:${escapeIcs(h.address || (config.trip && config.trip.destination && config.trip.destination.en) || '')}`,
+        'STATUS:CONFIRMED',
+        'END:VEVENT'
+      );
+    });
+  }
+
+  // 3. Day-by-Day Schedule
+  if (Array.isArray(itinerary)) {
+    itinerary.forEach(day => {
+      const dayDate = day.date && day.date.includes('2026')
+        ? day.date.replace(/-/g, '')
+        : (day.id === 'day-1' ? '20261126' : day.id === 'day-2' ? '20261127' : '20261128');
+
+      if (Array.isArray(day.blocks)) {
+        day.blocks.forEach((block, bIdx) => {
+          const act = block.activity || {};
+          const actTitle = (act.title && act.title.en) || `Day ${day.dayNum} Activity`;
+          const actDesc = (act.desc && act.desc.en) || '';
+          const loc = (act.locations && act.locations[0] && act.locations[0].label && act.locations[0].label.en) || '';
+          const startHours = [10, 14, 18];
+          const startHour = startHours[bIdx % startHours.length];
+          const startTime = String(startHour).padStart(2, '0') + '0000';
+          const endTime = String(startHour + 2).padStart(2, '0') + '0000';
+
+          icsLines.push(
+            'BEGIN:VEVENT',
+            `UID:act-${day.id || day.dayNum}-${bIdx}@tripplanner`,
+            'DTSTAMP:20261101T000000Z',
+            `DTSTART:${dayDate}T${startTime}Z`,
+            `DTEND:${dayDate}T${endTime}Z`,
+            `SUMMARY:📍 ${escapeIcs(actTitle)}`,
+            `DESCRIPTION:${escapeIcs(actDesc)}`,
+            `LOCATION:${escapeIcs(loc)}`,
+            'STATUS:CONFIRMED',
+            'END:VEVENT'
+          );
+        });
+      }
+    });
+  }
+
+  icsLines.push('END:VCALENDAR');
+
+  const filename = (tripTitle.replace(/[^a-zA-Z0-9_-]/g, '_')) + '.ics';
   const blob = new Blob([icsLines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'Hamburg_2026_Itinerary.ics';
+  a.download = filename;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 
   showToast({
-    en: '✓ Calendar downloaded: Hamburg_2026_Itinerary.ics',
-    zh: '✓ 日曆檔案已下載：Hamburg_2026_Itinerary.ics',
-    'zh-cn': '✓ 日历文件已下载：Hamburg_2026_Itinerary.ics'
+    en: `✓ Calendar downloaded: ${filename}`,
+    zh: `✓ 日曆檔案已下載：${filename}`,
+    'zh-cn': `✓ 日历文件已下载：${filename}`
   });
 }
 window.downloadItineraryICS = downloadItineraryICS;

@@ -387,6 +387,42 @@ const SITE_DATA = {
      4. BUDGET ESTIMATES (Base Currency: EUR)
      ══════════════════════════════════════════════════ */
   budget: {
+    summary: {
+      total: {
+        min: 899,
+        max: 999,
+        sub: {
+          en: "Base: €899 – €999 · 2 Adults",
+          zh: "基數：€899 – €999 · 2位成人",
+          "zh-cn": "基数：€899 – €999 · 2位成人"
+        }
+      },
+      prepaid: {
+        min: 529,
+        max: 529,
+        sub: {
+          en: "BA Flights (£212.70) + Marriott 2N (€279)",
+          zh: "英航來回(£212.70) + 萬怡2晚(€279)",
+          "zh-cn": "英航往返(£212.70) + 万怡2晚(€279)"
+        }
+      },
+      onSite: {
+        min: 370,
+        max: 470,
+        sub: {
+          en: "Dining, Hamburg Cards, Markets & Souvenirs",
+          zh: "餐飲美食、漢堡卡、市集與紀念品",
+          "zh-cn": "餐饮美食、汉堡卡、市集与纪念品"
+        }
+      }
+    },
+    allocation: [
+      { name: { en: "Hotel 31%", zh: "住宿 31%", "zh-cn": "住宿 31%" }, pct: 31, cls: "seg-hotel" },
+      { name: { en: "Flights 28%", zh: "機票 28%", "zh-cn": "机票 28%" }, pct: 28, cls: "seg-flights" },
+      { name: { en: "Food & Markets 22%", zh: "餐飲市集 22%", "zh-cn": "餐饮市集 22%" }, pct: 22, cls: "seg-food" },
+      { name: { en: "Transit 10%", zh: "交通 10%", "zh-cn": "交通 10%" }, pct: 10, cls: "seg-transit" },
+      { name: { en: "Sightseeing 9%", zh: "景點門票 9%", "zh-cn": "景点门票 9%" }, pct: 9, cls: "seg-sight" }
+    ],
     items: [
       {
         category: { en: "Flights (Return)", zh: "來回機票", "zh-cn": "来回机票" },
@@ -980,6 +1016,11 @@ const SITE_DATA = {
      ══════════════════════════════════════════════════ */
   weather: {
     city: "Hamburg, Germany",
+    title: {
+      en: "Hamburg Late-November Climate & Weather Outlook",
+      zh: "漢堡11月下旬氣候特徵與行程天氣預測",
+      "zh-cn": "汉堡11月下旬气候特征与行程天气预测"
+    },
     period: {
       en: "Late November (Trip Dates: 26–28 Nov 2026)",
       zh: "11月下旬（旅程日期：2026年11月26–28日）",
@@ -1052,6 +1093,11 @@ const SITE_DATA = {
      9. TRAVEL ESSENTIALS & EMERGENCY CONTACTS
      ══════════════════════════════════════════════════ */
   essentials: {
+    phrasesDesc: {
+      en: 'Essential phrases for Christmas markets, dining, beer, and greeting locals with the classic Hamburg "Moin!".',
+      zh: '市集採購、餐廳點餐、啤酒及以漢堡經典問候「Moin!」與當地人打招呼必備常用句。',
+      'zh-cn': '市集采购、餐厅点餐、啤酒及以汉堡经典问候「Moin!」与当地人打招呼必备常用句。'
+    },
     emergencyContacts: [
       {
         name: { en: "European Emergency Services", zh: "歐洲通用緊急求助 (急救 / 火警)", "zh-cn": "欧洲通用紧急求助 (急救 / 火警)" },

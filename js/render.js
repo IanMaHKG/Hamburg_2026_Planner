@@ -177,11 +177,30 @@ function renderHero() {
   var countdownEl = document.getElementById('hero-countdown');
   if (countdownEl) {
     function updateCountdown() {
-      // Outbound departure: Nov 26, 2026 at 07:30 GMT (BA960)
-      var targetDate = new Date('2026-11-26T07:30:00Z');
-      var returnDate = new Date('2026-11-28T17:25:00Z');
+      var targetDate = (cfg.trip && cfg.trip.dates && cfg.trip.dates.start)
+        ? new Date(cfg.trip.dates.start + 'T07:30:00Z')
+        : new Date('2026-11-26T07:30:00Z');
+      var returnDate = (cfg.trip && cfg.trip.dates && cfg.trip.dates.end)
+        ? new Date(cfg.trip.dates.end + 'T17:25:00Z')
+        : new Date('2026-11-28T17:25:00Z');
       var now = new Date();
       var diff = targetDate - now;
+
+      var cdBefore = (cfg.trip && cfg.trip.countdown && cfg.trip.countdown.before) || {
+        en: 'Countdown to Departure',
+        zh: '啟程倒數計時',
+        'zh-cn': '启程倒数计时'
+      };
+      var cdDuring = (cfg.trip && cfg.trip.countdown && cfg.trip.countdown.during) || {
+        en: 'You are on your trip! Enjoy every moment!',
+        zh: '旅程進行中！盡情享受美好時光！',
+        'zh-cn': '旅程进行中！尽情享受美好时光！'
+      };
+      var cdAfter = (cfg.trip && cfg.trip.countdown && cfg.trip.countdown.after) || {
+        en: 'Trip Completed · Unforgettable Memories',
+        zh: '旅程圓滿結束 · 難忘回憶',
+        'zh-cn': '旅程圆满结束 · 难忘回忆'
+      };
 
       if (diff > 0) {
         var days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -193,11 +212,7 @@ function renderHero() {
           '<div class="countdown-card">' +
             '<div class="countdown-header">' +
               '<span class="countdown-icon">⏳</span> ' +
-              renderBilingualText({
-                en: 'Countdown to Hamburg Departure (BA960)',
-                zh: '漢堡啟程倒數計時（英航 BA960）',
-                'zh-cn': '汉堡启程倒数计时（英航 BA960）'
-              }) +
+              renderBilingualText(cdBefore) +
             '</div>' +
             '<div class="countdown-grid">' +
               '<div class="countdown-item"><span class="countdown-num">' + days + '</span><span class="countdown-unit">' + renderBilingualText({ en: 'Days', zh: '天', 'zh-cn': '天' }) + '</span></div>' +
@@ -213,21 +228,13 @@ function renderHero() {
         countdownEl.innerHTML =
           '<div class="countdown-card active-trip">' +
             '<span class="countdown-icon">🎄</span> ' +
-            renderBilingualText({
-              en: 'You are in Hamburg! Enjoy the festive magic & harbour lights!',
-              zh: '您正置身於漢堡！盡情享受冬日聖誕市集與港口浪漫！',
-              'zh-cn': '您正置身于汉堡！尽情享受冬日圣诞市集与港口浪漫！'
-            }) +
+            renderBilingualText(cdDuring) +
           '</div>';
       } else {
         countdownEl.innerHTML =
           '<div class="countdown-card completed-trip">' +
             '<span class="countdown-icon">✨</span> ' +
-            renderBilingualText({
-              en: 'Trip Completed · Unforgettable Hamburg Winter Memories',
-              zh: '旅程圓滿結束 · 難忘的漢堡冬日回憶',
-              'zh-cn': '旅程圆满结束 · 难忘的汉堡冬日回忆'
-            }) +
+            renderBilingualText(cdAfter) +
           '</div>';
       }
     }
@@ -746,6 +753,29 @@ function renderBudget() {
   // 1. Render Executive Budget Stat Cards & Breakdown Bar
   var summaryMount = document.getElementById('budget-summary-mount');
   if (summaryMount) {
+    var bSum = data.budget.summary || {
+      total: { min: 899, max: 999, sub: { en: 'Base: €899 – €999 · 2 Adults', zh: '基數：€899 – €999 · 2位成人', 'zh-cn': '基数：€899 – €999 · 2位成人' } },
+      prepaid: { min: 529, max: 529, sub: { en: 'Prepaid & Confirmed', zh: '出發前已付清款項', 'zh-cn': '出发前已付清款项' } },
+      onSite: { min: 370, max: 470, sub: { en: 'On-Site Spending Est.', zh: '當地現場開支預算', 'zh-cn': '当地现场开支预算' } }
+    };
+    var bAlloc = data.budget.allocation || [
+      { name: { en: 'Hotel (31%)', zh: '住宿 (31%)', 'zh-cn': '住宿 (31%)' }, pct: 31, cls: 'seg-hotel' },
+      { name: { en: 'Flights (28%)', zh: '機票 (28%)', 'zh-cn': '机票 (28%)' }, pct: 28, cls: 'seg-flights' },
+      { name: { en: 'Food (22%)', zh: '餐飲 (22%)', 'zh-cn': '餐饮 (22%)' }, pct: 22, cls: 'seg-food' },
+      { name: { en: 'Transit (10%)', zh: '交通 (10%)', 'zh-cn': '交通 (10%)' }, pct: 10, cls: 'seg-transit' },
+      { name: { en: 'Sightseeing (9%)', zh: '門票 (9%)', 'zh-cn': '门票 (9%)' }, pct: 9, cls: 'seg-sight' }
+    ];
+
+    var distBarsHtml = bAlloc.map(function(seg) {
+      return '<div class="dist-seg ' + (seg.cls || '') + '" style="width: ' + seg.pct + '%;" title="' + renderBilingualText(seg.name) + '"></div>';
+    }).join('');
+
+    var colors = ['#0D9488', '#8B5CF6', '#F59E0B', '#0284C7', '#EC4899'];
+    var distLegendHtml = bAlloc.map(function(seg, i) {
+      var color = colors[i % colors.length];
+      return '<span class="dist-legend-item"><span class="dist-dot" style="background:' + color + ';"></span> ' + renderBilingualText(seg.name) + '</span>';
+    }).join('');
+
     summaryMount.innerHTML =
       '<div class="budget-stats-grid">' +
         '<div class="budget-stat-card highlight">' +
@@ -753,8 +783,8 @@ function renderBudget() {
             '<span class="budget-stat-label">' + renderBilingualText({ en: 'Total Estimated Budget', zh: '行程總估算預算', 'zh-cn': '行程总估算预算' }) + '</span>' +
             '<span class="budget-stat-icon">💰</span>' +
           '</div>' +
-          '<div class="budget-stat-val converted-val" data-min="899" data-max="999">—</div>' +
-          '<div class="budget-stat-sub">' + renderBilingualText({ en: 'Base: €899 – €999 · 2 Adults', zh: '基數：€899 – €999 · 2位成人', 'zh-cn': '基数：€899 – €999 · 2位成人' }) + '</div>' +
+          '<div class="budget-stat-val converted-val" data-min="' + bSum.total.min + '" data-max="' + bSum.total.max + '">—</div>' +
+          '<div class="budget-stat-sub">' + renderBilingualText(bSum.total.sub) + '</div>' +
         '</div>' +
 
         '<div class="budget-stat-card">' +
@@ -762,8 +792,8 @@ function renderBudget() {
             '<span class="budget-stat-label">' + renderBilingualText({ en: 'Prepaid & Confirmed', zh: '出發前已付清款項', 'zh-cn': '出发前已付清款项' }) + '</span>' +
             '<span class="budget-stat-icon">💳</span>' +
           '</div>' +
-          '<div class="budget-stat-val converted-val" data-min="529" data-max="529">—</div>' +
-          '<div class="budget-stat-sub">' + renderBilingualText({ en: 'BA Flights (£212.70) + Marriott 2N (€279)', zh: '英航來回(£212.70) + 萬怡2晚(€279)', 'zh-cn': '英航往返(£212.70) + 万怡2晚(€279)' }) + '</div>' +
+          '<div class="budget-stat-val converted-val" data-min="' + bSum.prepaid.min + '" data-max="' + bSum.prepaid.max + '">—</div>' +
+          '<div class="budget-stat-sub">' + renderBilingualText(bSum.prepaid.sub) + '</div>' +
         '</div>' +
 
         '<div class="budget-stat-card">' +
@@ -771,8 +801,8 @@ function renderBudget() {
             '<span class="budget-stat-label">' + renderBilingualText({ en: 'On-Site Spending Est.', zh: '當地現場開支預算', 'zh-cn': '当地现场开支预算' }) + '</span>' +
             '<span class="budget-stat-icon">💶</span>' +
           '</div>' +
-          '<div class="budget-stat-val converted-val" data-min="370" data-max="470">—</div>' +
-          '<div class="budget-stat-sub">' + renderBilingualText({ en: 'Dining, Hamburg Cards, Markets & Souvenirs', zh: '餐飲美食、漢堡卡、市集與紀念品', 'zh-cn': '餐饮美食、汉堡卡、市集与纪念品' }) + '</div>' +
+          '<div class="budget-stat-val converted-val" data-min="' + bSum.onSite.min + '" data-max="' + bSum.onSite.max + '">—</div>' +
+          '<div class="budget-stat-sub">' + renderBilingualText(bSum.onSite.sub) + '</div>' +
         '</div>' +
       '</div>' +
 
@@ -780,20 +810,8 @@ function renderBudget() {
         '<div class="budget-breakdown-header">' +
           '<div class="budget-breakdown-title">📊 ' + renderBilingualText({ en: 'Trip Expenditure Allocation', zh: '各項支出比例分佈', 'zh-cn': '各项支出比例分布' }) + '</div>' +
         '</div>' +
-        '<div class="budget-dist-bar">' +
-          '<div class="dist-seg seg-hotel" style="width: 31%;" title="Hotel 31%"></div>' +
-          '<div class="dist-seg seg-flights" style="width: 28%;" title="Flights 28%"></div>' +
-          '<div class="dist-seg seg-food" style="width: 22%;" title="Food & Markets 22%"></div>' +
-          '<div class="dist-seg seg-transit" style="width: 10%;" title="Transit 10%"></div>' +
-          '<div class="dist-seg seg-sight" style="width: 9%;" title="Sightseeing 9%"></div>' +
-        '</div>' +
-        '<div class="budget-dist-legend">' +
-          '<span class="dist-legend-item"><span class="dist-dot" style="background:#0D9488;"></span> ' + renderBilingualText({ en: 'Hotel (31%)', zh: '住宿 (31%)', 'zh-cn': '住宿 (31%)' }) + '</span>' +
-          '<span class="dist-legend-item"><span class="dist-dot" style="background:#8B5CF6;"></span> ' + renderBilingualText({ en: 'Flights (28%)', zh: '機票 (28%)', 'zh-cn': '机票 (28%)' }) + '</span>' +
-          '<span class="dist-legend-item"><span class="dist-dot" style="background:#F59E0B;"></span> ' + renderBilingualText({ en: 'Food (22%)', zh: '餐飲 (22%)', 'zh-cn': '餐饮 (22%)' }) + '</span>' +
-          '<span class="dist-legend-item"><span class="dist-dot" style="background:#0284C7;"></span> ' + renderBilingualText({ en: 'Transit (10%)', zh: '交通 (10%)', 'zh-cn': '交通 (10%)' }) + '</span>' +
-          '<span class="dist-legend-item"><span class="dist-dot" style="background:#EC4899;"></span> ' + renderBilingualText({ en: 'Sightseeing (9%)', zh: '門票 (9%)', 'zh-cn': '门票 (9%)' }) + '</span>' +
-        '</div>' +
+        '<div class="budget-dist-bar">' + distBarsHtml + '</div>' +
+        '<div class="budget-dist-legend">' + distLegendHtml + '</div>' +
       '</div>';
   }
 
@@ -894,15 +912,17 @@ function renderHotels() {
         : '';
 
       var linkUrl = leg.url || ('https://www.booking.com/searchresults.html?ss=' + encodeURIComponent(leg.dest || '') + '&checkin=' + (leg.checkin || '') + '&checkout=' + (leg.checkout || '') + '&group_adults=' + partySize);
-      var isOfficialMarriott = !!leg.url;
-      var btnClass = isOfficialMarriott ? 'hotel-leg-btn marriott-btn' : 'hotel-leg-btn';
-      var btnLabel = isOfficialMarriott
-        ? '<span class="lang-primary lang-en">🏨 View Hotel on Marriott.com ➔</span>' +
-          '<span class="lang-secondary lang-zh">🏨 瀏覽萬豪官方酒店專頁 ➔</span>' +
-          '<span class="lang-tertiary lang-zh-cn">🏨 浏览万豪官方酒店专页 ➔</span>'
-        : '<span class="lang-primary lang-en">🏨 Search on Booking.com ➔</span>' +
-          '<span class="lang-secondary lang-zh">🏨 在 Booking.com 搜尋 ➔</span>' +
-          '<span class="lang-tertiary lang-zh-cn">🏨 在 Booking.com 搜索 ➔</span>';
+      var hasCustomUrl = !!leg.url;
+      var btnClass = hasCustomUrl ? 'hotel-leg-btn marriott-btn' : 'hotel-leg-btn';
+      var btnLabel = leg.btnLabel
+        ? renderBilingualText(leg.btnLabel)
+        : (hasCustomUrl
+            ? '<span class="lang-primary lang-en">🏨 View Official Hotel Page ➔</span>' +
+              '<span class="lang-secondary lang-zh">🏨 瀏覽官方酒店專頁 ➔</span>' +
+              '<span class="lang-tertiary lang-zh-cn">🏨 浏览官方酒店专页 ➔</span>'
+            : '<span class="lang-primary lang-en">🏨 Search on Booking.com ➔</span>' +
+              '<span class="lang-secondary lang-zh">🏨 在 Booking.com 搜尋 ➔</span>' +
+              '<span class="lang-tertiary lang-zh-cn">🏨 在 Booking.com 搜索 ➔</span>');
 
       return '<div class="hotel-leg-card reveal">' +
                '<div>' +
@@ -1308,10 +1328,10 @@ function renderWeather() {
     '<div class="weather-widget-card reveal">' +
       '<div class="weather-widget-header">' +
         '<div class="weather-title-wrap">' +
-          '<h3 class="weather-title">🌦️ ' + renderBilingualText({
-            en: 'Hamburg Late-November Climate &amp; Weather Outlook',
-            zh: '漢堡11月下旬氣候特徵與行程天氣預測',
-            'zh-cn': '汉堡11月下旬气候特征与行程天气预测'
+          '<h3 class="weather-title">🌦️ ' + renderBilingualText(w.title || {
+            en: (w.city || 'Destination') + ' Climate &amp; Weather Outlook',
+            zh: (w.city || '目的地') + ' 氣候特徵與行程天氣預測',
+            'zh-cn': (w.city || '目的地') + ' 气候特征与行程天气预测'
           }) + '</h3>' +
           '<span class="weather-period-tag">' + renderBilingualText(w.period) + '</span>' +
         '</div>' +
@@ -1401,7 +1421,11 @@ function renderEssentials() {
       '<div class="essentials-block phrases-block" style="margin-top: 36px;">' +
         '<div class="essentials-block-header">' +
           '<h3>🗣️ ' + renderBilingualText({ en: 'Handy German Travel Phrases & Phonetics', zh: '漢堡旅行常用德語與發音對照', 'zh-cn': '汉堡旅行常用德语与发音对照' }) + '</h3>' +
-          '<p class="essentials-desc">' + renderBilingualText({ en: 'Essential phrases for Christmas markets, dining, beer, and greeting locals with the classic Hamburg "Moin!".', zh: '市集採購、餐廳點餐、啤酒及以漢堡經典問候「Moin!」與當地人打招呼必備常用句。', 'zh-cn': '市集采购、餐厅点餐、啤酒及以汉堡经典问候「Moin!」与当地人打招呼必备常用句。' }) + '</p>' +
+          '<p class="essentials-desc">' + renderBilingualText(ess.phrasesDesc || {
+            en: 'Essential travel phrases and phonetics.',
+            zh: '精選實用旅行常用句與發音對照。',
+            'zh-cn': '精选实用旅行常用句与发音对照。'
+          }) + '</p>' +
         '</div>' +
         '<div class="phrase-tabs-row">' + phraseTabsHtml + '</div>' +
         '<div class="phrase-panels-container">' + phrasePanelsHtml + '</div>' +

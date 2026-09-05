@@ -72,6 +72,23 @@ const TRIP_CONFIG = {
         "zh-cn": "2026年11月26日 — 11月28日"
       }
     },
+    countdown: {
+      before: {
+        en: "Countdown to Hamburg Departure (BA960)",
+        zh: "漢堡啟程倒數計時（英航 BA960）",
+        "zh-cn": "汉堡启程倒数计时（英航 BA960）"
+      },
+      during: {
+        en: "You are in Hamburg! Enjoy the festive magic & harbour lights!",
+        zh: "您正置身於漢堡！盡情享受冬日聖誕市集與港口浪漫！",
+        "zh-cn": "您正置身于汉堡！尽情享受冬日圣诞市集与港口浪漫！"
+      },
+      after: {
+        en: "Trip Completed · Unforgettable Hamburg Winter Memories",
+        zh: "旅程圓滿結束 · 難忘的漢堡冬日回憶",
+        "zh-cn": "旅程圆满结束 · 难忘的汉堡冬日回忆"
+      }
+    },
     durationDays: 3,
     heroBadges: [
       {
