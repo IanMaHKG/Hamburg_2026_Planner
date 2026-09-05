@@ -696,4 +696,17 @@
   }
 }
 
+/* ── Accessibility: Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .snowflake {
+    display: none !important;
+  }
 
+  .today-pill-dot {
+    animation: none !important;
+  }
+
+  .progress-tracker-fill {
+    transition: none !important;
+  }
+}

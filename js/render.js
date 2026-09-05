@@ -526,7 +526,18 @@ function renderItinerary() {
       return '<span class="tag ' + tagClass + '">' + tagContent + '</span>';
     }).join('');
 
-    var blocksHtml = (day.blocks || []).map(function(block) {
+    // ── Helper: classify a block into a time period based on its time label emoji/text
+    function classifyPeriod(block) {
+      var timeEn = (block.time && (typeof block.time === 'string' ? block.time : (block.time.en || Object.values(block.time)[0]))) || '';
+      if (/🌅|morning|arrival|flight|07:|08:|09:|10:|11:/i.test(timeEn)) return 'morning';
+      if (/🌤️|🕑|early.?after|12:|13:|14:|15:/i.test(timeEn)) return 'afternoon';
+      if (/🛌|mid.?after|rest|recharge|16:/i.test(timeEn)) return 'afternoon';
+      if (/🌆|🌃|🌙|evening|night|dinner|17:|18:|19:|20:|21:/i.test(timeEn)) return 'evening';
+      return 'afternoon'; // default to afternoon for unlabelled blocks
+    }
+
+    // ── Build a single time-slot HTML string for one block
+    function buildBlockHtml(block) {
       var locationPills = '';
       if (block.activity && block.activity.locations && block.activity.locations.length > 0) {
         locationPills = block.activity.locations.map(function(loc) {
@@ -581,6 +592,40 @@ function renderItinerary() {
                  metaPills + photoTipHtml + bookingHtml + mealHtml +
                '</div>' +
              '</div>';
+    }
+
+    // ── Group blocks into ordered periods
+    var PERIOD_ORDER = ['morning', 'afternoon', 'evening'];
+    var PERIOD_META = {
+      morning:   { icon: '🌅', label: { en: 'Morning',   zh: '上午',   'zh-cn': '上午'   } },
+      afternoon: { icon: '🌤️', label: { en: 'Afternoon', zh: '下午',   'zh-cn': '下午'   } },
+      evening:   { icon: '🌆', label: { en: 'Evening',   zh: '傍晚 / 晚上', 'zh-cn': '傍晚 / 晚上' } }
+    };
+
+    var periodGroups = { morning: [], afternoon: [], evening: [] };
+    (day.blocks || []).forEach(function(block) {
+      var p = classifyPeriod(block);
+      periodGroups[p].push(block);
+    });
+
+    // Build blocksHtml as collapsible period details elements
+    var blocksHtml = PERIOD_ORDER.filter(function(p) { return periodGroups[p].length > 0; }).map(function(p, pIdx) {
+      var meta = PERIOD_META[p];
+      var periodLabel = renderBilingualText(meta.label);
+      var slotsHtml = periodGroups[p].map(buildBlockHtml).join('');
+      var activityCount = periodGroups[p].length;
+      var countLabel = renderBilingualText({ en: activityCount + ' ' + (activityCount === 1 ? 'activity' : 'activities'), zh: activityCount + ' 項活動', 'zh-cn': activityCount + ' 项活动' });
+      // Morning is open by default (pIdx === 0); afternoon/evening start collapsed
+      var openAttr = (pIdx === 0) ? ' open' : '';
+      return '<details class="period-group"' + openAttr + '>' +
+               '<summary class="period-group-header">' +
+                 '<span class="period-icon">' + meta.icon + '</span>' +
+                 '<span class="period-label">' + periodLabel + '</span>' +
+                 '<span class="period-count">' + countLabel + '</span>' +
+                 '<span class="period-chevron">▼</span>' +
+               '</summary>' +
+               '<div class="period-slots">' + slotsHtml + '</div>' +
+             '</details>';
     }).join('');
 
     var tipHtml = day.tip
@@ -1354,6 +1399,99 @@ function renderWeather() {
 
 
 /* =======================================================
+   8.7b. FETCH LIVE WEATHER — Open-Meteo Free API
+   =======================================================
+ * Uses the free Open-Meteo API (https://open-meteo.com).
+ * No API key required. Fetches daily max/min temperature,
+ * precipitation probability, and wind speed for Hamburg
+ * (lat 53.55, lon 10.0) for the 3 trip dates.
+ *
+ * On success: patches SITE_DATA.weather.dailyForecast with live
+ * temperatures and adds a "🔴 LIVE" badge to the widget header.
+ * On failure (network error, timeout, parse error): silently
+ * falls back to existing static forecast data already rendered.
+ *
+ * AGENTS: Open-Meteo returns forecast data up to 16 days ahead.
+ * For dates beyond 16 days the API returns empty arrays —
+ * the function guards against this and keeps static data.
+ */
+function fetchLiveWeather() {
+  var data = window.SITE_DATA;
+  if (!data || !data.weather) return;
+
+  var tripDates = (window.TRIP_CONFIG && window.TRIP_CONFIG.trip && window.TRIP_CONFIG.trip.dates) || {};
+  var startDate = tripDates.start || '2026-11-26';
+  var endDate   = tripDates.end   || '2026-11-28';
+
+  var apiUrl = 'https://api.open-meteo.com/v1/forecast' +
+    '?latitude=53.55&longitude=10.0' +
+    '&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max' +
+    '&wind_speed_unit=kmh&timezone=Europe%2FBerlin' +
+    '&start_date=' + startDate +
+    '&end_date=' + endDate;
+
+  var controller = null;
+  var timeoutId = null;
+  if (typeof AbortController !== 'undefined') {
+    controller = new AbortController();
+    timeoutId = setTimeout(function() { controller.abort(); }, 4000);
+  }
+
+  fetch(apiUrl, controller ? { signal: controller.signal } : {})
+    .then(function(res) {
+      if (timeoutId) clearTimeout(timeoutId);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(function(json) {
+      var daily = json && json.daily;
+      if (!daily || !daily.time || daily.time.length === 0) return;
+
+      var forecast = data.weather.dailyForecast;
+      if (!Array.isArray(forecast) || forecast.length === 0) return;
+
+      var updated = false;
+      daily.time.forEach(function(dateStr, i) {
+        var idx = i < forecast.length ? i : -1;
+        if (idx < 0) return;
+
+        var maxTemp = daily.temperature_2m_max && daily.temperature_2m_max[i];
+        var minTemp = daily.temperature_2m_min && daily.temperature_2m_min[i];
+        var wind    = daily.wind_speed_10m_max && daily.wind_speed_10m_max[i];
+
+        if (maxTemp != null) { forecast[idx].high = Math.round(maxTemp) + '°C'; }
+        if (minTemp != null) { forecast[idx].low  = Math.round(minTemp) + '°C'; }
+        if (wind    != null) { forecast[idx].wind = Math.round(wind) + ' km/h'; }
+        forecast[idx]._live = true;
+        updated = true;
+      });
+
+      if (!updated) return;
+
+      data.weather._liveUpdated = true;
+      data.weather._liveTimestamp = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+
+      renderWeather();  // re-render with live temps
+
+      // Inject LIVE badge into the widget header
+      var titleWrap = document.querySelector('.weather-title-wrap');
+      if (titleWrap && !titleWrap.querySelector('.weather-live-badge')) {
+        var badge = document.createElement('span');
+        badge.className = 'weather-live-badge';
+        badge.textContent = '🔴 LIVE · ' + data.weather._liveTimestamp;
+        titleWrap.appendChild(badge);
+      }
+    })
+    .catch(function(err) {
+      if (timeoutId) clearTimeout(timeoutId);
+      if (err && err.name !== 'AbortError') {
+        console.info('[weather] Live fetch unavailable, showing curated forecast. (' + (err.message || '') + ')');
+      }
+    });
+}
+
+
+/* =======================================================
    8.8. RENDER TRAVEL ESSENTIALS & GERMAN PHRASES
    ======================================================= */
 
@@ -1489,4 +1627,9 @@ function renderAll() {
   if (features.showBudget        !== false) renderBudget();
   if (features.showHotels        !== false) renderHotels();
   if (features.showTransit       !== false) renderTransit();
+
+  // Async: fetch live weather from Open-Meteo and patch the widget (non-blocking)
+  if (features.showOverview !== false && typeof fetchLiveWeather === 'function') {
+    setTimeout(fetchLiveWeather, 600);  // small delay so static render completes first
+  }
 }

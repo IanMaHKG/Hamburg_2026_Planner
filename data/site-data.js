@@ -325,6 +325,90 @@ const SITE_DATA = {
           "zh-cn": "德国小费惯例：10%为标准且受欢迎。大多数餐厅现已接受刷卡，但圣诞市集摊位通常<strong>只收现金</strong>。请随身携带€20–€50零钱。"
         }
       ]
+    },
+    {
+      id: "tip-hvv-fare-zones",
+      icon: "🚇",
+      title: {
+        en: "HVV Fare Zones & Ticketing Tips",
+        zh: "HVV票價分區與購票攻略",
+        "zh-cn": "HVV票价分区与购票攻略"
+      },
+      items: [
+        {
+          en: "<strong>Hamburg uses 3 fare zones: A (city centre), B (suburbs), and C (outer region incl. airport).</strong> The airport (HAM) is in Zone B — a standard single ABC ticket covers the full S1 journey from airport to city centre. A <strong>3-day Hamburg Card (Zones A+B+C)</strong> covers everything including the airport link.",
+          zh: "<strong>漢堡分為A（市中心）、B（市郊）及C（外環含機場）三個票價分區。</strong> 漢堡機場位於B區——標準ABC單程票已涵蓋S1由機場直達市區全程。<strong>漢堡城市卡（3天ABC版）</strong>包含所有分區及機場連接線。",
+          "zh-cn": "<strong>汉堡分为A（市中心）、B（市郊）及C（外环含机场）三个票价分区。</strong> 汉堡机场位于B区——标准ABC单程票已涵盖S1由机场直达市区全程。<strong>汉堡城市卡（3天ABC版）</strong>包含所有分区及机场连接线。"
+        },
+        {
+          en: "Download the <strong>HVV Switch App</strong> (<a href='https://www.hvv.de/en/tickets/hvv-app' target='_blank' rel='noopener'>hvv.de/en/tickets/hvv-app</a>) for mobile tickets and real-time maps. The app supports English and shows live departures for all U-Bahn, S-Bahn, and bus stops.",
+          zh: "下載<strong>HVV Switch App</strong>（<a href='https://www.hvv.de/en/tickets/hvv-app' target='_blank' rel='noopener'>hvv.de</a>）購買手機電子票並查看實時地圖。App支援英文介面，可即時查閱所有地鐵、城郊列車及巴士到站資訊。",
+          "zh-cn": "下载<strong>HVV Switch App</strong>（<a href='https://www.hvv.de/en/tickets/hvv-app' target='_blank' rel='noopener'>hvv.de</a>）购买手机电子票并查看实时地图。App支持英文界面，可即时查阅所有地铁、城郊列车及巴士到站资讯。"
+        }
+      ]
+    },
+    {
+      id: "tip-gluehwein-pfand",
+      icon: "🍷",
+      title: {
+        en: "Glühwein & Market Pfand (Mug Deposit)",
+        zh: "熱紅酒與市集陶瓷杯押金 (Pfand)",
+        "zh-cn": "热红酒与市集陶瓷杯押金 (Pfand)"
+      },
+      items: [
+        {
+          en: "<strong>Pfand</strong> (German: deposit) is charged on the ceramic souvenir mug when you buy Glühwein — typically <strong>€2–€4</strong>. You have two options: return the mug to the same stall to get your deposit back, or keep it as a souvenir of your Hamburg Christmas market visit!",
+          zh: "<strong>Pfand</strong>（德語押金）是購買熱紅酒時對陶瓷紀念杯所收取的押金，通常為<strong>€2至€4</strong>。您有兩個選擇：將陶瓷杯退還同一攤位取回押金，或直接保留作為漢堡聖誕市集的紀念品！",
+          "zh-cn": "<strong>Pfand</strong>（德语押金）是购买热红酒时对陶瓷纪念杯所收取的押金，通常为<strong>€2至€4</strong>。您有两个选择：将陶瓷杯退还同一摊位取回押金，或直接保留作为汉堡圣诞市集的纪念品！"
+        },
+        {
+          en: "Each Christmas market has its own <strong>unique collector mug design</strong> — many visitors collect one from each market. Rathausmarkt mugs often feature the Hamburg city crest; Fleetinsel mugs feature the canal bridge. Prices: Glühwein approx. <strong>€4–€6</strong> per mug (incl. Pfand).",
+          zh: "每個聖誕市集均有<strong>獨家設計紀念陶瓷杯</strong>，不少遊客會收集每個市集的款式。市政廳廣場的陶瓷杯通常印有漢堡市徽，弗萊廷島的款式則印有運河橋樑圖案。熱紅酒售價約<strong>€4至€6</strong>（含押金）。",
+          "zh-cn": "每个圣诞市集均有<strong>独家设计纪念陶瓷杯</strong>，不少游客会收集每个市集的款式。市政厅广场的陶瓷杯通常印有汉堡市徽，弗莱廷岛的款式则印有运河桥梁图案。热红酒售价约<strong>€4至€6</strong>（含押金）。"
+        }
+      ]
+    },
+    {
+      id: "tip-s1-airport",
+      icon: "✈️",
+      title: {
+        en: "S1 Airport Link — Step-by-Step",
+        zh: "S1機場直達列車——詳細搭乘指引",
+        "zh-cn": "S1机场直达列车——详细乘坐指引"
+      },
+      items: [
+        {
+          en: "<strong>Arrival (Day 1):</strong> Exit Hamburg Airport at either Terminal. Follow signs to <strong>'S-Bahn / U-Bahn'</strong> — the station is directly below T1 & T2. Board <strong>S1 towards Altona / Wedel</strong> (Platform 1 or 2, direction city). Alight at <strong>Berliner Tor</strong> (27 min) — the hotel is a 4-minute walk. Or continue to <strong>Hamburg Hauptbahnhof</strong> (25 min).",
+          zh: "<strong>抵達（第1天）：</strong> 由漢堡機場任一航站樓出發，沿<strong>「S-Bahn / U-Bahn」</strong>指示牌前往T1及T2正下方的地鐵站。乘搭<strong>S1方向Altona / Wedel</strong>（1號或2號月台，往市區方向）。在<strong>Berliner Tor（柏林門）</strong>下車（約27分鐘），步行4分鐘抵達酒店；或繼續乘至<strong>Hamburg Hauptbahnhof（中央車站）</strong>（約25分鐘）。",
+          "zh-cn": "<strong>抵达（第1天）：</strong> 由汉堡机场任一航站楼出发，沿<strong>「S-Bahn / U-Bahn」</strong>指示牌前往T1及T2正下方的地铁站。乘搭<strong>S1方向Altona / Wedel</strong>（1号或2号月台，往市区方向）。在<strong>Berliner Tor（柏林门）</strong>下车（约27分钟），步行4分钟抵达酒店；或继续乘至<strong>Hamburg Hauptbahnhof（中央车站）</strong>（约25分钟）。"
+        },
+        {
+          en: "<strong>Departure (Day 3):</strong> From Berliner Tor station, board <strong>S1 towards Poppenbüttel / Hamburg Airport</strong> (direction airport). Journey to Hamburg Airport: approx. <strong>27 minutes</strong>. Depart hotel by <strong>14:15</strong> to arrive at HAM Terminal 2 by 14:45 — 2 hours before your 16:45 BA967 departure.",
+          zh: "<strong>離港（第3天）：</strong> 由Berliner Tor站乘搭<strong>S1方向Poppenbüttel / Hamburg Airport</strong>（往機場方向），約<strong>27分鐘</strong>抵達漢堡機場。請於酒店<strong>14:15</strong>出發，預計14:45前抵達漢堡T2，距16:45 BA967起飛提前2小時辦理登機手續。",
+          "zh-cn": "<strong>离港（第3天）：</strong> 由Berliner Tor站乘搭<strong>S1方向Poppenbüttel / Hamburg Airport</strong>（往机场方向），约<strong>27分钟</strong>抵达汉堡机场。请于酒店<strong>14:15</strong>出发，预计14:45前抵达汉堡T2，距16:45 BA967起飞提前2小时办理登机手续。"
+        }
+      ]
+    },
+    {
+      id: "tip-contactless-payment",
+      icon: "💳",
+      title: {
+        en: "Contactless & Digital Payments in Hamburg",
+        zh: "漢堡感應支付與數碼付款指南",
+        "zh-cn": "汉堡感应支付与数码付款指南"
+      },
+      items: [
+        {
+          en: "<strong>HVV now accepts contactless bank card tap-in/tap-out</strong> (Mastercard, Visa, Amex) on U-Bahn and S-Bahn fare gates — no ticket machine required for occasional short journeys. The system charges the correct fare automatically.",
+          zh: "<strong>HVV現已支援感應式銀行卡直接拍卡入閘</strong>（Mastercard、Visa、Amex），適用於地鐵及城郊列車閘機，短途出行無需在機器購票。系統自動扣取正確票價。",
+          "zh-cn": "<strong>HVV现已支持感应式银行卡直接拍卡入闸</strong>（Mastercard、Visa、Amex），适用于地铁及城郊列车闸机，短途出行无需在机器购票。系统自动扣取正确票价。"
+        },
+        {
+          en: "Most restaurants, shops, and supermarkets in Hamburg accept <strong>contactless card and Apple/Google Pay</strong>. However, <strong>Christmas market stalls and small kiosks are almost always cash-only</strong> — carry €30–€50 in small notes (€5, €10) and coins for market visits.",
+          zh: "漢堡大多數餐廳、商店及超市均接受<strong>感應信用卡及Apple/Google Pay</strong>。但<strong>聖誕市集攤位及小型街頭攤檔幾乎全部只收現金</strong>——建議隨身攜帶€30至€50零鈔（€5、€10面額）及硬幣，以備逛市集之用。",
+          "zh-cn": "汉堡大多数餐厅、商店及超市均接受<strong>感应信用卡及Apple/Google Pay</strong>。但<strong>圣诞市集摊位及小型街头摊档几乎全部只收现金</strong>——建议随身携带€30至€50零钞（€5、€10面额）及硬币，以备逛市集之用。"
+        }
+      ]
     }
   ],
 
@@ -1007,6 +1091,106 @@ const SITE_DATA = {
         lat: 53.5532,
         lng: 9.9888,
         url: "https://maps.google.com/?q=Zeit+fuer+Brot+Hamburg"
+      },
+      {
+        id: "altes-maedchen",
+        category: "traditional",
+        name: { en: "Altes Mädchen", zh: "老姑娘精釀酒館 (Altes Mädchen)", "zh-cn": "老姑娘精酿酒馆 (Altes Mädchen)" },
+        district: { en: "Schanzenviertel · Lagerstraße", zh: "文創區 · Lagerstraße (Schanzenviertel)", "zh-cn": "文创区 · Lagerstraße (Schanzenviertel)" },
+        categoryLabel: { en: "Historic & Labskaus", zh: "傳統德式經典", "zh-cn": "传统德式经典" },
+        price: "€€",
+        rating: "4.5 ★",
+        icon: "🍺",
+        badge: { en: "Hamburg's Best Craft Beer Hall", zh: "漢堡精釀啤酒首選聖地", "zh-cn": "汉堡精酿啤酒首选圣地" },
+        specialties: [
+          { en: "Rotating Craft Tap Selection (20+ taps)", zh: "20+款精釀生啤輪換龍頭", "zh-cn": "20+款精酿生啤轮换龙头" },
+          { en: "Pulled Pork Burger & House Smoked Ribs", zh: "慢燉手撕豬肉漢堡與自製煙燻肋骨", "zh-cn": "慢炖手撕猪肉汉堡与自制烟熏肋骨" },
+          { en: "Homemade Pretzels with Beer Mustard", zh: "自家製椒鹽脆餅配黑啤芥末醬 (Brezn)", "zh-cn": "自家制椒盐脆饼配黑啤芥末酱 (Brezn)" }
+        ],
+        desc: {
+          en: "Set inside a converted red-brick 19th-century slaughterhouse, Altes Mädchen is Hamburg's craft beer destination. Over 20 rotating taps showcase German and international craft ales alongside hearty American-style BBQ and house-smoked meats.",
+          zh: "位於改建自19世紀紅磚舊屠宰場的工業風廠房內，是漢堡精釀啤酒的朝聖之地。20多個輪換龍頭供應德國及國際精釀生啤，搭配手撕豬肉、自製煙燻肋骨與傳統椒鹽脆餅，氣氛豪邁熱鬧。",
+          "zh-cn": "位于改建自19世纪红砖旧屠宰场的工业风厂房内，是汉堡精酿啤酒的朝圣之地。20多个轮换龙头供应德国及国际精酿生啤，搭配手撕猪肉、自制烟熏肋骨与传统椒盐脆饼，气氛豪迈热闹。"
+        },
+        address: "Lagerstraße 28b, 20357 Hamburg",
+        lat: 53.5632,
+        lng: 9.9699,
+        url: "https://maps.google.com/?q=Altes+Maedchen+Hamburg"
+      },
+      {
+        id: "knuths-fischbroetchen",
+        category: "street-food",
+        name: { en: "Knuth's Fischbrötchen", zh: "Knuth's 老牌魚堡檔 (Knuth's Fischbrötchen)", "zh-cn": "Knuth's 老牌鱼堡档 (Knuth's Fischbrötchen)" },
+        district: { en: "Deichstraße · Altstadt", zh: "堤壩街 · 老城區 (Deichstraße · Altstadt)", "zh-cn": "堤坝街 · 老城区 (Deichstraße · Altstadt)" },
+        categoryLabel: { en: "Must-Have Street Food", zh: "必嚐街頭小吃", "zh-cn": "必尝街头小吃" },
+        price: "€",
+        rating: "4.6 ★",
+        icon: "🐟",
+        badge: { en: "Harbour-Fresh Fish Rolls", zh: "正宗港口魚卷麵包", "zh-cn": "正宗港口鱼卷面包" },
+        specialties: [
+          { en: "Matjes Fischbrötchen (Classic)", zh: "經典荷蘭鹽醃嫩鯡魚卷 (Matjes)", "zh-cn": "经典荷兰盐腌嫩鲱鱼卷 (Matjes)" },
+          { en: "Krabben-Avocado Brötchen", zh: "北海鮮蝦牛油果脆卷 (Krabben-Avocado)", "zh-cn": "北海鲜虾牛油果脆卷 (Krabben-Avocado)" },
+          { en: "Spicy Rollmops with Gherkin", zh: "辣醃鯡魚卷配酸黃瓜 (Rollmops)", "zh-cn": "辣腌鲱鱼卷配酸黄瓜 (Rollmops)" }
+        ],
+        desc: {
+          en: "A beloved local institution tucked in the historic Deichstraße warehouse district. Family-run for generations, Knuth's delivers freshly made Fischbrötchen with the day's catch — perfect for a quick lunch between sightseeing.",
+          zh: "深藏於歷史悠久的Deichstraße倉庫街區，數代家族傳承經營。每日採用港口新鮮漁獲即製的魚卷麵包，是景點遊覽間完美的輕食之選，本地人必推。",
+          "zh-cn": "深藏于历史悠久的Deichstraße仓库街区，数代家族传承经营。每日采用港口新鲜渔获即制的鱼卷面包，是景点游览间完美的轻食之选，本地人必推。"
+        },
+        address: "Deichstraße 21, 20459 Hamburg",
+        lat: 53.5470,
+        lng: 9.9862,
+        url: "https://maps.google.com/?q=Deichstrasse+Hamburg+Fischbroetchen"
+      },
+      {
+        id: "block-house-jungfernstieg",
+        category: "modern-dining",
+        name: { en: "Block House Jungfernstieg", zh: "Block House 頂級扒房 (Jungfernstieg)", "zh-cn": "Block House 顶级扒房 (Jungfernstieg)" },
+        district: { en: "Jungfernstieg · Binnenalster", zh: "少女大道 · 內阿爾斯特 (Jungfernstieg)", "zh-cn": "少女大道 · 内阿尔斯特 (Jungfernstieg)" },
+        categoryLabel: { en: "Romantic & Dinner", zh: "特色餐廳與晚宴", "zh-cn": "特色餐厅与晚宴" },
+        price: "€€€",
+        rating: "4.6 ★",
+        icon: "🥩",
+        badge: { en: "Hamburg's Classic Steakhouse", zh: "漢堡傳奇牛排連鎖老字號", "zh-cn": "汉堡传奇牛排连锁老字号" },
+        specialties: [
+          { en: "Dry-Aged German Rump Steak", zh: "乾式熟成德國頂級腰臀扒 (Rumpsteak)", "zh-cn": "干式熟成德国顶级腰臀扒 (Rumpsteak)" },
+          { en: "Pfannenfilet in Cognac Cream", zh: "干邑奶油醬煎牛柳配時令蔬菜 (Pfannenfilet)", "zh-cn": "干邑奶油酱煎牛柳配时令蔬菜 (Pfannenfilet)" },
+          { en: "Block House Signature Herb Butter", zh: "招牌香草牛油配傳統薯角 (Kräuterbutter)", "zh-cn": "招牌香草牛油配传统薯角 (Kräuterbutter)" }
+        ],
+        desc: {
+          en: "Founded in Hamburg in 1968, Block House is Germany's most beloved steakhouse group. The Jungfernstieg flagship offers premium German beef on lava-stone grills in a warm, dark-wood atmosphere, with panoramic Inner Alster views.",
+          zh: "1968年創立於漢堡，Block House是德國最受愛戴的牛扒連鎖集團。少女大道旗艦店採用火山石炙烤德國優質牛扒，在溫暖深色原木環境中，飽覽內阿爾斯特湖景，完美情侶晚宴首選。",
+          "zh-cn": "1968年创立于汉堡，Block House是德国最受喜爱的牛扒连锁集团。少女大道旗舰店采用火山石炙烤德国优质牛扒，在温暖深色原木环境中，饱览内阿尔斯特湖景，完美情侣晚宴首选。"
+        },
+        address: "Jungfernstieg 7, 20095 Hamburg",
+        lat: 53.5525,
+        lng: 9.9938,
+        url: "https://maps.google.com/?q=Block+House+Jungfernstieg+Hamburg"
+      },
+      {
+        id: "fleetinsel-xmas-market",
+        category: "street-food",
+        name: { en: "Fleetinsel Christmas Market", zh: "弗里特島聖誕市集 (Fleetinsel Weihnachtsmarkt)", "zh-cn": "弗里特岛圣诞市集 (Fleetinsel Weihnachtsmarkt)" },
+        district: { en: "Fleetinsel · HafenCity Edge", zh: "弗里特島 · 港城邊緣 (Fleetinsel)", "zh-cn": "弗里特岛 · 港城边缘 (Fleetinsel)" },
+        categoryLabel: { en: "Must-Have Street Food", zh: "必嚐街頭小吃", "zh-cn": "必尝街头小吃" },
+        price: "€",
+        rating: "4.8 ★",
+        icon: "🎄",
+        badge: { en: "Most Romantic Christmas Market", zh: "漢堡最浪漫聖誕市集", "zh-cn": "汉堡最浪漫圣诞市集" },
+        specialties: [
+          { en: "Canal-Side Glühwein (Ceramic Collector Mugs)", zh: "運河畔熱紅酒（附限定收藏陶瓷杯）", "zh-cn": "运河畔热红酒（附限定收藏陶瓷杯）" },
+          { en: "Artisan Lebkuchen (Gingerbread Cookies)", zh: "職人手工薑餅 (Lebkuchen)", "zh-cn": "职人手工姜饼 (Lebkuchen)" },
+          { en: "Canal Boat Glühwein Cruise (Fleetsüchtig)", zh: "運河遊船熱紅酒巡遊體驗 (Fleetsüchtig)", "zh-cn": "运河游船热红酒巡游体验 (Fleetsüchtig)" }
+        ],
+        desc: {
+          en: "Widely regarded as Hamburg's most romantic Christmas market, nestled along the candlelit canals of the Fleetinsel. Unique Jugendstil-style stalls, artisan crafts, and the unmissable Fleetsüchtig canal-boat Glühwein cruise experience.",
+          zh: "公認為漢堡最浪漫的聖誕市集，蜿蜒於燭光搖曳的Fleetinsel運河兩岸。新藝術風格精緻小屋攤販、手工藝品，以及不可錯過的Fleetsüchtig運河遊船熱紅酒巡遊，情侶首選。",
+          "zh-cn": "公认为汉堡最浪漫的圣诞市集，蜿蜒于烛光摇曳的Fleetinsel运河两岸。新艺术风格精致小屋摊贩、手工艺品，以及不可错过的Fleetsüchtig运河游船热红酒巡游，情侣首选。"
+        },
+        address: "Stadthausbrücke, 20355 Hamburg",
+        lat: 53.5507,
+        lng: 9.9872,
+        url: "https://maps.google.com/?q=Fleetinsel+Weihnachtsmarkt+Hamburg"
       }
     ]
   },

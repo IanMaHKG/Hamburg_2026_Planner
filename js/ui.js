@@ -411,31 +411,257 @@ function initNavigation() {
 }
 
 /* ═══════════════════════════════════════════════════
-   5. HERO PARTICLES GENERATOR
+   5. HERO PARTICLES GENERATOR — Winter Snowflakes
    ======================================================= */
 /**
- * Generates 24 floating particle elements inside .hero-particles and appends
- * them to the DOM. Each particle gets a random size, horizontal start position,
- * animation duration, and delay for a natural floating effect.
- * The animation itself is defined in sections.css (@keyframes floatUp).
+ * Generates animated snowflake elements inside .hero-particles for the
+ * Hamburg winter / Christmas market theme. Uses CSS @keyframes snowfall
+ * defined in sections.css. Respects prefers-reduced-motion by checking
+ * window.matchMedia before spawning anything.
+ *
+ * Characters cycle through Unicode snowflake glyphs for visual variety.
+ * Each flake gets a random: horizontal start %, size (0.8–1.8em),
+ * animation duration (9–20s), delay (0–12s), and opacity (0.4–0.85).
  */
 function initHeroParticles() {
   const container = document.querySelector('.hero-particles');
   if (!container) return;
 
-  const count = 24;
+  // Respect reduced-motion preference — skip particles entirely
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const flakeChars = ['❄', '❅', '❆', '·', '❄', '❅'];
+  const count = 40;
+
   for (let i = 0; i < count; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'hero-particle';
-    const size = Math.random() * 4 + 2;
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
-    particle.style.left = `${Math.random() * 100}%`;
-    particle.style.animationDuration = `${Math.random() * 8 + 6}s`;
-    particle.style.animationDelay = `${Math.random() * 5}s`;
-    container.appendChild(particle);
+    const flake = document.createElement('span');
+    flake.className = 'snowflake';
+    flake.textContent = flakeChars[i % flakeChars.length];
+    flake.style.left = `${Math.random() * 100}%`;
+    flake.style.fontSize = `${(Math.random() * 1.0 + 0.8).toFixed(2)}em`;
+    flake.style.animationDuration = `${(Math.random() * 11 + 9).toFixed(1)}s`;
+    flake.style.animationDelay = `${(Math.random() * 12).toFixed(1)}s`;
+    flake.style.opacity = (Math.random() * 0.45 + 0.40).toFixed(2);
+    // Slight horizontal drift variation via CSS custom property
+    flake.style.setProperty('--drift', `${(Math.random() * 40 - 20).toFixed(0)}px`);
+    container.appendChild(flake);
   }
 }
+
+/* ═══════════════════════════════════════════════════
+   5B. STICKY "TODAY" PILL — Auto-jump on trip dates
+   ======================================================= */
+/**
+ * On the actual trip dates (Nov 26–28, 2026) a sticky pill appears at the
+ * top of the itinerary section reading e.g. "Today: Day 1 — HafenCity".
+ * Clicking it opens the matching day accordion and smooth-scrolls to it.
+ * Outside the trip window the pill is not rendered.
+ *
+ * Fully data-driven: reads trip start/end from TRIP_CONFIG.trip.dates and
+ * day titles from window.ITINERARY_DATA.
+ */
+function initTodayPill() {
+  const config = window.TRIP_CONFIG;
+  if (!config || !config.trip || !config.trip.dates) return;
+
+  const startStr = config.trip.dates.start; // 'YYYY-MM-DD'
+  const endStr   = config.trip.dates.end;
+  if (!startStr || !endStr) return;
+
+  const now   = new Date();
+  const start = new Date(startStr + 'T00:00:00');
+  const end   = new Date(endStr   + 'T23:59:59');
+
+  if (now < start || now > end) return; // Not during the trip
+
+  // Determine which day number it is
+  const msPerDay = 86400000;
+  const dayIndex = Math.floor((now - start) / msPerDay); // 0-based
+  const itinerary = window.ITINERARY_DATA || [];
+  const dayData   = itinerary[dayIndex];
+  if (!dayData) return;
+
+  // Determine active language
+  const lang = localStorage.getItem('user-lang') || 'en';
+  const getLang = (obj) => {
+    if (!obj) return '';
+    return obj[lang] || obj.en || '';
+  };
+
+  const dayTitle = getLang(dayData.title);
+  const dayLabel = getLang(dayData.region ? { en: 'Day ' + dayData.dayNum, zh: '第' + dayData.dayNum + '天', 'zh-cn': '第' + dayData.dayNum + '天' } : { en: 'Day ' + dayData.dayNum });
+
+  // Labels per language
+  const todayLabel = { en: 'Today', zh: '今日', 'zh-cn': '今日' };
+  const jumpLabel  = { en: 'Jump to today →', zh: '跳至今日行程 →', 'zh-cn': '跳至今日行程 →' };
+
+  const pill = document.createElement('div');
+  pill.className = 'today-pill reveal';
+  pill.id = 'today-pill';
+  pill.innerHTML =
+    '<span class="today-pill-dot"></span>' +
+    '<span class="today-pill-label">' +
+      '<span class="lang-primary lang-en">' + todayLabel.en + ': Day ' + dayData.dayNum + (dayTitle ? ' — ' + dayTitle : '') + '</span>' +
+      '<span class="lang-secondary lang-zh">' + todayLabel.zh + '：第' + dayData.dayNum + '天' + (dayTitle ? ' — ' + dayTitle : '') + '</span>' +
+      '<span class="lang-tertiary lang-zh-cn">' + todayLabel['zh-cn'] + '：第' + dayData.dayNum + '天' + (dayTitle ? ' — ' + dayTitle : '') + '</span>' +
+    '</span>' +
+    '<span class="today-pill-action">' +
+      '<span class="lang-primary lang-en">' + jumpLabel.en + '</span>' +
+      '<span class="lang-secondary lang-zh">' + jumpLabel.zh + '</span>' +
+      '<span class="lang-tertiary lang-zh-cn">' + jumpLabel['zh-cn'] + '</span>' +
+    '</span>';
+
+  // Insert above the timeline
+  const timeline = document.getElementById('itinerary-timeline-container');
+  if (timeline && timeline.parentNode) {
+    timeline.parentNode.insertBefore(pill, timeline);
+  }
+
+  pill.addEventListener('click', () => {
+    const dayCard = document.getElementById(dayData.id || ('day-' + dayData.dayNum));
+    if (dayCard) {
+      if (!dayCard.classList.contains('open')) {
+        dayCard.classList.add('open');
+        if (typeof initDayMiniMap === 'function') {
+          setTimeout(() => initDayMiniMap(dayCard.id), 150);
+        }
+      }
+      setTimeout(() => dayCard.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+    }
+  });
+}
+window.initTodayPill = initTodayPill;
+
+/* ═══════════════════════════════════════════════════
+   5C. SWIPE GESTURES — Left/Right between day accordions
+   ======================================================= */
+/**
+ * Attaches touchstart/touchend listeners to #itinerary-timeline-container.
+ * A horizontal swipe of ≥50px (and < 2× the vertical movement) opens the
+ * next/previous day card and closes the current one.
+ * A brief toast confirms the navigation gesture.
+ */
+function initItinerarySwipe() {
+  const timeline = document.getElementById('itinerary-timeline-container');
+  if (!timeline) return;
+
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  timeline.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].clientX;
+    touchStartY = e.changedTouches[0].clientY;
+  }, { passive: true });
+
+  timeline.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    const absDx = Math.abs(dx);
+    const absDy = Math.abs(dy);
+
+    // Only trigger on a clearly horizontal swipe
+    if (absDx < 50 || absDy > absDx * 0.8) return;
+
+    const cards = Array.from(document.querySelectorAll('.day-card'));
+    const visibleCards = cards.filter(c => c.style.display !== 'none');
+    const openIdx = visibleCards.findIndex(c => c.classList.contains('open'));
+
+    let targetIdx = openIdx;
+    if (dx < 0) {
+      // Swipe left → next day
+      targetIdx = Math.min(openIdx + 1, visibleCards.length - 1);
+    } else {
+      // Swipe right → prev day
+      targetIdx = Math.max(openIdx - 1, 0);
+    }
+
+    if (targetIdx === openIdx) return;
+
+    // Close current, open target
+    if (openIdx >= 0) visibleCards[openIdx].classList.remove('open');
+    const target = visibleCards[targetIdx];
+    target.classList.add('open');
+    if (typeof initDayMiniMap === 'function') {
+      setTimeout(() => initDayMiniMap(target.id), 150);
+    }
+    setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+
+    // Toast
+    const dayNum = targetIdx + 1;
+    showToast({
+      en:      (dx < 0 ? '→ ' : '← ') + 'Day ' + dayNum,
+      zh:      (dx < 0 ? '→ ' : '← ') + '第' + dayNum + '天',
+      'zh-cn': (dx < 0 ? '→ ' : '← ') + '第' + dayNum + '天'
+    });
+  }, { passive: true });
+}
+window.initItinerarySwipe = initItinerarySwipe;
+
+/* ═══════════════════════════════════════════════════
+   5D. ITINERARY PROGRESS TRACKER
+   ======================================================= */
+/**
+ * Injects a mini status bar into #itinerary-toolbar-container showing
+ * "Day X of Y · Z activities remaining" only during the trip window.
+ * Outside the trip window it shows a compact day count badge instead.
+ * Trilingual — reads language from localStorage.
+ */
+function initProgressTracker() {
+  const config    = window.TRIP_CONFIG;
+  const itinerary = window.ITINERARY_DATA || [];
+  const toolbar   = document.getElementById('itinerary-toolbar-container');
+  if (!toolbar || itinerary.length === 0) return;
+
+  const startStr = config && config.trip && config.trip.dates && config.trip.dates.start;
+  const endStr   = config && config.trip && config.trip.dates && config.trip.dates.end;
+
+  let trackerHTML = '';
+
+  if (startStr && endStr) {
+    const now   = new Date();
+    const start = new Date(startStr + 'T00:00:00');
+    const end   = new Date(endStr   + 'T23:59:59');
+
+    if (now >= start && now <= end) {
+      const dayIndex = Math.floor((now - start) / 86400000);
+      const dayData  = itinerary[dayIndex];
+      const totalDays = itinerary.length;
+
+      if (dayData) {
+        // Count remaining blocks based on rough time-of-day
+        const hour = now.getHours();
+        const blocks = dayData.blocks || [];
+        const remaining = blocks.filter((_, i) => {
+          if (i === 0 && hour < 12) return true;
+          if (i === 1 && hour < 16) return true;
+          if (i === 2 && hour < 22) return true;
+          return false;
+        }).length;
+
+        const pct = Math.round(((dayIndex + (1 - remaining / Math.max(blocks.length, 1))) / totalDays) * 100);
+
+        trackerHTML =
+          '<div class="progress-tracker">' +
+            '<div class="progress-tracker-text">' +
+              '<span class="lang-primary lang-en">Day ' + (dayIndex+1) + ' of ' + totalDays + ' · ' + remaining + ' activit' + (remaining === 1 ? 'y' : 'ies') + ' remaining</span>' +
+              '<span class="lang-secondary lang-zh">第' + (dayIndex+1) + '天（共' + totalDays + '天）· 剩餘 ' + remaining + ' 個活動</span>' +
+              '<span class="lang-tertiary lang-zh-cn">第' + (dayIndex+1) + '天（共' + totalDays + '天）· 剩余 ' + remaining + ' 个活动</span>' +
+            '</div>' +
+            '<div class="progress-tracker-bar">' +
+              '<div class="progress-tracker-fill" style="width:' + pct + '%"></div>' +
+            '</div>' +
+          '</div>';
+      }
+    }
+  }
+
+  if (trackerHTML) {
+    const trackerWrap = document.createElement('div');
+    trackerWrap.innerHTML = trackerHTML;
+    toolbar.parentNode && toolbar.parentNode.insertBefore(trackerWrap.firstChild, toolbar);
+  }
+}
+window.initProgressTracker = initProgressTracker;
 
 /* ═══════════════════════════════════════════════════
    6. HOTEL SEARCH FORM HANDLER (Booking.com Direct)

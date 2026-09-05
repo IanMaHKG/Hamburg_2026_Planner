@@ -29,7 +29,7 @@
  * @see js/render.js   — renderAll().
  * @see js/currency.js — initCurrencySelector().
  * @see js/map.js      — initRouteMap(), initDayMiniMap().
- * @see sw.js          — Service Worker (bump CACHE_NAME after code changes).
+ * @see sw.js          — Service Worker (bump const CACHE_NAME = 'trip-planner-v21'; after code changes).
  * @see AGENTS.md      — Architecture rules.
  */
 
@@ -99,6 +99,15 @@ function tripPlannerInit() {
         initDayMiniMap(firstDayCard.id);
       }, 400);
     }
+
+    // 11. Today Pill — auto-appears on actual trip dates
+    if (typeof initTodayPill === 'function') initTodayPill();
+
+    // 12. Swipe gestures between day accordions (touch devices)
+    if (typeof initItinerarySwipe === 'function') initItinerarySwipe();
+
+    // 13. Progress tracker bar (during trip window)
+    if (typeof initProgressTracker === 'function') initProgressTracker();
   } catch (err) {
     console.error('Error during Trip Planner initialization:', err);
   }

@@ -29,6 +29,88 @@
  * @see AGENTS.md               — Architecture rules.
  */
 
+/* ═══════════════════════════════════════════════════
+   0. DYNAMIC MAPLIBRE GL LOADER
+   ═══════════════════════════════════════════════════
+ * MapLibre GL JS (~780 KB) is NOT loaded synchronously in index.html.
+ * Instead, this loader watches #map and #food sections with an
+ * IntersectionObserver and injects the <script> tag only when those
+ * sections are within 200px of the viewport (rootMargin: '200px').
+ *
+ * All public init functions (initRouteMap, initDayMiniMap, initFoodMap)
+ * are guarded by typeof maplibregl === 'undefined' already, so they
+ * safely no-op until the bundle is ready and the load callback retries.
+ *
+ * Fallback: if IntersectionObserver is not supported (very old browsers),
+ * the bundle is loaded immediately on DOMContentLoaded.
+ */
+const MAPLIBRE_JS_URL = 'https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js';
+
+let _maplibreLoaded  = false;
+let _maplibreLoading = false;
+const _pendingMapInits = [];  // queue of callbacks waiting for maplibregl
+
+/**
+ * Dynamically loads the MapLibre GL bundle once, then fires all queued callbacks.
+ */
+function loadMapLibre(callback) {
+  if (_maplibreLoaded) {
+    if (callback) callback();
+    return;
+  }
+  if (callback) _pendingMapInits.push(callback);
+  if (_maplibreLoading) return;
+
+  _maplibreLoading = true;
+  const script = document.createElement('script');
+  script.src = MAPLIBRE_JS_URL;
+  script.async = true;
+  script.onload = () => {
+    _maplibreLoaded = true;
+    _maplibreLoading = false;
+    _pendingMapInits.splice(0).forEach(fn => fn());
+  };
+  script.onerror = () => {
+    _maplibreLoading = false;
+    console.warn('[map.js] Failed to load MapLibre GL from', MAPLIBRE_JS_URL);
+  };
+  document.head.appendChild(script);
+}
+
+/**
+ * Sets up IntersectionObserver to lazy-load MapLibre when map sections
+ * are about to scroll into view. Falls back to eager load if IO not supported.
+ */
+function initMapLibreLazyLoader() {
+  const watchTargets = ['map', 'food', 'itinerary'].map(id => document.getElementById(id)).filter(Boolean);
+
+  if (!watchTargets.length) return;
+
+  if (!('IntersectionObserver' in window)) {
+    // Fallback: load immediately
+    loadMapLibre(null);
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    const triggered = entries.some(e => e.isIntersecting);
+    if (triggered) {
+      observer.disconnect();
+      loadMapLibre(null);
+    }
+  }, { rootMargin: '300px' });
+
+  watchTargets.forEach(el => observer.observe(el));
+}
+
+// Kick off lazy loader after DOM is ready (script.js already fires after DOMContentLoaded,
+// but map.js may execute before renderAll populates #map — so we use a small delay)
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => setTimeout(initMapLibreLazyLoader, 100));
+} else {
+  setTimeout(initMapLibreLazyLoader, 100);
+}
+
 const STYLE_LIGHT = 'https://tiles.openfreemap.org/styles/positron';
 const STYLE_DARK  = 'https://tiles.openfreemap.org/styles/fiord';
 
@@ -137,8 +219,12 @@ window.addEventListener('langchange', (e) => {
    1. OVERVIEW ROUTE MAP
    ═══════════════════════════════════════════════════ */
 function initRouteMap() {
+  if (typeof maplibregl === 'undefined') {
+    loadMapLibre(() => initRouteMap());
+    return;
+  }
   const mapEl = document.getElementById('route-map') || document.getElementById('main-map');
-  if (!mapEl || typeof maplibregl === 'undefined') return;
+  if (!mapEl) return;
 
   const data = (typeof window !== 'undefined' && window.SITE_DATA) ? window.SITE_DATA : null;
   if (!data) return;
@@ -256,7 +342,11 @@ function initRouteMap() {
    2. PER-DAY MINI MAPS (Lazy Initialized)
    ═══════════════════════════════════════════════════ */
 function initDayMiniMap(dayId) {
-  if (_dayMaps[dayId] || typeof maplibregl === 'undefined') return;
+  if (typeof maplibregl === 'undefined') {
+    loadMapLibre(() => initDayMiniMap(dayId));
+    return;
+  }
+  if (_dayMaps[dayId]) return;
 
   const container = document.getElementById(`minimap-${dayId}`);
   if (!container) return;
@@ -345,8 +435,12 @@ function initDayMiniMap(dayId) {
  * and binds popup / card synchronisation.
  */
 function initFoodMap() {
+  if (typeof maplibregl === 'undefined') {
+    loadMapLibre(() => initFoodMap());
+    return;
+  }
   const mapEl = document.getElementById('food-map');
-  if (!mapEl || typeof maplibregl === 'undefined') return;
+  if (!mapEl) return;
 
   // If already initialized, just resize
   if (_foodMap) {

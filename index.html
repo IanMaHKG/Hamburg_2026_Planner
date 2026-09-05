@@ -22,8 +22,10 @@
   <!-- Master Design System & Styles -->
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- MapLibre GL CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css">
+  <!-- MapLibre GL CSS (deferred: media=print → all swap so it does not block render) -->
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css"
+        media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css"></noscript>
 </head>
 <body class="lang-primary lang-en">
 
@@ -506,7 +508,7 @@
   <script src="data/config.js"></script>
   <script src="data/site-data.js"></script>
   <script src="data/itinerary-data.js"></script>
-  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+  <!-- MapLibre GL JS: loaded dynamically by map.js when maps scroll into view -->
   <script src="js/currency.js"></script>
   <script src="js/map.js"></script>
   <script src="js/render.js"></script>
