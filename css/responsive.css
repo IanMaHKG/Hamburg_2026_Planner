@@ -101,7 +101,7 @@
   }
 
   .container {
-    padding: 0 18px;
+    padding: 0 16px;
   }
 
   .section {
@@ -270,6 +270,28 @@
 
   .nav-links {
     top: 56px;
+  }
+
+  .itinerary-toolbar-container {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .itinerary-toolbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-radius: var(--radius-lg, 16px);
+    gap: 6px;
+    padding: 6px;
+  }
+
+  .itinerary-tool-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.74rem;
+    padding: 7px 6px;
   }
 }
 
@@ -544,6 +566,13 @@
     min-width: 0 !important;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 8px !important;
+    scrollbar-width: none !important;
+  }
+
+  .food-filter-pills::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
 
   .food-pill {
@@ -605,6 +634,13 @@
     min-width: 0 !important;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 6px !important;
+    scrollbar-width: none !important;
+  }
+
+  .phrase-tabs-row::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
 
   .phrase-tab-btn {
@@ -615,6 +651,48 @@
 
   .phrases-grid {
     grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Compact Screen Refinements (< 400px: iPhone 16 Pro, SE, etc.) ── */
+@media (max-width: 400px) {
+  .container {
+    padding: 0 14px;
+  }
+
+  .section {
+    padding: 36px 0;
+  }
+
+  .overview-icon {
+    padding: 8px;
+    font-size: 1.6rem;
+  }
+
+  .flight-card {
+    padding: 16px 12px;
+  }
+
+  .flight-route-visual {
+    padding: 10px 6px;
+  }
+
+  .hotel-search-card {
+    padding: 16px 12px;
+  }
+
+  .tip-card,
+  .packing-category-card,
+  .transit-card {
+    padding: 20px 14px;
+  }
+
+  .budget-stat-card {
+    padding: 16px 14px;
+  }
+
+  .budget-breakdown-card {
+    padding: 16px 14px;
   }
 }
 

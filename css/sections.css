@@ -141,7 +141,9 @@
   position: relative;
   z-index: 2;
   max-width: 900px;
+  width: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .hero-eyebrow {
@@ -1215,7 +1217,7 @@
 
 .hotel-search-form .form-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
   gap: 16px;
   align-items: flex-end;
 }
@@ -1958,7 +1960,7 @@
 /* ── Food Cards Grid ── */
 .food-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: 24px;
 }
 
@@ -2373,7 +2375,7 @@
 
 .weather-days-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
   gap: 16px;
   margin-bottom: 20px;
 }
@@ -3156,7 +3158,7 @@
   display: inline-block;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 640px) {
   .budget-stats-grid {
     grid-template-columns: 1fr;
   }
