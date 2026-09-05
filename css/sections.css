@@ -3168,17 +3168,21 @@
 
 .budget-dist-bar {
   display: flex;
-  height: 14px;
+  height: 12px;
   width: 100%;
   border-radius: var(--radius-pill, 9999px);
   overflow: hidden;
   margin-bottom: 14px;
   border: 1px solid var(--border-light);
+  background: var(--bg-secondary);
 }
 
 .dist-seg {
   height: 100%;
   transition: width 0.3s ease;
+  font-size: 0;
+  line-height: 0;
+  overflow: hidden;
 }
 
 .dist-seg.seg-flights { background: #8B5CF6; }

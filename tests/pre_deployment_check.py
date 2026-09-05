@@ -9,7 +9,7 @@ Checks:
 5. Zero horizontal page overflow
 """
 
-import sys, io, os, json, time, subprocess, urllib.request
+import sys, io, os, json, time, subprocess, urllib.request, shutil
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 import websocket
@@ -51,6 +51,8 @@ edge_proc = subprocess.Popen([
     "--disable-gpu",
     "--no-first-run",
     "--no-default-browser-check",
+    "--disable-search-engine-choice-screen",
+    "--disable-features=msEdgeSyncPrompt,Translate",
     "about:blank"
 ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
@@ -82,13 +84,16 @@ try:
     # 4. Open WebSocket connection
     ws = websocket.create_connection(ws_url, timeout=10)
 
-    # Enable Page and Runtime domains
+    # Enable Page, Runtime, and Network domains (disable cache to test fresh code)
     ws.send(json.dumps({"id": 1, "method": "Runtime.enable"}))
     ws.send(json.dumps({"id": 2, "method": "Page.enable"}))
+    ws.send(json.dumps({"id": 3, "method": "Network.enable"}))
+    ws.send(json.dumps({"id": 4, "method": "Network.setCacheDisabled", "params": {"cacheDisabled": True}}))
 
-    # Navigate to TARGET_URL
-    print(f"\n[STEP 3] Navigating to {TARGET_URL}...")
-    ws.send(json.dumps({"id": 3, "method": "Page.navigate", "params": {"url": TARGET_URL}}))
+    # Navigate to TARGET_URL with nocache query param
+    nocache_url = f"{TARGET_URL}?nocache={int(time.time())}"
+    print(f"\n[STEP 3] Navigating to {nocache_url}...")
+    ws.send(json.dumps({"id": 5, "method": "Page.navigate", "params": {"url": nocache_url}}))
 
     # Listen for events over 5 seconds
     start_time = time.time()
@@ -101,9 +106,9 @@ try:
             data = json.loads(msg)
             method = data.get("method", "")
 
-            if method == "Page.domContentEventFired":
+            if method in ("Page.domContentEventFired", "Page.loadEventFired"):
                 dom_loaded = True
-                print("  ✓ DOMContentLoaded event fired")
+                print(f"  ✓ {method} fired")
 
             elif method == "Runtime.consoleAPICalled":
                 args = data.get("params", {}).get("args", [])
@@ -160,8 +165,9 @@ try:
                     text: trans ? trans.innerText.split('\n').map(s => s.trim()).filter(Boolean).join(' | ') : ''
                 };
             }),
-            scrollWidth: document.documentElement.scrollWidth,
-            clientWidth: document.documentElement.clientWidth
+            distSegTexts: Array.from(document.querySelectorAll('.dist-seg')).map(s => s.innerText.trim()).filter(Boolean),
+            scrollWidth: document.documentElement ? document.documentElement.scrollWidth : 0,
+            clientWidth: document.documentElement ? document.documentElement.clientWidth : 0
         };
     })()
     """
@@ -253,6 +259,7 @@ try:
         ("Phrase Cards (>=5)", eval_res and eval_res.get('phraseCards', 0) >= 5),
         ("Zero Contact Badge Overflow", not has_badge_overflow),
         ("Zero Phrase Trans Duplicates", not has_phrase_duplicates),
+        ("Zero Budget Bar Text Leakage", eval_res and len(eval_res.get('distSegTexts', [])) == 0),
     ]
 
     failed_checks = [name for name, passed in checks if not passed]

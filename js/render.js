@@ -768,7 +768,8 @@ function renderBudget() {
     ];
 
     var distBarsHtml = bAlloc.map(function(seg) {
-      return '<div class="dist-seg ' + (seg.cls || '') + '" style="width: ' + seg.pct + '%;" title="' + renderBilingualText(seg.name) + '"></div>';
+      var plainLabel = (seg.name && (seg.name.en || (typeof seg.name === 'string' ? seg.name : Object.values(seg.name)[0]))) || '';
+      return '<div class="dist-seg ' + (seg.cls || '') + '" style="width: ' + seg.pct + '%;" title="' + plainLabel + '"></div>';
     }).join('');
 
     var colors = ['#0D9488', '#8B5CF6', '#F59E0B', '#0284C7', '#EC4899'];
