@@ -37,7 +37,10 @@
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js')
-      .then(reg => console.log('Trip Planner ServiceWorker registered with scope:', reg.scope))
+      .then(reg => {
+        reg.update();
+        console.log('Trip Planner ServiceWorker registered with scope:', reg.scope);
+      })
       .catch(err => console.log('Trip Planner ServiceWorker registration failed:', err));
   });
 }

@@ -165,7 +165,11 @@ try:
                     text: trans ? trans.innerText.split('\n').map(s => s.trim()).filter(Boolean).join(' | ') : ''
                 };
             }),
-            distSegTexts: Array.from(document.querySelectorAll('.dist-seg')).map(s => s.innerText.trim()).filter(Boolean),
+            budgetBarLabels: Array.from(document.querySelectorAll('.dist-seg-label')).map(s => s.innerText.trim()).filter(Boolean),
+            budgetBarLabelsFit: Array.from(document.querySelectorAll('.dist-seg-label')).length > 0 && Array.from(document.querySelectorAll('.dist-seg-label')).every(l => {
+                const r = l.getBoundingClientRect();
+                return r.height <= 26 && r.height > 0;
+            }),
             scrollWidth: document.documentElement ? document.documentElement.scrollWidth : 0,
             clientWidth: document.documentElement ? document.documentElement.clientWidth : 0
         };
@@ -259,7 +263,8 @@ try:
         ("Phrase Cards (>=5)", eval_res and eval_res.get('phraseCards', 0) >= 5),
         ("Zero Contact Badge Overflow", not has_badge_overflow),
         ("Zero Phrase Trans Duplicates", not has_phrase_duplicates),
-        ("Zero Budget Bar Text Leakage", eval_res and len(eval_res.get('distSegTexts', [])) == 0),
+        ("Budget Bar Labels Rendered", eval_res and len(eval_res.get('budgetBarLabels', [])) >= 3),
+        ("Budget Bar Labels Fit Vertically", eval_res and eval_res.get('budgetBarLabelsFit', False)),
     ]
 
     failed_checks = [name for name, passed in checks if not passed]

@@ -3168,21 +3168,38 @@
 
 .budget-dist-bar {
   display: flex;
-  height: 12px;
+  height: 26px;
   width: 100%;
   border-radius: var(--radius-pill, 9999px);
   overflow: hidden;
   margin-bottom: 14px;
   border: 1px solid var(--border-light);
   background: var(--bg-secondary);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 .dist-seg {
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
   transition: width 0.3s ease;
-  font-size: 0;
-  line-height: 0;
   overflow: hidden;
+  text-align: center;
+  position: relative;
+}
+
+.dist-seg-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1;
+  pointer-events: none;
 }
 
 .dist-seg.seg-flights { background: #8B5CF6; }
@@ -3218,6 +3235,13 @@
 @media (max-width: 640px) {
   .budget-stats-grid {
     grid-template-columns: 1fr;
+  }
+  .budget-dist-bar {
+    height: 22px;
+  }
+  .dist-seg-label {
+    font-size: 0.65rem;
+    padding: 0 2px;
   }
 }
 
