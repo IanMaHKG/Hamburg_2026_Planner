@@ -42,6 +42,10 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -50,6 +54,9 @@ body {
   color: var(--text-primary);
   line-height: 1.7;
   overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+  position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color var(--transition-smooth), color var(--transition-smooth);
@@ -125,14 +132,25 @@ input, select, textarea {
 /* ── Layout Containers ── */
 .container {
   max-width: 1320px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 32px;
+  box-sizing: border-box;
+}
+
+#trip-content {
+  max-width: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
 }
 
 .section {
   padding: 72px 0;
   position: relative;
   background: var(--bg-primary);
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .section-dark {

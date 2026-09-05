@@ -14,7 +14,7 @@
  * @see AGENTS.md — Service Worker & PWA Rules section.
  */
 
-const CACHE_NAME = 'trip-planner-v11';
+const CACHE_NAME = 'trip-planner-v12';
 const STATIC_ASSETS = [
   './',
   './index.html',

@@ -156,19 +156,50 @@
   .flights-grid {
     grid-template-columns: 1fr;
     gap: 18px;
+    min-width: 0;
+    width: 100%;
   }
 
   .flight-card {
-    padding: 20px 16px;
+    padding: 18px 14px;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .flight-route-visual {
-    padding: 12px 10px;
-    gap: 8px;
+    padding: 12px 8px;
+    gap: 6px;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .flight-code {
-    font-size: 1.55rem;
+    font-size: 1.4rem;
+  }
+
+  .flight-plane-track {
+    min-width: 36px;
+  }
+
+  .flight-actions-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .flight-transfer-card {
+    padding: 18px 16px;
+    gap: 14px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Budget Table Responsive Padding */
+  .budget-table th,
+  .budget-table td {
+    padding: 10px 12px;
+    font-size: 0.82rem;
   }
 
   /* Hotel form */
@@ -197,13 +228,44 @@
 @media (max-width: 640px) {
   .nav-container,
   .nav-inner {
-    padding: 0 16px;
+    padding: 0 12px;
     height: 56px;
-    gap: 8px;
+    gap: 6px;
+    max-width: 100%;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
   }
 
   .nav-brand {
     font-size: 0.95rem;
+  }
+
+  .nav-logo {
+    font-size: 1.1rem;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .nav-actions {
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .lang-switcher {
+    padding: 2px;
+    gap: 2px;
+  }
+
+  .lang-btn {
+    padding: 3px 7px;
+    font-size: 0.72rem;
+  }
+
+  .theme-toggle,
+  .nav-toggle {
+    width: 32px;
+    height: 32px;
   }
 
   .nav-links {
@@ -376,9 +438,12 @@
     gap: 8px !important;
   }
 
-  /* Board container: no horizontal overflow needed */
+  /* Board container: prevent horizontal spill on tablet & mobile */
   .route-board-container {
-    overflow-x: visible !important;
+    overflow-x: hidden !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
   }
 
   /* ── NYC Subway: bullet circle stays circular ── */
@@ -462,10 +527,21 @@
     gap: 16px !important;
   }
 
+  .food-filter-container {
+    max-width: 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
   .food-filter-pills {
     justify-content: flex-start !important;
     flex-wrap: nowrap !important;
     overflow-x: auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 8px !important;
   }
@@ -524,6 +600,9 @@
   .phrase-tabs-row {
     flex-wrap: nowrap !important;
     overflow-x: auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 6px !important;
   }
