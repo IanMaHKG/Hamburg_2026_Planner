@@ -68,6 +68,8 @@ Hamburg_2026_Planner/
 │   └── favicon.svg         ← App icon / favicon
 ├── AGENTS.md               ← 🌟 CANONICAL MASTER INSTRUCTIONS (Single Source of Truth)
 ├── CLAUDE.md               ← Anthropic Claude Code discovery pointer (points to AGENTS.md)
+├── tests/
+│   └── pre_deployment_check.py ← Headless Edge + CDP end-to-end runtime verification suite
 ├── index.html              ← Dedicated single-page shell (instant first paint, zero-flash)
 ├── manifest.json           ← PWA manifest
 └── sw.js                   ← Service worker for offline caching
@@ -175,6 +177,7 @@ To prevent redundancy and avoid documentation drift, this repository follows a *
 3. **Responsive Edge-to-Edge**: Layouts must dynamically fit the screen width with zero horizontal overflow. Always use `auto-fit` with bounded minmax (`minmax(min(Xpx, 100%), 1fr)`). Never use `auto-fill` (which leaves empty tracks) or `100vw` (causes scrollbar gutters).
 4. **PWA Cache Bumping**: Always increment `CACHE_NAME` in `sw.js` whenever editing CSS, JS, HTML, or data files.
 5. **Anti-Drift Requirement**: Always keep `README.md` and agent instructions strictly aligned with live code changes.
+6. **Mandatory Pre-Deployment Check**: Run `python tests/pre_deployment_check.py` before committing or pushing to `main` whenever HTML/CSS/JS/data files are modified. Must pass with 0 runtime errors and full DOM hydration.
 
 ---
 

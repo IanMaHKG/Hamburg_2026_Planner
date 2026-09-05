@@ -124,6 +124,7 @@ function renderBilingualText(obj, className) {
 function renderHero() {
   const config = window.TRIP_CONFIG;
   if (!config || !config.trip) return;
+  const cfg = config;
 
   const trip = config.trip;
   const primaryCode = (config.languages && config.languages.primary) ? config.languages.primary.code : 'en';
@@ -1356,6 +1357,7 @@ function renderWeather() {
 function renderEssentials() {
   var data = window.SITE_DATA;
   if (!data || !data.essentials) return;
+  var ess = data.essentials;
 
   var container = document.getElementById('essentials-container');
   if (!container) return;

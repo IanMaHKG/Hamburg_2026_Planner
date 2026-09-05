@@ -170,11 +170,31 @@ Hamburg_2026_Planner/
   - `fix(scope): ...` — Bug fix or responsive layout correction
   - `docs(scope): ...` — Documentation or agent instruction update
   - `refactor(scope): ...` — Code improvement without visual change
-- **Pre-Deployment Checks**:
-  1. Run brace and syntax validation on all CSS files.
-  2. Verify that all script tags in `index.html` resolve to existing files.
-  3. Ensure `sw.js` cache version has been bumped.
-  4. Verify that local dev server (`http://localhost:8000`) serves HTTP 200 without console errors.
+
+### Mandatory Pre-Deployment Verification Check (CRITICAL)
+
+Whenever **ANY** HTML, CSS, JS, or data files are added, removed, or modified, the agent **MUST** execute the automated pre-deployment verification check before committing or pushing to `main`:
+
+```bash
+python tests/pre_deployment_check.py
+```
+
+This test suite launches headless Microsoft Edge via the Chrome DevTools Protocol (CDP) at `http://localhost:8000/` and strictly verifies:
+1. **Zero Runtime Exceptions**: `Runtime.exceptionThrown` must report 0 unhandled exceptions.
+2. **Zero Console Errors**: `console.error` during application bootstrap and hydration must be 0.
+3. **Full Component Hydration**: Confirms that all core sections render past the HTML skeleton:
+   - Hero Title rendered
+   - Overview Cards (>= 3 cards)
+   - Confirmed Flight Cards (>= 2 cards)
+   - Day Schedule Cards (>= 3 days)
+   - Budget Stat Cards (>= 3 cards)
+   - Culinary Guide Cards (>= 5 cards)
+   - Hotel Stay Cards (>= 1 card)
+   - Packing Checklist (>= 10 items)
+4. **Zero Horizontal Overflow**: `scrollWidth <= clientWidth` on the document root element.
+5. **PWA Cache Bump**: `CACHE_NAME` in `sw.js` must be incremented.
+
+> ⚠️ **BLOCKING RULE**: If `python tests/pre_deployment_check.py` fails on any assertion, the agent **MUST NOT** push to `main`. It must diagnose and fix the root cause first.
 
 ---
 
@@ -187,13 +207,14 @@ Hamburg_2026_Planner/
 
 ## 9. Mandatory Agent Execution Checklist
 
-Before completing any task, verify each item:
+Before completing any task or pushing to `main`, verify each item:
 
-- [ ] Has `AGENTS.md` / `.agents/AGENTS.md` been consulted and respected for all changes?
+- [ ] Has `AGENTS.md` been consulted and respected for all changes?
 - [ ] Are all user-visible strings trilingual (`en` UK English, `zh` HK Traditional, `zh-cn` Malaysian Simplified)?
 - [ ] Are all data changes isolated to the 3 `data/` files without hardcoding in JS or HTML?
 - [ ] Does the layout fit the screen width automatically edge-to-edge with ZERO horizontal overflow?
 - [ ] Did you use `auto-fit` (not `auto-fill`) so there are no empty whitespace tracks on filtered views?
-- [ ] Is `sw.js` cache version bumped if any cached asset was modified?
+- [ ] Is `sw.js` cache version bumped whenever any cached asset was added/removed/modified?
 - [ ] Are all 6 CSS files syntactically valid with balanced braces?
+- [ ] **Has `python tests/pre_deployment_check.py` PASSED with 0 exceptions, 0 console errors, and full DOM hydration?**
 - [ ] Have `README.md` and active documentation artifacts been updated to prevent drift?

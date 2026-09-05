@@ -12,3 +12,4 @@ Core Directives:
 3. Responsive Edge-to-Edge: Ensure zero horizontal overflow (`max-width: 100%`, `overflow-x: hidden`) and use `auto-fit` with bounded `min()` for grid columns. Never use `auto-fill` or `100vw`.
 4. PWA Service Worker: Increment `CACHE_NAME` in `sw.js` on every CSS, JS, HTML, or data edit.
 5. Anti-Drift: Keep `README.md` and `AGENTS.md` synchronized on structural changes.
+6. Mandatory Pre-Deployment Check: Run `python tests/pre_deployment_check.py` before committing or pushing to `main` whenever HTML/CSS/JS/data files are modified. Must pass with 0 errors.

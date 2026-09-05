@@ -22,5 +22,7 @@
    - Always increment `CACHE_NAME` in `sw.js` on every CSS, JS, HTML, or data edit.
 5. **Anti-Drift Requirement**:
    - Keep `README.md` and `AGENTS.md` synchronized whenever features or architectures change.
+6. **Mandatory Pre-Deployment Check**:
+   - Run `python tests/pre_deployment_check.py` before committing or pushing to `main` whenever HTML/CSS/JS/data files are modified. Must pass with 0 runtime exceptions/errors and full DOM hydration.
 
 For the full detailed rules and pre-deployment checklist, see **[`AGENTS.md`](../AGENTS.md)**.

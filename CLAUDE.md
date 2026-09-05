@@ -17,3 +17,4 @@ You are assisting with **Hamburg 2026 Winter City Break**, a static PWA travel p
   3. **Responsive Edge-to-Edge**: Zero horizontal overflow. Grids must use `repeat(auto-fit, minmax(min(Xpx, 100%), 1fr))` (never `auto-fill` or `100vw`).
   4. **PWA Cache**: Increment `CACHE_NAME` in `sw.js` on every CSS, JS, HTML, or data edit.
   5. **Anti-Drift**: Update `README.md` and `AGENTS.md` whenever architectures or data change.
+  6. **Mandatory Pre-Deployment Check**: Run `python tests/pre_deployment_check.py` before committing or pushing to `main` whenever HTML/CSS/JS/data files are modified. Must pass with 0 errors and full hydration.
