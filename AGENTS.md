@@ -1,9 +1,8 @@
-# Hamburg 2026 Planner — Agent Rules & Instructions
+# Hamburg 2026 Planner — Master Agent Instructions
 # ──────────────────────────────────────────────────────────────────────
 # MANDATORY: ALL AI models and coding agents MUST read this document
 # FIRST before analyzing, designing, writing, or editing any content.
-#
-# Master instructions located at: .agents/AGENTS.md
+# This file is the CANONICAL SINGLE SOURCE OF TRUTH for this repository.
 # ──────────────────────────────────────────────────────────────────────
 
 ## 1. Repository Identity & Core Purpose

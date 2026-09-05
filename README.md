@@ -41,11 +41,10 @@
 ```
 Hamburg_2026_Planner/
 ├── .agents/
-│   ├── AGENTS.md           ← Master AI agent rules & instructions (trilingual, architecture, styling)
-│   └── GEMINI.md           ← Gemini CLI / Antigravity rule alias
-├── .cursorrules            ← Cursor IDE AI assistant configuration & prompt rules
+│   └── AGENTS.md           ← Antigravity / Gemini discovery pointer (points to AGENTS.md)
+├── .cursorrules            ← Cursor IDE discovery pointer (points to AGENTS.md)
 ├── .github/
-│   ├── copilot-instructions.md ← GitHub Copilot custom instructions
+│   ├── copilot-instructions.md ← GitHub Copilot discovery pointer (points to AGENTS.md)
 │   └── workflows/
 │       └── deploy.yml      ← GitHub Actions automated Pages deployment
 ├── data/
@@ -67,9 +66,8 @@ Hamburg_2026_Planner/
 │   └── currency.js         ← Live EUR/GBP exchange rates with offline fallback
 ├── assets/
 │   └── favicon.svg         ← App icon / favicon
-├── AGENTS.md               ← Universal repository root agent instructions
-├── CLAUDE.md               ← Anthropic Claude Code instructions
-├── GEMINI.md               ← Google Gemini CLI root instructions
+├── AGENTS.md               ← 🌟 CANONICAL MASTER INSTRUCTIONS (Single Source of Truth)
+├── CLAUDE.md               ← Anthropic Claude Code discovery pointer (points to AGENTS.md)
 ├── index.html              ← Dedicated single-page shell (instant first paint, zero-flash)
 ├── manifest.json           ← PWA manifest
 └── sw.js                   ← Service worker for offline caching
@@ -161,16 +159,15 @@ Switch language instantly using the **EN · 繁中 · 简中** buttons in the to
 
 ## 🤖 AI Agent Instructions & Multi-Model Rules
 
-To ensure complete consistency across AI models, coding assistants, and IDEs, this repository includes dedicated instruction files tailored to each popular tool. AI assistants are instructed to read these rules **first** before making any modifications:
+To prevent redundancy and avoid documentation drift, this repository follows a **Single Source of Truth** architecture. The canonical master rules are centralized in [`AGENTS.md`](AGENTS.md). Lightweight discovery pointers are placed in the required vendor locations so each tool's engine automatically finds and loads the master instructions:
 
-| File | Target AI Assistant / Environment | Focus |
-|---|---|---|
-| [`.agents/AGENTS.md`](.agents/AGENTS.md) | **Master Instructions** (Antigravity, universal) | Full guidelines: trilingual rules, architecture, responsive design, PWA caching, git conventions |
-| [`AGENTS.md`](AGENTS.md) | Universal Repo Root (Aider, Devin, generic agents) | Root-level mirror of master agent rules |
-| [`.agents/GEMINI.md`](.agents/GEMINI.md) · [`GEMINI.md`](GEMINI.md) | Google Gemini CLI & Antigravity IDE | Gemini-specific alias and quick reference |
-| [`CLAUDE.md`](CLAUDE.md) | Anthropic Claude Code CLI | Claude Code project context, commands, and critical rules |
-| [`.cursorrules`](.cursorrules) | Cursor IDE | Pair-programming instructions for Cursor Composer & Chat |
-| [`.github/copilot-instructions.md`](.github/copilot-instructions.md) | GitHub Copilot (VS Code & Workspace) | Copilot prompt guidelines for commits, suggestions, and PRs |
+| File | Type | Target AI Assistant / Environment | Role |
+|---|---|---|---|
+| [`AGENTS.md`](AGENTS.md) | **Canonical Master** | Universal (Antigravity, Gemini, Claude, Cursor, Copilot, Aider, Devin) | Single source of truth: trilingual rules, architecture, responsive design, PWA caching, git conventions |
+| [`.agents/AGENTS.md`](.agents/AGENTS.md) | **Discovery Pointer** | Antigravity IDE & Google Gemini CLI | Directs Antigravity/Gemini to master `AGENTS.md` |
+| [`CLAUDE.md`](CLAUDE.md) | **Discovery Pointer** | Anthropic Claude Code CLI | Directs Claude Code to master `AGENTS.md` |
+| [`.cursorrules`](.cursorrules) | **Discovery Pointer** | Cursor IDE | Directs Cursor to master `AGENTS.md` |
+| [`.github/copilot-instructions.md`](.github/copilot-instructions.md) | **Discovery Pointer** | GitHub Copilot (VS Code & Workspace) | Directs Copilot to master `AGENTS.md` |
 
 ### Core Architectural Directives for Agents:
 1. **Strict Trilingual Parity**: Every user-facing string in `data/` must have `en` (UK English), `zh` (HK Traditional Chinese), and `zh-cn` (Malaysian Simplified Chinese).
