@@ -1,32 +1,139 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
   <defs>
-    <linearGradient id="compassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0284C7" />
-      <stop offset="100%" stop-color="#0F172A" />
+    <!-- Background Gradient: Deep Slate to Obsidian -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B1329" />
+      <stop offset="50%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#020617" />
     </linearGradient>
-    <linearGradient id="needleNorth" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#EF4444" />
-      <stop offset="100%" stop-color="#DC2626" />
+
+    <!-- Border Glow: Nordic Aurora Gradient -->
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="40%" stop-color="#06B6D4" />
+      <stop offset="80%" stop-color="#0D9488" />
+      <stop offset="100%" stop-color="#14B8A6" />
     </linearGradient>
-    <linearGradient id="needleSouth" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#E2E8F0" />
+
+    <!-- Aurora Ambient Glow Behind Castle -->
+    <radialGradient id="auroraGlow" cx="50%" cy="54%" r="50%">
+      <stop offset="0%" stop-color="#0D9488" stop-opacity="0.45" />
+      <stop offset="45%" stop-color="#06B6D4" stop-opacity="0.22" />
+      <stop offset="75%" stop-color="#38BDF8" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#0B1329" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Castle Architectural Shading Gradient -->
+    <linearGradient id="castleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="55%" stop-color="#E2E8F0" />
       <stop offset="100%" stop-color="#94A3B8" />
     </linearGradient>
+
+    <!-- Tower Accents & Details -->
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#2DD4BF" />
+    </linearGradient>
+
+    <!-- Gate Interior Gradient -->
+    <linearGradient id="gateGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#061224" />
+      <stop offset="100%" stop-color="#020712" />
+    </linearGradient>
+
+    <!-- Marian Stars Gradient -->
+    <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="50%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#2DD4BF" />
+    </linearGradient>
+
+    <!-- Soft Drop Shadow Filter for Glow Effect -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#06B6D4" flood-opacity="0.4" />
+    </filter>
   </defs>
-  <!-- Outer circle ring -->
-  <circle cx="50" cy="50" r="46" fill="url(#compassGrad)" stroke="#38BDF8" stroke-width="2.5" />
-  <!-- Inner ring -->
-  <circle cx="50" cy="50" r="36" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-dasharray="3 3" />
-  <!-- Cardinal points markers -->
-  <circle cx="50" cy="18" r="2" fill="#38BDF8" />
-  <circle cx="82" cy="50" r="2" fill="#38BDF8" />
-  <circle cx="50" cy="82" r="2" fill="#38BDF8" />
-  <circle cx="18" cy="50" r="2" fill="#38BDF8" />
-  <!-- Compass Needle (Rotated) -->
-  <polygon points="50,15 57,50 50,47" fill="url(#needleNorth)" />
-  <polygon points="50,15 43,50 50,47" fill="#F87171" />
-  <polygon points="50,85 57,50 50,53" fill="url(#needleSouth)" />
-  <polygon points="50,85 43,50 50,53" fill="#CBD5E1" />
-  <!-- Center pivot pin -->
-  <circle cx="50" cy="50" r="4.5" fill="#FFFFFF" stroke="#0F172A" stroke-width="2" />
+
+  <!-- Base Squircle Container with Aurora Border -->
+  <rect x="2" y="2" width="96" height="96" rx="22" fill="url(#bgGrad)" stroke="url(#borderGrad)" stroke-width="2.5" />
+
+  <!-- Ambient Aurora Backlight -->
+  <circle cx="50" cy="54" r="42" fill="url(#auroraGlow)" />
+
+  <!-- Subtle Starlight Accents -->
+  <circle cx="20" cy="24" r="0.8" fill="#38BDF8" opacity="0.6" />
+  <circle cx="80" cy="24" r="0.8" fill="#38BDF8" opacity="0.6" />
+  <circle cx="50" cy="11" r="1.1" fill="#38BDF8" opacity="0.85" />
+  <circle cx="15" cy="50" r="0.7" fill="#2DD4BF" opacity="0.4" />
+  <circle cx="85" cy="50" r="0.7" fill="#2DD4BF" opacity="0.4" />
+
+  <!-- ═══════════════════════════════════════════════════
+       HAMBURG CASTLE (HAMMABURG)
+       ═══════════════════════════════════════════════════ -->
+  <g filter="url(#glow)">
+    <!-- Main Castle Body: Left tower, Center tower, Right tower & curtain wall -->
+    <path d="
+      M 19 77
+      L 19 32
+      L 23 32 L 23 35 L 25 35 L 25 32
+      L 29 32 L 29 35 L 31 35 L 31 32
+      L 35 32
+      L 35 49
+      L 41 49
+      L 41 33
+      L 40 33 Q 50 22 60 33 L 59 33
+      L 59 49
+      L 65 49
+      L 65 32
+      L 69 32 L 69 35 L 71 35 L 71 32
+      L 75 32 L 75 35 L 77 35 L 77 32
+      L 81 32
+      L 81 77
+      Z
+    " fill="url(#castleGrad)" />
+
+    <!-- Cross Finial on Central Dome -->
+    <!-- Vertical staff -->
+    <line x1="50" y1="17" x2="50" y2="25" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" />
+    <!-- Crossbar -->
+    <line x1="46.5" y1="20.5" x2="53.5" y2="20.5" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" />
+
+    <!-- Dome Rib & Base Highlights -->
+    <path d="M 41 33 Q 50 23.5 59 33" fill="none" stroke="url(#accentGrad)" stroke-width="1.5" />
+    <line x1="41" y1="35" x2="59" y2="35" stroke="#0F172A" stroke-width="1.2" />
+
+    <!-- Left & Right Tower Cornice Accent Lines -->
+    <line x1="19" y1="36.5" x2="35" y2="36.5" stroke="#0F172A" stroke-width="1.2" />
+    <line x1="65" y1="36.5" x2="81" y2="36.5" stroke="#0F172A" stroke-width="1.2" />
+
+    <!-- Tower Windows (Embrasures / Arrow Slits) -->
+    <rect x="25.5" y="42" width="3" height="6" rx="1.5" fill="#0B1329" />
+    <rect x="48.5" y="40" width="3" height="6" rx="1.5" fill="#0B1329" />
+    <rect x="71.5" y="42" width="3" height="6" rx="1.5" fill="#0B1329" />
+
+    <!-- Wall Rampart Cornice Line -->
+    <line x1="19" y1="50" x2="81" y2="50" stroke="#0F172A" stroke-width="1" opacity="0.6" />
+
+    <!-- Arched Portal (Closed Hanseatic Gate) -->
+    <path d="M 43 77 L 43 62 A 7 7 0 0 1 57 62 L 57 77 Z" fill="url(#gateGrad)" stroke="url(#accentGrad)" stroke-width="1.4" />
+    <!-- Gate Fold Line & Rivets -->
+    <line x1="50" y1="56" x2="50" y2="77" stroke="#38BDF8" stroke-width="1" opacity="0.7" />
+    <circle cx="50" cy="67" r="1.2" fill="#38BDF8" />
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════
+       MARIAN STARS (MARIENSTERNE) — Hamburg Crest Emblems
+       ═══════════════════════════════════════════════════ -->
+  <!-- Left Six-Pointed Star -->
+  <polygon points="27.0,14.5 28.3,17.75 31.76,17.25 29.6,20.0 31.76,22.75 28.3,22.25 27.0,25.5 25.7,22.25 22.24,22.75 24.4,20.0 22.24,17.25 25.7,17.75"
+           fill="url(#starGrad)" stroke="#FFFFFF" stroke-width="0.7" filter="url(#glow)" />
+
+  <!-- Right Six-Pointed Star -->
+  <polygon points="73.0,14.5 74.3,17.75 77.76,17.25 75.6,20.0 77.76,22.75 74.3,22.25 73.0,25.5 71.7,22.25 68.24,22.75 70.4,20.0 68.24,17.25 71.7,17.75"
+           fill="url(#starGrad)" stroke="#FFFFFF" stroke-width="0.7" filter="url(#glow)" />
+
+  <!-- Base Ground Line / Water Accent (Elbe River Waves) -->
+  <path d="M 12 83 Q 50 85 88 83" fill="none" stroke="url(#borderGrad)" stroke-width="2" stroke-linecap="round" opacity="0.85" />
+  <path d="M 24 87 Q 50 88.5 76 87" fill="none" stroke="#0D9488" stroke-width="1.2" stroke-linecap="round" opacity="0.55" />
 </svg>
