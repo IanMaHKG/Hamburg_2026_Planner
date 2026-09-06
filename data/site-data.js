@@ -63,9 +63,9 @@ const SITE_DATA = {
           "zh-cn": "同行成员与入境"
         },
         desc: {
-          en: "2 Adults. Ian: British / Portuguese (EU) passport — <strong>visa-free Schengen entry</strong>. Partner: Malaysian passport — <strong>visa-free for 90 days in Schengen since 2024</strong>. No visa application required for either traveller.",
-          zh: "2位成人。Ian持英國/葡萄牙（歐盟）護照 — <strong>申根區免簽入境</strong>。伴侶持馬來西亞護照 — <strong>自2024年起申根區90天免簽</strong>。兩位旅客均無需辦理簽證。",
-          "zh-cn": "2位成人。Ian持英国/葡萄牙（欧盟）护照 — <strong>申根区免签入境</strong>。伴侣持马来西亚护照 — <strong>自2024年起申根区90天免签</strong>。两位旅客均无需办理签证。"
+          en: "2 Adults (UK residents). Traveler 1: EU passport — <strong>visa-free Schengen entry</strong>. Traveler 2: Non-EU visa-exempt passport — <strong>90-day visa-free Schengen access</strong>. No visa application required for either traveller.",
+          zh: "2位成人（英國居民）。旅客 1 持歐盟護照 — <strong>申根區免簽入境</strong>。旅客 2 持非歐盟免簽護照 — <strong>享申根區90天免簽</strong>。兩位旅客均無需辦理簽證。",
+          "zh-cn": "2位成人（英国居民）。旅客 1 持欧盟护照 — <strong>申根区免签入境</strong>。旅客 2 持非欧盟免签护照 — <strong>享申根区90天免签</strong>。两位旅客均无需办理签证。"
         }
       },
       {
@@ -77,9 +77,9 @@ const SITE_DATA = {
           "zh-cn": "欧盟 EES 入境快速核验"
         },
         desc: {
-          en: "<strong>Biometrics active (3-yr validity):</strong> Partner enrolled fingerprints & photo at Eurostar in July. At Hamburg Airport (HAM), use swift biometric verification lanes (skipping initial registration queues). Carry UK eVisa/BRP & return flight BA967 confirmation.",
-          zh: "<strong>生物識別已生效（3年有效）：</strong>伴侶已於7月搭乘歐洲之星時完成EES指紋及人臉採集。抵達漢堡機場（HAM）只需進行快速生物識別核驗，免除冗長初次採集隊列。請隨身備妥英國eVisa/BRP證明及回程機票BA967確認函。",
-          "zh-cn": "<strong>生物识别已生效（3年有效）：</strong>伴侣已于7月搭乘欧洲之星时完成EES指纹及人脸采集。抵达汉堡机场（HAM）只需进行快速生物识别核验，免除冗长初次采集队列。请随身备妥英国eVisa/BRP证明及回程机票BA967确认函。"
+          en: "<strong>Biometrics active (3-yr validity):</strong> Prior EES biometric registration already completed — valid for 3 years across Schengen. At Hamburg Airport (HAM), use swift biometric verification lanes (skipping initial registration queues). Carry UK residence documentation & return flight BA967 confirmation.",
+          zh: "<strong>生物識別已生效（3年有效）：</strong>先前入境申根區時已完成EES指紋及人臉初次註冊，全申根區3年有效。抵達漢堡機場（HAM）只需進行快速生物識別核驗，免除冗長初次採集隊列。請隨身備妥英國居留證明文件及回程機票BA967確認函。",
+          "zh-cn": "<strong>生物识别已生效（3年有效）：</strong>先前入境申根区时已完成EES指纹及人脸初次注册，全申根区3年有效。抵达汉堡机场（HAM）只需进行快速生物识别核验，免除冗长初次采集队列。请随身备妥英国居留证明文件及回程机票BA967确认函。"
         }
       }
     ],

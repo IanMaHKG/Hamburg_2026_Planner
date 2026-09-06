@@ -10,7 +10,7 @@
 - **Project**: **Hamburg 2026 Winter City Break** (`Hamburg_2026_Planner`)
 - **Trip Dates**: 26 November 2026 – 28 November 2026 (3 Days / 2 Nights)
 - **Destination**: Hamburg, Germany (Speicherstadt, HafenCity, Elbphilharmonie, Christmas Markets, Jungfernstieg, Landungsbrücken)
-- **Travelers**: Ian (Lead Planner, British/Portuguese passport) & Partner (Co-Traveller, Malaysian passport)
+- **Travelers**: Traveler 1 (Lead Planner, EU passport) & Traveler 2 (Co-Traveller, Non-EU visa-exempt passport)
 - **Confirmed Logistics**:
   - Flights: British Airways **BA960** (LHR T5 → HAM T2) & **BA967** (HAM T2 → LHR T5)
   - Hotel: **Courtyard by Marriott Hamburg City** (Adenauerallee 52, 20097 Hamburg)

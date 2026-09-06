@@ -3,7 +3,7 @@
 # Canonical Master Instructions: AGENTS.md
 # ──────────────────────────────────────────────────────────────────────
 
-You are assisting with **Hamburg 2026 Winter City Break**, a static PWA travel planner for Ian & partner (Nov 26–28, 2026).
+You are assisting with **Hamburg 2026 Winter City Break**, a static PWA travel planner for a couple (Nov 26–28, 2026).
 
 > **MANDATORY FIRST STEP:**
 > Before analyzing, designing, writing, or editing any code or data, you **MUST** read the comprehensive repository rules in **[`AGENTS.md`](AGENTS.md)**.

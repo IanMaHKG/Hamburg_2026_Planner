@@ -26,7 +26,7 @@
 | **Flights** | **Outbound:** BA960 (26 Nov, 07:30 LHR T5 → 10:10 HAM T2)<br>**Return:** BA967 (28 Nov, 16:45 HAM T2 → 17:25 LHR T5)<br>💳 **Paid Receipt:** £212.70 total (2 return tickets) |
 | **Hotel** | [Courtyard by Marriott Hamburg City](https://www.marriott.com/en-gb/hotels/hamhc-courtyard-by-marriott-hamburg-city/overview) (Adenauerallee 52, 2 nights confirmed)<br>💳 **Paid Receipt:** €279.00 total |
 | **Party** | Couple (2 Adults) |
-| **Passports** | UK / Portuguese (Ian) · Malaysian (Partner) |
+| **Passports** | EU Passport (Traveler 1) · Non-EU Visa-Exempt (Traveler 2) |
 | **Visa** | All Schengen visa-free ✅ |
 | **Transport** | HVV public transit (S1 Airport direct · U-Bahn · Ferry 62) |
 | **Theme** | `nordic-aurora` · Dark mode |

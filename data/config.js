@@ -127,14 +127,14 @@ const TRIP_CONFIG = {
     },
     members: [
       {
-        name: "Ian",
+        name: "Traveler 1",
         role: { en: "Lead Planner", zh: "主要計劃者", "zh-cn": "主要计划者" },
-        passport: "UK / Portuguese"
+        passport: "EU Passport"
       },
       {
-        name: "Partner",
+        name: "Traveler 2",
         role: { en: "Co-Traveller", zh: "同行旅伴", "zh-cn": "同行旅伴" },
-        passport: "Malaysian"
+        passport: "Non-EU Visa-Exempt"
       }
     ]
   },
@@ -149,11 +149,11 @@ const TRIP_CONFIG = {
       "zh-cn": "英国"
     },
     residence: "UK",
-    passportsHeld: ["British Citizen", "Portuguese / EU", "Malaysian"],
+    passportsHeld: ["EU Passport", "Non-EU Visa-Exempt"],
     visaSummary: {
-      en: "UK & Portuguese (EU) passports: 90-day visa-free entry to Germany (Schengen Area). Malaysian passport: 90-day visa-free for Schengen as of 2024. All passports must be valid for at least 3 months beyond the departure date.",
-      zh: "英國及葡萄牙（歐盟）護照：德國（申根區）90天免簽證。馬來西亞護照：自2024年起享申根區90天免簽。所有護照須於出境後保留至少3個月有效期。",
-      "zh-cn": "英国及葡萄牙（欧盟）护照：德国（申根区）90天免签。马来西亚护照：自2024年起享申根区90天免签。所有护照须于出境后保留至少3个月有效期。"
+      en: "EU passport: visa-free Schengen freedom of movement. Non-EU visa-exempt passport: 90-day visa-free entry to Schengen within 180 days. All passports must be valid for at least 3 months beyond the departure date.",
+      zh: "歐盟護照：享申根區免簽自由流動。非歐盟免簽護照：享180天內最多90天申根免簽。所有護照須於出境後保留至少3個月有效期。",
+      "zh-cn": "欧盟护照：享申根区免签自由流动。非欧盟免签护照：享180天内最多90天申根免签。所有护照须于出境后保留至少3个月有效期。"
     }
   },
 
