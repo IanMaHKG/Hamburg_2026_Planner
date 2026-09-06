@@ -96,12 +96,18 @@ function renderBilingualText(obj, className) {
     return '<span class="lang-primary lang-' + primaryCode + ' ' + className + '">' + primaryVal + '</span>';
   }
 
-  const secondaryVal = obj[secondaryCode] || primaryVal;
+  const secondaryVal = obj[secondaryCode] ||
+                       (secondaryCode === 'zh' ? (obj['zh-HK'] || obj['zh-TW'] || obj['zh-Hant']) : null) ||
+                       (secondaryCode && secondaryCode.startsWith('zh') ? (obj.zh || obj['zh-HK'] || obj['zh-TW']) : null) ||
+                       primaryVal;
   let html = '<span class="lang-primary lang-' + primaryCode + ' ' + className + '">' + primaryVal + '</span>' +
              '<span class="lang-secondary lang-' + secondaryCode + ' ' + className + '">' + secondaryVal + '</span>';
 
   if (tertiaryCode) {
-    const tertiaryVal = obj[tertiaryCode] || primaryVal;
+    const tertiaryVal = obj[tertiaryCode] ||
+                        (tertiaryCode === 'zh-cn' ? (obj['zh-CN'] || obj['zh-Hans'] || obj['zh-SG'] || obj['zh-MY']) : null) ||
+                        (tertiaryCode && tertiaryCode.startsWith('zh') ? (obj['zh-cn'] || obj['zh-CN'] || obj['zh-Hans']) : null) ||
+                        primaryVal;
     html += '<span class="lang-tertiary lang-' + tertiaryCode + ' ' + className + '">' + tertiaryVal + '</span>';
   }
 

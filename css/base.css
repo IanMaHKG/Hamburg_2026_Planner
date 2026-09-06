@@ -72,38 +72,57 @@ body {
   transition: background-color var(--transition-smooth), color var(--transition-smooth);
 }
 
-/* ── Multilingual Display Rules (supports up to 3 languages) ── */
-
-/* PRIMARY active — hide secondary & tertiary */
+/* ── Multilingual Display Rules (Supports 1, 2, or 3 Languages) ── */
+/* PRIMARY active (English) — hide secondary & tertiary */
 body.lang-primary .lang-secondary,
-body.lang-primary .lang-tertiary {
-  display: none !important;
-}
-
-/* SECONDARY active — hide primary & tertiary */
-body.lang-secondary .lang-primary,
-body.lang-secondary .lang-tertiary {
-  display: none !important;
-}
-
-/* TERTIARY active — hide primary & secondary */
-body.lang-tertiary .lang-primary,
-body.lang-tertiary .lang-secondary {
-  display: none !important;
-}
-
-/* Specific code-based aliases for backward compatibility & targeted overrides */
+body.lang-primary .lang-tertiary,
+body.lang-primary .lang-zh,
+body.lang-primary .lang-zh-cn,
+body.lang-en .lang-secondary,
+body.lang-en .lang-tertiary,
 body.lang-en .lang-zh,
 body.lang-en .lang-zh-cn {
   display: none !important;
 }
+
+/* SECONDARY active (Traditional Chinese) — hide primary & tertiary */
+body.lang-secondary .lang-primary,
+body.lang-secondary .lang-tertiary,
+body.lang-secondary .lang-en,
+body.lang-secondary .lang-zh-cn,
+body.lang-zh .lang-primary,
+body.lang-zh .lang-tertiary,
 body.lang-zh .lang-en,
 body.lang-zh .lang-zh-cn {
   display: none !important;
 }
+
+/* TERTIARY active (Simplified Chinese) — hide primary & secondary */
+body.lang-tertiary .lang-primary,
+body.lang-tertiary .lang-secondary,
+body.lang-tertiary .lang-en,
+body.lang-tertiary .lang-zh,
+body.lang-zh-cn .lang-primary,
+body.lang-zh-cn .lang-secondary,
 body.lang-zh-cn .lang-en,
 body.lang-zh-cn .lang-zh {
   display: none !important;
+}
+
+/* ── Optimized CJK Typography when Chinese is Active ── */
+body.lang-zh,
+body.lang-secondary,
+[lang="zh"],
+[lang="zh-HK"],
+[lang="zh-TW"] {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang HK', 'PingFang TC', 'Noto Sans TC', 'Noto Sans CJK TC', 'Microsoft JhengHei', '微軟正黑體', sans-serif;
+}
+
+body.lang-zh-cn,
+body.lang-tertiary,
+[lang="zh-cn"],
+[lang="zh-Hans"] {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', 'Noto Sans CJK SC', 'Microsoft YaHei', '微软雅黑', sans-serif;
 }
 
 /* Single language mode: hide switcher */

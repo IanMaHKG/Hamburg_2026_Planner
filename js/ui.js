@@ -77,7 +77,8 @@ function initLanguage() {
 
     switcher.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
-        const lang = e.target.dataset.lang;
+        const lang = (e.currentTarget && e.currentTarget.dataset.lang) || btn.dataset.lang;
+        if (!lang) return;
         setLanguage(lang);
         switcher.querySelectorAll('.lang-btn').forEach(b => {
           b.classList.toggle('active', b.dataset.lang === lang);
@@ -111,6 +112,7 @@ function setLanguage(lang) {
   const tertiaryCode  = (config && config.languages && config.languages.tertiary)  ? config.languages.tertiary.code  : null;
 
   localStorage.setItem('user-lang', lang);
+  localStorage.setItem('trip_planner_lang', lang);
 
   // Dynamically remove ALL lang-* classes (handles any language code, not just en/zh)
   const toRemove = Array.from(document.body.classList).filter(cls => cls.startsWith('lang-'));
@@ -118,10 +120,13 @@ function setLanguage(lang) {
 
   if (lang === primaryCode) {
     document.body.classList.add('lang-primary', `lang-${primaryCode}`);
+    document.documentElement.setAttribute('lang', (config && config.languages && config.languages.primary && config.languages.primary.locale) || 'en');
   } else if (tertiaryCode && lang === tertiaryCode) {
     document.body.classList.add('lang-tertiary', `lang-${tertiaryCode}`);
+    document.documentElement.setAttribute('lang', (config && config.languages && config.languages.tertiary && config.languages.tertiary.locale) || 'zh-Hans');
   } else {
     document.body.classList.add('lang-secondary', `lang-${lang}`);
+    document.documentElement.setAttribute('lang', (config && config.languages && config.languages.secondary && config.languages.secondary.locale) || 'zh-HK');
   }
 
   window.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
