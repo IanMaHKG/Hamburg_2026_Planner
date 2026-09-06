@@ -46,7 +46,7 @@ Hamburg_2026_Planner/
 ├── .github/
 │   ├── copilot-instructions.md ← GitHub Copilot discovery pointer (points to AGENTS.md)
 │   └── workflows/
-│       └── deploy.yml      ← GitHub Actions automated Pages deployment
+│       └── static.yml      ← GitHub Actions automated Pages deployment
 ├── data/
 │   ├── config.js           ← Master config: identity, theme, trilingual settings, currencies, feature flags
 │   ├── site-data.js        ← Confirmed flights, hotels, overview cards, route stops, tips, packing, budget, transit
@@ -56,7 +56,16 @@ Hamburg_2026_Planner/
 │   ├── base.css            ← Reset, typography, trilingual visibility rules (lang-primary/secondary/tertiary)
 │   ├── palette.css         ← 7 luxury theme presets (nordic-aurora active)
 │   ├── components.css      ← Cards, buttons, badges, navigation, route board
-│   ├── sections.css        ← Hero, overview, confirmed flights, itinerary, budget, hotels, transit
+│   ├── sections-hero.css   ← Hero section & countdown timer
+│   ├── sections-overview.css ← Overview cards & Route Milestone Board
+│   ├── sections-map.css    ← Route map section
+│   ├── sections-tips.css   ← Practical tips
+│   ├── sections-itinerary.css ← Timeline, accordion, today pill, progress tracker
+│   ├── sections-packing.css ← Packing checklist
+│   ├── sections-budget.css ← Budget table & executive summary
+│   ├── sections-hotels.css ← Hotels & stays
+│   ├── sections-transit.css ← Transit recommendations & footer
+│   ├── sections-content.css ← Flights, food, weather, essentials, BA branding, print
 │   └── responsive.css      ← Mobile-first breakpoints (phones, tablets, desktops)
 ├── js/
 │   ├── script.js           ← Application bootstrap: registers SW, initializes render engine & controllers
@@ -65,11 +74,17 @@ Hamburg_2026_Planner/
 │   ├── map.js              ← MapLibre GL master route map + per-day mini-maps with trilingual popups
 │   └── currency.js         ← Live EUR/GBP exchange rates with offline fallback
 ├── assets/
-│   └── favicon.svg         ← App icon / favicon
+│   ├── favicon.svg         ← App icon / favicon (Hamburg Castle, Nordic Aurora colours)
+│   ├── ba-logo.svg         ← British Airways tail-fin SVG (flights section branding)
+│   ├── hero-bg.jpg         ← Hero background (dark mode, JPEG fallback)
+│   ├── hero-bg.webp        ← Hero background (dark mode, WebP — ~65% smaller)
+│   ├── hero-bg-light.jpg   ← Hero background (light mode, JPEG fallback)
+│   └── hero-bg-light.webp  ← Hero background (light mode, WebP — ~65% smaller)
 ├── AGENTS.md               ← 🌟 CANONICAL MASTER INSTRUCTIONS (Single Source of Truth)
 ├── CLAUDE.md               ← Anthropic Claude Code discovery pointer (points to AGENTS.md)
 ├── tests/
-│   └── pre_deployment_check.py ← Headless Edge + CDP end-to-end runtime verification suite
+│   ├── pre_deployment_check.py ← Headless Edge + CDP end-to-end runtime verification suite
+│   └── README.md               ← Test suite documentation & scratch_edge_profile cleanup guide
 ├── index.html              ← Dedicated single-page shell (instant first paint, zero-flash)
 ├── manifest.json           ← PWA manifest
 └── sw.js                   ← Service worker for offline caching

@@ -1,0 +1,50 @@
+﻿/* sections-map.css - Route map section (MapLibre GL JS)
+   Split from sections.css. All values must use CSS custom properties from palette.css.
+   @see css/palette.css, css/components.css, css/responsive.css, AGENTS.md
+   ======================================================= */
+/* ═══════════════════════════════════════════════════
+   3. ROUTE MAP SECTION (MapLibre GL JS)
+   ═══════════════════════════════════════════════════ */
+.map-container {
+  width: 100%;
+  height: 520px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  position: relative;
+  background: var(--bg-secondary);
+}
+
+#route-map {
+  width: 100%;
+  height: 100%;
+}
+
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 14px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-pill);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+

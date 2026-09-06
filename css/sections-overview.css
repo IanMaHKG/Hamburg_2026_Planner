@@ -1,0 +1,468 @@
+﻿/* sections-overview.css - Overview cards & Route Milestone Board (all 5 styles)
+   Split from sections.css. All values must use CSS custom properties from palette.css.
+   @see css/palette.css, css/components.css, css/responsive.css, AGENTS.md
+   ======================================================= */
+/* ═══════════════════════════════════════════════════
+   2. OVERVIEW SECTION & JOURNEY ROUTE BOARD
+   ═══════════════════════════════════════════════════ */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.overview-card {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.overview-icon {
+  font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+  padding: 12px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+}
+
+.overview-info h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+
+.overview-info p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* ── Universal Journey Milestone Route Board ── */
+.route-board-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-card);
+  overflow-x: auto;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.route-board-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border-light);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.route-branding {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.route-type-badge {
+  background: var(--brand-primary);
+  color: #FFFFFF;
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.05em;
+}
+
+.route-line-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+
+.route-direction {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.route-direction .arrow {
+  color: var(--brand-accent);
+  margin-left: 2px;
+}
+
+.route-track-wrap {
+  position: relative;
+  padding: 12px 0 18px;
+  min-width: 720px;
+}
+
+.route-stops-list {
+  display: grid;
+  grid-template-columns: repeat(var(--stops-count, 6), 1fr);
+  position: relative;
+  z-index: 2;
+  padding: 0;
+  margin: 0;
+}
+
+/* Horizontal Track Line: Placed inside route-stops-list at exact vertical center of the dot wrapper */
+.route-line-bar {
+  grid-column: 1 / -1;
+  position: absolute;
+  top: 48px;
+  transform: translateY(-50%);
+  left: calc(100% / (var(--stops-count, 6) * 2));
+  right: calc(100% / (var(--stops-count, 6) * 2));
+  height: 6px;
+  background: var(--border-mid);
+  border-radius: 3px;
+  z-index: 1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+
+.route-stop-item {
+  display: grid;
+  grid-template-rows: 36px 24px auto;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  transition: transform var(--transition-bounce);
+  min-width: 0;
+}
+
+.route-stop-item:hover {
+  transform: translateY(-3px);
+}
+
+.route-stop-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 36px;
+  padding-bottom: 6px;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.stop-code-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--code-color, var(--accent-primary));
+  background: var(--bg-card);
+  color: var(--code-color, var(--text-primary));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.route-stop-dot-wrap {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.stop-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 3.5px solid var(--dot-color, var(--accent-primary));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-bounce), box-shadow var(--transition-fast);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.dot-inner-core {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--dot-color, var(--accent-primary));
+  display: block;
+}
+
+.route-stop-item:hover .stop-dot {
+  transform: scale(1.3);
+  box-shadow: 0 0 0 4px rgba(7, 90, 170, 0.2);
+}
+
+.route-stop-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 3px;
+  padding-top: 10px;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.stop-name-native {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.stop-name-romaji {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1.2;
+}
+
+.stop-days-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--brand-accent);
+  background: rgba(13, 148, 136, 0.1);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  margin-top: 4px;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+/* ═══════════════════════════════════════════════════
+   TRANSIT ROUTE BOARD DESIGN SYSTEM (5 Styles)
+   1. swiss-train (SBB CFF FFS Swiss Precision)
+   2. jr-rail (JR Japan Station Sign 駅名標)
+   3. london-underground (TfL London Tube Harry Beck)
+   4. hong-kong-mtr (Hong Kong MTR Bilingual)
+   5. new-york-subway (NYC MTA Helvetica & Bullets)
+   ═══════════════════════════════════════════════════ */
+
+/* ── 1. SWISS TRAIN (SBB CFF FFS) ── */
+[data-transit-style="swiss-train"] {
+  border-left: 5px solid #EB0000;
+}
+
+[data-transit-style="swiss-train"] .transit-badge {
+  background: #EB0000;
+  color: #FFFFFF;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+
+[data-transit-style="swiss-train"] .stop-code-badge {
+  background: var(--bg-card);
+  border: 1.5px solid var(--code-color, #075AAA);
+  color: var(--code-color, #075AAA);
+  font-weight: 800;
+  border-radius: var(--radius-pill);
+}
+
+[data-transit-style="swiss-train"] .stop-dot {
+  background: var(--bg-card);
+  border: 3.5px solid var(--dot-color, #EB0000);
+}
+
+/* ── 2. JR RAIL (JAPAN RAILWAYS 駅名標) ── */
+[data-transit-style="jr-rail"] {
+  border-top: 4px solid #008000;
+}
+
+[data-transit-style="jr-rail"] .transit-badge {
+  background: #008000;
+  color: #FFFFFF;
+  font-weight: 800;
+}
+
+[data-transit-style="jr-rail"] .stop-code-badge {
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--bg-card);
+  border: 2px solid var(--code-color, #008000);
+  color: var(--code-color, #008000);
+  font-weight: 900;
+}
+
+[data-transit-style="jr-rail"] .stop-code-badge .code-prefix {
+  font-size: 0.68rem;
+  margin-right: 2px;
+}
+
+[data-transit-style="jr-rail"] .stop-code-badge .code-num {
+  font-size: 0.72rem;
+}
+
+[data-transit-style="jr-rail"] .stop-dot {
+  background: #FFFFFF;
+  border: 4px solid var(--dot-color, #008000);
+}
+
+[data-transit-style="jr-rail"] .dot-inner-core {
+  background: #FFFFFF;
+  border: 2px solid var(--dot-color, #008000);
+}
+
+/* ── 3. LONDON UNDERGROUND (TfL Tube) ── */
+[data-transit-style="london-underground"] {
+  border-left: 5px solid #0019A8;
+}
+
+[data-transit-style="london-underground"] .transit-badge {
+  background: #0019A8;
+  color: #FFFFFF;
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+  padding: 4px 12px;
+  box-shadow: 0 0 0 2px #CC3333;
+}
+
+[data-transit-style="london-underground"] .stop-code-badge {
+  background: var(--code-color, #0019A8);
+  color: #FFFFFF;
+  border: none;
+  font-weight: 800;
+  border-radius: 4px;
+  padding: 2px 7px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+[data-transit-style="london-underground"] .stop-dot {
+  width: 20px;
+  height: 20px;
+  background: var(--bg-card);
+  border: 4.5px solid var(--dot-color, #0019A8);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+}
+
+[data-transit-style="london-underground"] .dot-inner-core {
+  display: none; /* Preserves signature hollow London Tube interchange ring */
+}
+
+/* ── 4. HONG KONG MTR ── */
+[data-transit-style="hong-kong-mtr"] {
+  border-top: 4px solid #AA182C;
+}
+
+[data-transit-style="hong-kong-mtr"] .transit-badge {
+  background: #AA182C;
+  color: #FFFFFF;
+  font-weight: 800;
+  border-radius: 4px;
+}
+
+[data-transit-style="hong-kong-mtr"] .stop-code-badge {
+  background: var(--code-color, #AA182C);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+  padding: 2px 8px;
+}
+
+[data-transit-style="hong-kong-mtr"] .stop-dot {
+  background: #FFFFFF;
+  border: 4px solid var(--dot-color, #AA182C);
+}
+
+[data-transit-style="hong-kong-mtr"] .dot-inner-core {
+  background: var(--dot-color, #AA182C);
+}
+
+/* ── 5. NEW YORK SUBWAY (MTA NYC Transit) ── */
+[data-transit-style="new-york-subway"] {
+  background: #111111;
+  color: #FFFFFF;
+  border: 1px solid #333333;
+}
+
+[data-transit-style="new-york-subway"] .route-board-header {
+  border-bottom: 1px solid #333333;
+}
+
+[data-transit-style="new-york-subway"] .transit-badge {
+  background: #0039A6;
+  color: #FFFFFF;
+  font-weight: 900;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+}
+
+[data-transit-style="new-york-subway"] .route-line-title {
+  color: #FFFFFF;
+}
+
+[data-transit-style="new-york-subway"] .stop-code-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--code-color, #0039A6);
+  color: #FFFFFF;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 0.65rem;
+  padding: 0;
+  margin-bottom: 2px;
+}
+
+[data-transit-style="new-york-subway"] .stop-code-badge .code-prefix {
+  display: inline;
+}
+
+[data-transit-style="new-york-subway"] .stop-code-badge .code-num {
+  display: none;
+}
+
+[data-transit-style="new-york-subway"] .stop-dot {
+  background: #FFFFFF;
+  border: 4px solid var(--dot-color, #0039A6);
+}
+
+[data-transit-style="new-york-subway"] .dot-inner-core {
+  background: var(--dot-color, #0039A6);
+}
+
+[data-transit-style="new-york-subway"] .stop-name-native {
+  color: #FFFFFF;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+[data-transit-style="new-york-subway"] .stop-name-romaji {
+  color: #A0A0A0;
+}
+
+[data-transit-style="new-york-subway"] .stop-days-badge {
+  background: #222222;
+  color: #E2E8F0;
+  border: 1px solid #444444;
+}
+

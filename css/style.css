@@ -1,10 +1,26 @@
 /* ═══════════════════════════════════════════════════
    TRIP PLANNER — Master Stylesheet
    Imports all modular stylesheets in architectural dependency order.
+
+   AGENTS: When adding a new page section, create a new sections-<name>.css
+   file and add its @import here (before responsive.css). Do NOT re-merge
+   into a single sections.css — each file should stay under ~35 KB.
    ═══════════════════════════════════════════════════ */
 
 @import 'palette.css';
 @import 'base.css';
 @import 'components.css';
-@import 'sections.css';
+
+/* Page sections — in top-to-bottom document order */
+@import 'sections-hero.css';
+@import 'sections-overview.css';
+@import 'sections-map.css';
+@import 'sections-tips.css';
+@import 'sections-itinerary.css';
+@import 'sections-packing.css';
+@import 'sections-budget.css';
+@import 'sections-hotels.css';
+@import 'sections-transit.css';
+@import 'sections-content.css';
+
 @import 'responsive.css';

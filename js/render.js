@@ -912,6 +912,12 @@ function renderHotels() {
   var data = window.SITE_DATA;
   if (!data || !data.hotels) return;
 
+  // Inject section subtitle from data (data isolation — not hardcoded in index.html)
+  var subtitleEl = document.getElementById('hotels-subtitle-mount');
+  if (subtitleEl && data.hotels.sectionSubtitle) {
+    subtitleEl.innerHTML = renderBilingualText(data.hotels.sectionSubtitle);
+  }
+
   var config    = window.TRIP_CONFIG;
   var partySize = (config && config.party && config.party.size) ? config.party.size : 2;
 
@@ -974,7 +980,8 @@ function renderHotels() {
         : (hasCustomUrl
             ? '<span class="lang-primary lang-en">🏨 View Official Hotel Page ➔</span>' +
               '<span class="lang-secondary lang-zh">🏨 瀏覽官方酒店專頁 ➔</span>' +
-              '<span class="lang-tertiary lang-zh-cn">🏨 浏览官方酒店专页 ➔</span>'
+              '<span class="lang-tertiary lang-zh-cn">🏨 浏览官方酒店专页 ➔</span>' +
+            '</span>'
             : '<span class="lang-primary lang-en">🏨 Search on Booking.com ➔</span>' +
               '<span class="lang-secondary lang-zh">🏨 在 Booking.com 搜尋 ➔</span>' +
               '<span class="lang-tertiary lang-zh-cn">🏨 在 Booking.com 搜索 ➔</span>');
@@ -1015,6 +1022,12 @@ function renderHotels() {
 function renderFlights() {
   var data = window.SITE_DATA;
   if (!data || !data.flights) return;
+
+  // Inject section subtitle from data (data isolation — not hardcoded in index.html)
+  var subtitleEl = document.getElementById('flights-subtitle-mount');
+  if (subtitleEl && data.flights.sectionSubtitle) {
+    subtitleEl.innerHTML = renderBilingualText(data.flights.sectionSubtitle);
+  }
 
   var container = document.getElementById('flights-container');
   if (!container) return;
@@ -1379,6 +1392,22 @@ function renderWeather() {
            '</div>';
   }).join('');
 
+  var attributionHtml = '';
+  if (data.weather._liveUpdated && data.weather._liveTimestamp) {
+    var ts = data.weather._liveTimestamp;
+    attributionHtml =
+      '<span class="lang-primary lang-en">Weather data sourced from <a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · Last updated: ' + ts + '</span>' +
+      '<span class="lang-secondary lang-zh">天氣資料來源：<a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · 最後更新：' + ts + '</span>' +
+      '<span class="lang-tertiary lang-zh-cn">天气数据来源：<a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · 最后更新：' + ts + '</span>';
+  } else if (w.attribution) {
+    attributionHtml = renderBilingualText(w.attribution);
+  } else {
+    attributionHtml =
+      '<span class="lang-primary lang-en">Weather data sourced from <a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · Static forecast (live forecast available from 10 Nov 2026 · 16 days before departure)</span>' +
+      '<span class="lang-secondary lang-zh">天氣資料來源：<a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · 靜態預報（即時天氣預報將於2026年11月10日起提供 · 出發前16天）</span>' +
+      '<span class="lang-tertiary lang-zh-cn">天气数据来源：<a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · 静态预报（实时天气预报将于2026年11月10日起提供 · 出发前16天）</span>';
+  }
+
   container.innerHTML =
     '<div class="weather-widget-card reveal">' +
       '<div class="weather-widget-header">' +
@@ -1401,9 +1430,7 @@ function renderWeather() {
         renderBilingualText(w.clothingTip) +
       '</div>' +
       '<div class="budget-attribution" id="weather-attribution" style="margin-top:12px;">' +
-        '<span class="lang-primary lang-en">Weather data sourced from <a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · Static forecast (live update pending…)</span>' +
-        '<span class="lang-secondary lang-zh">天氣資料來源：<a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · 靜態預報（即時更新待載入…）</span>' +
-        '<span class="lang-tertiary lang-zh-cn">天气数据来源：<a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · 静态预报（实时更新待载入…）</span>' +
+        attributionHtml +
       '</div>' +
     '</div>';
 }
@@ -1616,6 +1643,118 @@ function renderEssentials() {
     });
   });
 }
+
+
+/* =======================================================
+   13. RENDER FOOTER & TAXI MODAL
+   Reads from SITE_DATA.footer and SITE_DATA.taxiCard.
+   Keeps index.html destination-agnostic.
+   ======================================================= */
+
+/**
+ * Renders the page footer from SITE_DATA.footer.
+ */
+function renderFooter() {
+  var d = window.SITE_DATA && window.SITE_DATA.footer;
+  if (!d) return;
+
+  var contentMount = document.getElementById('footer-content-mount');
+  if (contentMount) {
+    contentMount.innerHTML =
+      '<div class="footer-brand">' +
+        '<h3 id="plan-footer-title">' + (d.title || '') + '</h3>' +
+        '<p>' + renderBilingualText(d.description) + '</p>' +
+      '</div>' +
+      '<div class="footer-links">' +
+        '<a href="#hero">' +
+          '<span class="lang-primary lang-en">Back to Top ↑</span>' +
+          '<span class="lang-secondary lang-zh">返回頂部 ↑</span>' +
+          '<span class="lang-tertiary lang-zh-cn">返回顶部 ↑</span>' +
+        '</a>' +
+        (d.githubUrl ? '<a href="' + d.githubUrl + '" target="_blank" rel="noopener">' +
+          '<span class="lang-primary lang-en">GitHub</span>' +
+          '<span class="lang-secondary lang-zh">GitHub 原始碼</span>' +
+          '<span class="lang-tertiary lang-zh-cn">GitHub 源码</span>' +
+        '</a>' : '') +
+      '</div>';
+  }
+
+  var bottomMount = document.getElementById('footer-bottom-mount');
+  if (bottomMount) {
+    var templateLink = d.templateUrl
+      ? '<a href="' + d.templateUrl + '" target="_blank" rel="noopener">Trip Planner</a>'
+      : 'Trip Planner';
+    bottomMount.innerHTML = '<p>' + (d.copyright || '') + ' · Built with ' + templateLink + ' · MIT Licensed</p>';
+  }
+}
+
+/**
+ * Renders the taxi modal destination cards from SITE_DATA.taxiCard.
+ * Keeps all German phrases, addresses and Maps URLs out of index.html.
+ */
+function renderTaxiModal() {
+  var d = window.SITE_DATA && window.SITE_DATA.taxiCard;
+  if (!d) return;
+
+  var mount = document.getElementById('taxi-modal-inner-mount');
+  if (!mount) return;
+
+  var phrase = (d.promptPhrase && d.promptPhrase.de) || 'Bitte bringen Sie uns zum:';
+
+  function buildCard(dest, key) {
+    var address = (dest === 'hotel') ? d.hotel.address : d.airport.address;
+    var name    = (dest === 'hotel') ? d.hotel.name   : renderBilingualText(d.airport.name, null, true);
+    var lmrkObj = (dest === 'hotel') ? d.hotel.landmark : d.airport.landmark;
+    var landmark = (lmrkObj && lmrkObj.de) || '';
+    var mapsUrl = (dest === 'hotel') ? d.hotel.mapsUrl : d.airport.mapsUrl;
+    var isHotel = dest === 'hotel';
+    return '<div class="taxi-card-display" id="taxi-display-' + dest + '"' + (isHotel ? '' : ' style="display:none;"') + '>' +
+      '<div class="taxi-german-box">' +
+        '<span class="taxi-phrase-label">' + phrase + '</span>' +
+        '<div class="taxi-target-name">' + name + '</div>' +
+        '<div class="taxi-target-address">' + address + '</div>' +
+        '<div class="taxi-target-landmark">' + landmark + '</div>' +
+      '</div>' +
+      '<div class="taxi-card-actions">' +
+        '<button class="taxi-action-btn" type="button" onclick="copyToClipboard(\''+address+'\')">' +
+          '📋 <span class="lang-primary lang-en">Copy Address</span>' +
+          '<span class="lang-secondary lang-zh">複製地址</span>' +
+          '<span class="lang-tertiary lang-zh-cn">复制地址</span>' +
+        '</button>' +
+        '<a class="taxi-action-btn primary" href="' + mapsUrl + '" target="_blank" rel="noopener">' +
+          '🗺️ <span class="lang-primary lang-en">Google Maps ↗</span>' +
+          '<span class="lang-secondary lang-zh">打開地圖 ↗</span>' +
+          '<span class="lang-tertiary lang-zh-cn">打开地图 ↗</span>' +
+        '</a>' +
+      '</div>' +
+    '</div>';
+  }
+
+  // Hotel toggle label
+  var hotelToggleLabel = d.hotel.name || 'Hotel';
+  // Airport toggle label
+  var airportNameObj   = d.airport && d.airport.name;
+  var airportToggleEn  = (airportNameObj && airportNameObj.en)  || 'Airport';
+  var airportToggleZh  = (airportNameObj && airportNameObj.zh)  || '';
+  var airportToggleZhcn= (airportNameObj && airportNameObj['zh-cn']) || '';
+
+  mount.innerHTML =
+    '<div class="taxi-destination-toggle">' +
+      '<button class="taxi-toggle-btn active" id="taxi-btn-hotel" data-dest="hotel" onclick="switchTaxiDestination(\'hotel\')">' +
+        '🏨 <span class="lang-primary lang-en">' + hotelToggleLabel + '</span>' +
+        '<span class="lang-secondary lang-zh">' + (d.hotel.name || hotelToggleLabel) + '</span>' +
+        '<span class="lang-tertiary lang-zh-cn">' + (d.hotel.name || hotelToggleLabel) + '</span>' +
+      '</button>' +
+      '<button class="taxi-toggle-btn" id="taxi-btn-airport" data-dest="airport" onclick="switchTaxiDestination(\'airport\')">' +
+        '✈️ <span class="lang-primary lang-en">' + airportToggleEn + '</span>' +
+        '<span class="lang-secondary lang-zh">' + airportToggleZh + '</span>' +
+        '<span class="lang-tertiary lang-zh-cn">' + airportToggleZhcn + '</span>' +
+      '</button>' +
+    '</div>' +
+    buildCard('hotel', d.hotel) +
+    buildCard('airport', d.airport);
+}
+
 
 /* =======================================================
    MASTER RENDER ORCHESTRATOR

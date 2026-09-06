@@ -89,14 +89,25 @@ Hamburg_2026_Planner/
 │   ├── AGENTS.md               # Master AI agent instructions
 │   └── GEMINI.md               # Gemini / Antigravity rule alias
 ├── .github/
-│   ├── workflows/deploy.yml    # GitHub Actions CI/CD to GitHub Pages
-│   └── copilot-instructions.md # GitHub Copilot instruction mirror
+│   ├── workflows/
+│   │   ├── static.yml          # GitHub Actions CI/CD to GitHub Pages
+│   │   └── copilot-instructions.md # GitHub Copilot instruction mirror
 ├── assets/                     # SVGs, optimized images, favicons
+│   └── favicon.svg, ba-logo.svg, hero-bg.{jpg,webp}, hero-bg-light.{jpg,webp}
 ├── css/
 │   ├── palette.css             # Luxury theme presets & design tokens
 │   ├── base.css                # Typography, resets & layout containers
 │   ├── components.css          # Navigation, buttons, badges, modals
-│   ├── sections.css            # Section layouts (Hero, Flights, Itinerary, Budget)
+│   ├── sections-hero.css       # Hero section & countdown timer
+│   ├── sections-overview.css   # Overview cards & Route Milestone Board (all 5 styles)
+│   ├── sections-map.css        # Route map section
+│   ├── sections-tips.css       # Practical tips
+│   ├── sections-itinerary.css  # Timeline, accordion, toolbar, today pill, progress
+│   ├── sections-packing.css    # Packing checklist & progress bar
+│   ├── sections-budget.css     # Budget table & executive summary
+│   ├── sections-hotels.css     # Hotel cards & search form
+│   ├── sections-transit.css    # Transit recommendations & footer
+│   ├── sections-content.css    # Flights, food, weather, essentials, BA branding, print
 │   ├── responsive.css          # Responsive breakpoints & compact scaling
 │   └── style.css               # Central stylesheet import loader
 ├── data/
@@ -155,16 +166,21 @@ Hamburg_2026_Planner/
 
 - **Mandatory Cache Version Bump:** Whenever **ANY** file in `css/`, `js/`, `data/`, or `index.html` is modified, the agent **MUST** increment the cache version constant in `sw.js`:
   ```javascript
-  // Example: increment version on every release
-  const CACHE_NAME = 'trip-planner-v14';
+  // Example: increment version on every release (current: v24)
+  const CACHE_NAME = 'trip-planner-v24';
+  //                                          ^^^ increment this integer on EVERY edit
   ```
+- **Anti-Drift Rule for Cache Version**: After bumping the version in `sw.js`, immediately check that:
+  1. `AGENTS.md` (this file) example version matches.
+  2. The `@see sw.js` JSDoc comment in `js/script.js` does NOT cite a specific version number (use `increment CACHE_NAME` phrasing instead of a hardcoded vN).
+  3. Any other comments or docs referencing a version number are updated at the same time.
 - Failure to bump `CACHE_NAME` will cause mobile devices and returning visitors to load stale, cached stylesheets or scripts.
 
 ---
 
 ## 7. Git & CI/CD Workflow Conventions
 
-- **Branch**: `main` is the production branch deploying to GitHub Pages via `.github/workflows/deploy.yml`.
+- **Branch**: `main` is the production branch deploying to GitHub Pages via `.github/workflows/static.yml`.
 - **Commit Message Format**: Follow Conventional Commits:
   - `feat(scope): ...` — New feature or major UX addition
   - `fix(scope): ...` — Bug fix or responsive layout correction

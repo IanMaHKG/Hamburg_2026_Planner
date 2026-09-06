@@ -1,0 +1,119 @@
+﻿/* sections-packing.css - Packing checklist & progress bar
+   Split from sections.css. All values must use CSS custom properties from palette.css.
+   @see css/palette.css, css/components.css, css/responsive.css, AGENTS.md
+   ======================================================= */
+/* ═══════════════════════════════════════════════════
+   6. PACKING SECTION
+   ═══════════════════════════════════════════════════ */
+.packing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 24px;
+}
+
+.packing-category-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-card);
+}
+
+.packing-category-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.packing-category-icon {
+  font-size: 1.6rem;
+}
+
+.packing-category-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   PACKING CHECKLIST PROGRESS BAR
+   ═══════════════════════════════════════════════════ */
+.packing-progress-container {
+  background: var(--bg-card, #1E293B);
+  border: 1px solid var(--border-light, rgba(255, 255, 255, 0.1));
+  border-radius: var(--radius-lg, 16px);
+  padding: 16px 20px;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.packing-progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.packing-progress-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary, #F8FAFC);
+}
+
+.packing-progress-pct {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--accent-primary, #0D9488);
+  background: rgba(13, 148, 136, 0.15);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill, 9999px);
+}
+
+.packing-progress-track {
+  width: 100%;
+  height: 10px;
+  background: var(--bg-secondary, #0F172A);
+  border-radius: var(--radius-pill, 9999px);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+}
+
+.packing-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-primary, #0D9488), var(--brand-accent, #06B6D4));
+  border-radius: var(--radius-pill, 9999px);
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0%;
+}
+
+.packing-progress-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 0.78rem;
+  color: var(--text-muted, #94A3B8);
+}
+
+.packing-reset-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font-family: inherit;
+}
+
+.packing-reset-btn:hover {
+  color: var(--accent-highlight, #EB2226);
+}
+

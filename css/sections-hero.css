@@ -1,0 +1,396 @@
+﻿/* sections-hero.css - Hero section & countdown timer
+   Split from sections.css. All values must use CSS custom properties from palette.css.
+   @see css/palette.css, css/components.css, css/responsive.css, AGENTS.md
+   ======================================================= */
+/* =======================================================
+   sections.css — PAGE SECTION LAYOUTS
+   Trip Planner template.
+
+   Contains layout and visual styles specific to each page section.
+   Organized in the same top-to-bottom order as the rendered page:
+     1. Hero (#hero)
+     2. Overview Cards & Route Milestone Board (#overview, .route-board-container)
+     3. Map (#map-section)
+     4. Tips (.tips-grid)
+     5. Itinerary / Day Timeline (.day-card, .day-body, .time-slot)
+     6. Packing Checklist (.packing-category-card)
+     7. Budget Table (.budget-table)
+     8. Hotels (.hotel-leg-card, .hotel-search-form)
+     9. Transit Cards (.transit-card)
+
+   AGENTS:
+   • All color and spacing values must use CSS custom properties from palette.css.
+   • Route Milestone Board styles are keyed off [data-transit-style] attribute
+     (set in render.js → renderOverview()). Do not hardcode style-specific colors.
+   • New sections go at the bottom. Add a numbered comment header matching
+     the pattern above, and update this file-level comment to list the section.
+   • Grid layout guideline: avoid orphaning a single item in the last row
+     of any card grid. Prefer explicit grid-template-columns over auto-fit
+     for grids with a fixed known item count.
+
+   @see css/palette.css   — All color and spacing tokens.
+   @see css/components.css — Reusable component styles.
+   @see css/responsive.css — Responsive breakpoint overrides.
+   @see js/render.js       — Injects HTML that these styles target.
+   @see AGENTS.md          — Architecture and grid layout rules.
+   ======================================================= */
+
+/* ═══════════════════════════════════════════════════
+   1. HERO
+   ═══════════════════════════════════════════════════ */
+#hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  /* WebP with JPEG fallback via image-set() — WebP ~65% smaller */
+  background-image:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.72) 0%, rgba(15, 23, 42, 0.88) 100%),
+    image-set(
+      url('../assets/hero-bg.webp') type('image/webp'),
+      url('../assets/hero-bg.jpg')  type('image/jpeg')
+    );
+  /* Vendor-prefixed fallback for older WebKit */
+  background-image:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.72) 0%, rgba(15, 23, 42, 0.88) 100%),
+    -webkit-image-set(
+      url('../assets/hero-bg.webp') 1x,
+      url('../assets/hero-bg.jpg')  1x
+    );
+  /* Final standard syntax — overrides if supported */
+  background-image:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.72) 0%, rgba(15, 23, 42, 0.88) 100%),
+    image-set(
+      url('../assets/hero-bg.webp') type('image/webp'),
+      url('../assets/hero-bg.jpg')  type('image/jpeg')
+    );
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: #f8fafc;
+  overflow: hidden;
+}
+
+[data-theme="light"] #hero {
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(248, 250, 252, 0.82) 100%),
+    image-set(
+      url('../assets/hero-bg-light.webp') type('image/webp'),
+      url('../assets/hero-bg-light.jpg')  type('image/jpeg')
+    );
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(248, 250, 252, 0.82) 100%),
+    -webkit-image-set(
+      url('../assets/hero-bg-light.webp') 1x,
+      url('../assets/hero-bg-light.jpg')  1x
+    );
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(248, 250, 252, 0.82) 100%),
+    image-set(
+      url('../assets/hero-bg-light.webp') type('image/webp'),
+      url('../assets/hero-bg-light.jpg')  type('image/jpeg')
+    );
+  background-size: cover;
+  background-position: center center;
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .hero-overlay {
+  background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.45) 0%, transparent 75%);
+}
+
+[data-theme="light"] .hero-eyebrow {
+  color: #92400E;
+  font-weight: 800;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+[data-theme="light"] .hero-title {
+  color: #0F172A;
+}
+
+[data-theme="light"] .hero-title .accent {
+  background: linear-gradient(135deg, #0A2540 10%, #0054A6 60%, #BA0C2F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.6));
+}
+
+[data-theme="light"] .hero-title .year {
+  color: #B45309;
+}
+
+[data-theme="light"] .hero-subtitle {
+  color: #334155;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
+}
+
+[data-theme="light"] .hero-badges .badge {
+  background: rgba(255, 255, 255, 0.88);
+  color: #0F172A;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  font-weight: 700;
+  backdrop-filter: blur(12px);
+}
+
+[data-theme="light"] .hero-particle {
+  background: rgba(7, 90, 170, 0.18);
+}
+
+[data-theme="light"] .scroll-mouse {
+  border-color: rgba(15, 23, 42, 0.35);
+}
+
+[data-theme="light"] .scroll-dot {
+  background: #0F172A;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.snowflake {
+  position: absolute;
+  top: -2em;
+  color: rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+  user-select: none;
+  animation: snowfall linear infinite;
+  will-change: transform;
+}
+
+@keyframes snowfall {
+  0%   { transform: translateY(-2em) translateX(0) rotate(0deg);   opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 0.6; }
+  100% { transform: translateY(110vh) translateX(var(--drift, 0px)) rotate(360deg); opacity: 0; }
+}
+
+[data-theme="light"] .snowflake {
+  color: rgba(7, 90, 170, 0.6);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-gold);
+  margin-bottom: 16px;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.hero-title .title-line {
+  display: block;
+}
+
+.hero-title .accent {
+  background: linear-gradient(135deg, #FFFFFF 30%, var(--brand-gold-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-title .year {
+  color: var(--brand-gold);
+}
+
+.hero-subtitle {
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  color: var(--text-on-dark-2);
+  margin-bottom: 32px;
+  line-height: 1.6;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 1.05rem;
+  background: var(--gradient-accent);
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(235, 34, 38, 0.4);
+  transition: transform var(--transition-bounce), box-shadow var(--transition-fast);
+}
+
+.hero-cta:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(235, 34, 38, 0.5);
+  text-decoration: none;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.scroll-mouse {
+  width: 24px;
+  height: 38px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  position: relative;
+}
+
+.scroll-dot {
+  width: 4px;
+  height: 8px;
+  background: #FFFFFF;
+  border-radius: 2px;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scrollAnim 1.8s infinite;
+}
+
+@keyframes scrollAnim {
+  0% { transform: translate(-50%, 0); opacity: 1; }
+  100% { transform: translate(-50%, 14px); opacity: 0; }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   14. HERO COUNTDOWN TIMER
+   ═══════════════════════════════════════════════════ */
+.hero-countdown {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+.countdown-card {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-xl, 20px);
+  padding: 16px 28px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  transition: border-color 0.3s;
+}
+
+[data-theme="light"] .countdown-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.countdown-header {
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--brand-gold, #F59E0B);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.countdown-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 56px;
+}
+
+.countdown-num {
+  font-family: var(--font-heading);
+  font-size: 1.85rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+}
+
+[data-theme="light"] .countdown-num {
+  color: var(--text-primary);
+}
+
+.countdown-unit {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 4px;
+}
+
+[data-theme="light"] .countdown-unit {
+  color: var(--text-muted);
+}
+
+.countdown-sep {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.35);
+  margin-bottom: 12px;
+}
+
+[data-theme="light"] .countdown-sep {
+  color: rgba(0, 0, 0, 0.3);
+}
+

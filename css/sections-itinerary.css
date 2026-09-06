@@ -1,0 +1,510 @@
+﻿/* sections-itinerary.css - Itinerary timeline, accordion, day-card, action toolbar, today pill, progress tracker
+   Split from sections.css. All values must use CSS custom properties from palette.css.
+   @see css/palette.css, css/components.css, css/responsive.css, AGENTS.md
+   ======================================================= */
+/* ═══════════════════════════════════════════════════
+   5. ITINERARY (TIMELINE & ACCORDION)
+   ═══════════════════════════════════════════════════ */
+.day-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+  justify-content: center;
+}
+
+.day-tab {
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+  font-weight: 700;
+  background: var(--bg-card);
+  border: 1px solid var(--border-mid);
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.day-tab:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent-primary);
+}
+
+.day-tab.active {
+  background: var(--brand-secondary);
+  color: #FFFFFF;
+  border-color: var(--brand-secondary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.day-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.day-card.open {
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.day-header {
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  user-select: none;
+  background: var(--bg-card);
+  transition: background var(--transition-fast);
+}
+
+.day-header:hover {
+  background: var(--bg-card-hover);
+}
+
+.day-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
+}
+
+.day-number-badge {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  background: var(--gradient-brand);
+  padding: 6px 14px;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+  letter-spacing: 0.05em;
+}
+
+.day-header-title-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.day-date-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 2px;
+}
+
+.day-main-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.day-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.day-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.day-chevron {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  transition: transform var(--transition-smooth);
+}
+
+.day-card.open .day-chevron {
+  transform: rotate(180deg);
+  background: var(--accent-primary);
+  color: #FFFFFF;
+  border-color: var(--accent-primary);
+}
+
+.day-body {
+  display: none;
+  padding: 0 28px 28px;
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-primary);
+}
+
+.day-card.open .day-body {
+  display: block;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.day-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* ── Time Period Collapsible Groups ── */
+.period-group {
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md, 12px);
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+
+.period-group-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  cursor: pointer;
+  user-select: none;
+  background: var(--bg-card);
+  border-bottom: 1px solid transparent;
+  transition: background var(--transition-fast, 0.15s ease),
+              border-color var(--transition-fast, 0.15s ease);
+  list-style: none; /* remove default marker on Safari */
+}
+
+/* Hide the default <details> triangle marker cross-browser */
+.period-group-header::-webkit-details-marker { display: none; }
+.period-group-header::marker { display: none; }
+
+.period-group[open] .period-group-header {
+  border-bottom-color: var(--border-light);
+  background: linear-gradient(to right, rgba(13,148,136,0.08), transparent);
+}
+
+.period-group-header:hover {
+  background: var(--bg-hover, rgba(13,148,136,0.07));
+}
+
+.period-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.period-label {
+  font-size: 0.97rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.period-count {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  padding: 2px 9px;
+}
+
+.period-chevron {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  transition: transform var(--transition-fast, 0.18s ease);
+  display: inline-block;
+}
+
+.period-group[open] .period-chevron {
+  transform: rotate(180deg);
+}
+
+.period-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 18px;
+}
+
+.time-slot {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.time-label-wrap {
+  width: 140px;
+  flex-shrink: 0;
+  padding-top: 4px;
+}
+
+.time-slot-label {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.time-slot-content {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+}
+
+.activity-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.activity-desc {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.activity-meal {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--bg-secondary);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  border-left: 3px solid var(--brand-gold);
+}
+
+.day-pro-tip {
+  margin-top: 20px;
+  padding: 14px 18px;
+  background: rgba(201, 169, 110, 0.12);
+  border-left: 4px solid var(--brand-gold);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.day-mini-map-container {
+  margin-top: 24px;
+  height: 240px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   ITINERARY ACTION TOOLBAR
+   ═══════════════════════════════════════════════════ */
+.itinerary-toolbar-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 18px;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.itinerary-toolbar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card, #1E293B);
+  border: 1px solid var(--border-light, rgba(255, 255, 255, 0.1));
+  border-radius: var(--radius-pill, 9999px);
+  padding: 6px 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  flex-wrap: wrap;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.itinerary-tool-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-secondary, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--border-mid, rgba(255, 255, 255, 0.1));
+  color: var(--text-primary, #F8FAFC);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill, 9999px);
+  cursor: pointer;
+  transition: all var(--transition-fast, 0.18s ease);
+  font-family: inherit;
+  text-decoration: none;
+}
+
+.itinerary-tool-btn:hover {
+  background: var(--accent-primary, #0D9488);
+  color: #FFFFFF;
+  border-color: transparent;
+  transform: translateY(-1px);
+}
+
+.itinerary-tool-btn.btn-calendar {
+  background: rgba(13, 148, 136, 0.15);
+  border-color: rgba(13, 148, 136, 0.35);
+  color: var(--accent-primary, #0D9488);
+}
+
+.itinerary-tool-btn.btn-calendar:hover {
+  background: var(--accent-primary, #0D9488);
+  color: #FFFFFF;
+}
+
+@media (max-width: 640px) {
+  .itinerary-toolbar-container {
+    justify-content: center;
+  }
+  .itinerary-toolbar {
+    width: 100%;
+    justify-content: center;
+  }
+  .itinerary-tool-btn {
+    font-size: 0.76rem;
+    padding: 6px 10px;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   TODAY PILL — Sticky on-trip shortcut (5B)
+   ═══════════════════════════════════════════════════ */
+.today-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, var(--accent-primary, #0D9488) 0%, var(--accent-secondary, #0891B2) 100%);
+  color: #FFFFFF;
+  border-radius: var(--radius-pill, 9999px);
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(13, 148, 136, 0.35);
+  transition: transform var(--transition-bounce, 0.25s cubic-bezier(.34,1.56,.64,1)),
+              box-shadow var(--transition-fast, 0.15s ease);
+  width: fit-content;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.today-pill:hover {
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 6px 22px rgba(13, 148, 136, 0.48);
+}
+
+.today-pill-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  flex-shrink: 0;
+  animation: todayPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes todayPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,255,255,0.6); }
+  50%       { opacity: 0.7; box-shadow: 0 0 0 5px rgba(255,255,255,0); }
+}
+
+.today-pill-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.today-pill-action {
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.88;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: auto;
+  padding-left: 8px;
+  border-left: 1px solid rgba(255,255,255,0.35);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   PROGRESS TRACKER — Trip day / activity status (5D)
+   ═══════════════════════════════════════════════════ */
+.progress-tracker {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.progress-tracker-text {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.progress-tracker-bar {
+  height: 4px;
+  background: var(--border-light);
+  border-radius: 2px;
+  overflow: hidden;
+  max-width: 360px;
+}
+
+.progress-tracker-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-primary, #0D9488), var(--accent-secondary, #0891B2));
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+@media (max-width: 640px) {
+  .today-pill {
+    border-radius: var(--radius-lg, 16px);
+    width: 100%;
+  }
+
+  .today-pill-label {
+    font-size: 0.82rem;
+  }
+
+  .today-pill-action {
+    font-size: 0.74rem;
+  }
+
+  .progress-tracker-bar {
+    max-width: 100%;
+  }
+}

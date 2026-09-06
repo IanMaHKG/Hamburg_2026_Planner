@@ -1,0 +1,231 @@
+﻿/* sections-budget.css - Budget table & executive summary breakdown
+   Split from sections.css. All values must use CSS custom properties from palette.css.
+   @see css/palette.css, css/components.css, css/responsive.css, AGENTS.md
+   ======================================================= */
+/* ═══════════════════════════════════════════════════
+   7. BUDGET SECTION
+   ═══════════════════════════════════════════════════ */
+.budget-table-wrap {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 16px;
+}
+
+.budget-table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.budget-table th,
+.budget-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.92rem;
+}
+
+.budget-table th {
+  background: var(--bg-secondary);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.budget-table tr:last-child td {
+  border-bottom: none;
+}
+
+.budget-table tr.budget-total {
+  background: var(--bg-secondary);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+}
+
+.budget-attribution {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   EXECUTIVE BUDGET SUMMARY & BREAKDOWN
+   ═══════════════════════════════════════════════════ */
+.budget-summary-container {
+  margin-bottom: 28px;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.budget-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.budget-stat-card {
+  background: var(--bg-card, #1E293B);
+  border: 1px solid var(--border-light, rgba(255, 255, 255, 0.1));
+  border-radius: var(--radius-lg, 16px);
+  padding: 20px 22px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+  min-width: 0;
+  word-break: break-word;
+}
+
+.budget-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-mid);
+}
+
+.budget-stat-card.highlight {
+  border-color: rgba(13, 148, 136, 0.4);
+  background: linear-gradient(145deg, var(--bg-card), rgba(13, 148, 136, 0.08));
+}
+
+.budget-stat-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.budget-stat-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted, #94A3B8);
+}
+
+.budget-stat-icon {
+  font-size: 1.35rem;
+}
+
+.budget-stat-val {
+  font-size: clamp(1.45rem, 3.5vw, 1.75rem);
+  font-weight: 900;
+  color: var(--text-primary, #F8FAFC);
+  line-height: 1.15;
+  margin-bottom: 6px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.budget-stat-sub {
+  font-size: 0.78rem;
+  color: var(--text-secondary, #CBD5E1);
+}
+
+/* Category Expense Distribution Bar */
+.budget-breakdown-card {
+  background: var(--bg-card, #1E293B);
+  border: 1px solid var(--border-light, rgba(255, 255, 255, 0.1));
+  border-radius: var(--radius-lg, 16px);
+  padding: 18px 22px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+.budget-breakdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.budget-breakdown-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary, #F8FAFC);
+}
+
+.budget-dist-bar {
+  display: flex;
+  height: 26px;
+  width: 100%;
+  border-radius: var(--radius-pill, 9999px);
+  overflow: hidden;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-secondary);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.dist-seg {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+}
+
+.dist-seg-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.dist-seg.seg-flights { background: #8B5CF6; }
+.dist-seg.seg-hotel   { background: #0D9488; }
+.dist-seg.seg-transit { background: #0284C7; }
+.dist-seg.seg-food    { background: #F59E0B; }
+.dist-seg.seg-sight   { background: #EC4899; }
+.dist-seg.seg-misc    { background: #64748B; }
+
+.budget-dist-legend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dist-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-secondary, #CBD5E1);
+}
+
+.dist-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+@media (max-width: 640px) {
+  .budget-stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .budget-dist-bar {
+    height: 22px;
+  }
+  .dist-seg-label {
+    font-size: 0.65rem;
+    padding: 0 2px;
+  }
+}
+

@@ -44,7 +44,7 @@
       <div class="nav-links">
         <a href="#overview"><span class="lang-primary lang-en">Overview</span><span class="lang-secondary lang-zh">行程概覽</span><span class="lang-tertiary lang-zh-cn">行程概览</span></a>
         <a href="#flights"><span class="lang-primary lang-en">Flights</span><span class="lang-secondary lang-zh">航班資訊</span><span class="lang-tertiary lang-zh-cn">航班信息</span></a>
-        <a href="#map"><span class="lang-primary lang-en">Route Map</span><span class="lang-secondary lang-zh">路線地圖</span><span class="lang-tertiary lang-zh-cn">路线地图</span></a>
+        <a href="#map"><span class="lang-primary lang-en">Map</span><span class="lang-secondary lang-zh">路線地圖</span><span class="lang-tertiary lang-zh-cn">路线地图</span></a>
         <a href="#tips"><span class="lang-primary lang-en">Tips</span><span class="lang-secondary lang-zh">實用貼士</span><span class="lang-tertiary lang-zh-cn">实用贴士</span></a>
         <a href="#itinerary"><span class="lang-primary lang-en">Itinerary</span><span class="lang-secondary lang-zh">詳細行程</span><span class="lang-tertiary lang-zh-cn">详细行程</span></a>
         <a href="#food"><span class="lang-primary lang-en">Food &amp; Dining</span><span class="lang-secondary lang-zh">美食品味</span><span class="lang-tertiary lang-zh-cn">美食品味</span></a>
@@ -129,11 +129,7 @@
             <span class="lang-secondary lang-zh">已確認航班與機場接駁</span>
             <span class="lang-tertiary lang-zh-cn">已确认航班与机场接驳</span>
           </h2>
-          <p class="section-subtitle">
-            <span class="lang-primary lang-en">British Airways BA960 &amp; BA967 flights between London Heathrow (LHR T5) and Hamburg Airport (HAM T2) with direct S1 transit to city.</span>
-            <span class="lang-secondary lang-zh">英國航空 BA960 與 BA967 往返倫敦希斯路（T5）與漢堡機場（T2），搭配S1城郊列車直通市區。</span>
-            <span class="lang-tertiary lang-zh-cn">英国航空 BA960 与 BA967 往返伦敦希思罗（T5）与汉堡机场（T2），搭配S1城郊列车直通市区。</span>
-          </p>
+          <p id="flights-subtitle-mount" class="section-subtitle"></p>
         </div>
         <div id="flights-container"></div>
       </div>
@@ -294,7 +290,7 @@
              <span class="lang-tertiary lang-zh-cn">预算分布与实时汇率换算</span>
           </h2>
           <p class="section-subtitle">
-            <span class="lang-primary lang-en">Estimated trip costs with live exchange rates powered by Open Exchange Rates API.</span>
+            <span class="lang-primary lang-en">Estimated trip costs with live exchange rates powered by open.er-api.com.</span>
             <span class="lang-secondary lang-zh">清晰的各項開支預算分佈，支援即時匯率動態轉換。</span>
              <span class="lang-tertiary lang-zh-cn">清晰的各项开支预算分布，支持实时汇率动态转换。</span>
           </p>
@@ -325,7 +321,7 @@
     </section>
 
     <!-- 8. HOTELS -->
-    <section id="hotels" class="section">
+    <section id="hotels" class="section section-alt">
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">
@@ -333,11 +329,7 @@
             <span class="lang-secondary lang-zh">已確認住宿安排與酒店詳情</span>
             <span class="lang-tertiary lang-zh-cn">已确认住宿安排与酒店详情</span>
           </h2>
-          <p class="section-subtitle">
-            <span class="lang-primary lang-en">Staying at Courtyard by Marriott Hamburg City for the entire 3-day trip. Direct link to official Marriott booking &amp; live rates.</span>
-            <span class="lang-secondary lang-zh">全程入住漢堡市萬怡酒店 (Courtyard by Marriott)。附官方萬豪酒店詳情及即時房價查詢。</span>
-            <span class="lang-tertiary lang-zh-cn">全程入住汉堡市万怡酒店 (Courtyard by Marriott)。附官方万豪酒店详情及实时房价查询。</span>
-          </p>
+          <p id="hotels-subtitle-mount" class="section-subtitle"></p>
         </div>
         <div class="itinerary-hotels-grid" id="itinerary-hotels-grid"></div>
       </div>
@@ -363,25 +355,10 @@
     </section>
 
     <!-- ONE-PAGER FOOTER -->
-    <footer class="footer">
+    <footer class="footer" id="page-footer">
       <div class="container">
-        <div class="footer-content">
-          <div class="footer-brand">
-            <h3 id="plan-footer-title">🇩🇪 Hamburg 2026</h3>
-            <p>
-              <span class="lang-primary lang-en">Hamburg Winter City Break · Nov 26–28, 2026 · Couple · Christmas Markets &amp; Harbour</span>
-              <span class="lang-secondary lang-zh">漢堡冬日城市假期 · 2026年11月26–28日 · 情侶 · 聖誕市集與港口</span>
-              <span class="lang-tertiary lang-zh-cn">汉堡冬日城市假期 · 2026年11月26–28日 · 情侣 · 圣诞市集与港口</span>
-            </p>
-          </div>
-          <div class="footer-links">
-            <a href="#hero"><span class="lang-primary lang-en">Back to Top ↑</span><span class="lang-secondary lang-zh">返回頂部 ↑</span><span class="lang-tertiary lang-zh-cn">返回顶部 ↑</span></a>
-            <a href="https://github.com/IanMaHKG/Hamburg_2026_Planner" target="_blank" rel="noopener"><span class="lang-primary lang-en">GitHub</span><span class="lang-secondary lang-zh">GitHub 原始碼</span><span class="lang-tertiary lang-zh-cn">GitHub 源码</span></a>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <p>© 2026 Ian Ma · Built with <a href="https://github.com/IanMaHKG/Trip_Planner" target="_blank" rel="noopener">Trip Planner</a> · MIT Licensed</p>
-        </div>
+        <div id="footer-content-mount" class="footer-content"></div>
+        <div id="footer-bottom-mount" class="footer-bottom"></div>
       </div>
     </footer>
 
@@ -455,48 +432,7 @@
           </div>
         </div>
 
-        <div class="taxi-destination-toggle">
-          <button class="taxi-toggle-btn active" id="taxi-btn-hotel" data-dest="hotel" onclick="switchTaxiDestination('hotel')">
-            🏨 <span class="lang-primary lang-en">Courtyard Marriott</span><span class="lang-secondary lang-zh">萬怡酒店</span><span class="lang-tertiary lang-zh-cn">万怡酒店</span>
-          </button>
-          <button class="taxi-toggle-btn" id="taxi-btn-airport" data-dest="airport" onclick="switchTaxiDestination('airport')">
-            ✈️ <span class="lang-primary lang-en">Hamburg Airport (T2)</span><span class="lang-secondary lang-zh">漢堡機場 (T2)</span><span class="lang-tertiary lang-zh-cn">汉堡机场 (T2)</span>
-          </button>
-        </div>
-
-        <div class="taxi-card-display" id="taxi-display-hotel">
-          <div class="taxi-german-box">
-            <span class="taxi-phrase-label">Bitte bringen Sie uns zum:</span>
-            <div class="taxi-target-name">Courtyard by Marriott Hamburg City</div>
-            <div class="taxi-target-address">Adenauerallee 52, 20097 Hamburg</div>
-            <div class="taxi-target-landmark">📍 Nähe Berliner Tor / Hauptbahnhof</div>
-          </div>
-          <div class="taxi-card-actions">
-            <button class="taxi-action-btn" type="button" onclick="copyToClipboard('Adenauerallee 52, 20097 Hamburg')">
-              📋 <span class="lang-primary lang-en">Copy Address</span><span class="lang-secondary lang-zh">複製地址</span><span class="lang-tertiary lang-zh-cn">复制地址</span>
-            </button>
-            <a class="taxi-action-btn primary" href="https://maps.google.com/?q=Adenauerallee+52+Hamburg" target="_blank" rel="noopener">
-              🗺️ <span class="lang-primary lang-en">Google Maps ↗</span><span class="lang-secondary lang-zh">打開地圖 ↗</span><span class="lang-tertiary lang-zh-cn">打开地图 ↗</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="taxi-card-display" id="taxi-display-airport" style="display: none;">
-          <div class="taxi-german-box">
-            <span class="taxi-phrase-label">Bitte bringen Sie uns zum:</span>
-            <div class="taxi-target-name">Flughafen Hamburg (HAM) · Terminal 2</div>
-            <div class="taxi-target-address">Flughafenstraße 1–3, 22335 Hamburg</div>
-            <div class="taxi-target-landmark">✈️ Abflug British Airways (T2)</div>
-          </div>
-          <div class="taxi-card-actions">
-            <button class="taxi-action-btn" type="button" onclick="copyToClipboard('Flughafenstr. 1-3, 22335 Hamburg')">
-              📋 <span class="lang-primary lang-en">Copy Address</span><span class="lang-secondary lang-zh">複製地址</span><span class="lang-tertiary lang-zh-cn">复制地址</span>
-            </button>
-            <a class="taxi-action-btn primary" href="https://maps.google.com/?q=Hamburg+Airport+Terminal+2" target="_blank" rel="noopener">
-              🗺️ <span class="lang-primary lang-en">Google Maps ↗</span><span class="lang-secondary lang-zh">打開地圖 ↗</span><span class="lang-tertiary lang-zh-cn">打开地图 ↗</span>
-            </a>
-          </div>
-        </div>
+        <div id="taxi-modal-inner-mount"></div>
       </div>
     </div>
 

@@ -29,7 +29,7 @@
  * @see js/render.js   — renderAll().
  * @see js/currency.js — initCurrencySelector().
  * @see js/map.js      — initRouteMap(), initDayMiniMap().
- * @see sw.js          — Service Worker (bump const CACHE_NAME = 'trip-planner-v21'; after code changes).
+ * @see sw.js          — Service Worker (increment CACHE_NAME integer after any CSS/JS/HTML/data change).
  * @see AGENTS.md      — Architecture rules.
  */
 

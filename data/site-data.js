@@ -87,7 +87,7 @@ const SITE_DATA = {
     /* ── Journey Milestone Route Board & Global Map Stops ── */
     routeBoard: {
       type: "rail",
-      style: "swiss-train",
+      /* style key intentionally omitted — TRIP_CONFIG.routeBoardStyle in config.js is the authority */
       badge: "HVV · Hamburg Verkehrsverbund",
       lineTitle: {
         en: "Hamburg Winter City Break · Advent 2026",
@@ -606,6 +606,11 @@ const SITE_DATA = {
      5. CONFIRMED FLIGHTS — British Airways (LHR ↔ HAM)
      ══════════════════════════════════════════════════ */
   flights: {
+    sectionSubtitle: {
+      en: "British Airways BA960 & BA967 flights between London Heathrow (LHR T5) and Hamburg Airport (HAM T2) with direct S1 transit to city.",
+      zh: "英國航空 BA960 與 BA967 往返倫敦希斯路（T5）與漢堡機場（T2），搭配S1城郊列車直通市區。",
+      "zh-cn": "英国航空 BA960 与 BA967 往返伦敦希思罗（T5）与汉堡机场（T2），搭配S1城郊列车直通市区。"
+    },
     badge: {
       en: "Confirmed Flights · British Airways",
       zh: "已確認航班 · 英國航空",
@@ -703,6 +708,11 @@ const SITE_DATA = {
      6. HOTEL FINDER & CONFIRMED ACCOMMODATION
      ══════════════════════════════════════════════════ */
   hotels: {
+    sectionSubtitle: {
+      en: "Staying at Courtyard by Marriott Hamburg City for the entire 3-day trip. Direct link to official Marriott booking & live rates.",
+      zh: "全程入住漢堡市萬怡酒店 (Courtyard by Marriott)。附官方萬豪酒店詳情及即時房價查詢。",
+      "zh-cn": "全程入住汉堡市万怡酒店 (Courtyard by Marriott)。附官方万豪酒店详情及实时房价查询。"
+    },
     quickLegs: [
       {
         active: true,
@@ -1238,6 +1248,11 @@ const SITE_DATA = {
       zh: "🧤 漢堡11月下旬氣溫清冽偏冷，受易北河海風影響（可能遇上典型的細雨Schmuddelwetter）。強烈建議備妥防風防水厚大衣、毛衣/抓絨保暖層、舒適防滑健行鞋、圍巾及拍照觸屏手套！",
       "zh-cn": "🧤 汉堡11月下旬气温清冽偏冷，受易北河海风影响（可能遇上典型的细雨Schmuddelwetter）。强烈建议备妥防风防水厚大衣、毛衣/抓绒保暖层、舒适防滑健行鞋、围巾及拍照触屏手套！"
     },
+    attribution: {
+      en: 'Weather data sourced from <a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · Static forecast (live forecast available from 10 Nov 2026 · 16 days before departure)',
+      zh: '天氣資料來源：<a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · 靜態預報（即時天氣預報將於2026年11月10日起提供 · 出發前16天）',
+      "zh-cn": '天气数据来源：<a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · 静态预报（实时天气预报将于2026年11月10日起提供 · 出发前16天）'
+    },
     dailyForecast: [
       {
         date: "2026-11-26",
@@ -1458,6 +1473,61 @@ const SITE_DATA = {
         ]
       }
     ]
+  },
+
+  /* ══════════════════════════════════════════════════
+     14. TAXI & DESTINATION FLASHCARD
+     German phrases + addresses shown to taxi drivers.
+     ══════════════════════════════════════════════════ */
+  taxiCard: {
+    promptPhrase: {
+      de: "Bitte bringen Sie uns zum:",
+      en: "Please take us to:",
+      zh: "請帶我們前往：",
+      "zh-cn": "请带我们前往："
+    },
+    hotel: {
+      name: "Courtyard by Marriott Hamburg City",
+      address: "Adenauerallee 52, 20097 Hamburg",
+      landmark: {
+        de: "📍 Nähe Berliner Tor / Hauptbahnhof",
+        en: "📍 Near Berliner Tor / Hamburg Central Station",
+        zh: "📍 鄰近柏林門站 / 漢堡中央車站",
+        "zh-cn": "📍 邻近柏林门站 / 汉堡中央车站"
+      },
+      mapsUrl: "https://maps.google.com/?q=Adenauerallee+52+Hamburg"
+    },
+    airport: {
+      name: {
+        de: "Flughafen Hamburg (HAM) · Terminal 2",
+        en: "Hamburg Airport (HAM) · Terminal 2",
+        zh: "漢堡機場 (HAM) · 第2航廈",
+        "zh-cn": "汉堡机场 (HAM) · T2航站楼"
+      },
+      address: "Flughafenstraße 1–3, 22335 Hamburg",
+      landmark: {
+        de: "✈️ Abflug British Airways (T2)",
+        en: "✈️ British Airways Departures (T2)",
+        zh: "✈️ 英國航空出發大廳 (T2)",
+        "zh-cn": "✈️ 英国航空出发大厅 (T2)"
+      },
+      mapsUrl: "https://maps.google.com/?q=Hamburg+Airport+Terminal+2"
+    }
+  },
+
+  /* ══════════════════════════════════════════════════
+     15. FOOTER DATA
+     ══════════════════════════════════════════════════ */
+  footer: {
+    title: "🇩🇪 Hamburg 2026",
+    description: {
+      en: "Hamburg Winter City Break · Nov 26–28, 2026 · Couple · Christmas Markets & Harbour",
+      zh: "漢堡冬日城市假期 · 2026年11月26–28日 · 情侶 · 聖誕市集與港口",
+      "zh-cn": "汉堡冬日城市假期 · 2026年11月26–28日 · 情侣 · 圣诞市集与港口"
+    },
+    githubUrl: "https://github.com/IanMaHKG/Hamburg_2026_Planner",
+    templateUrl: "https://github.com/IanMaHKG/Trip_Planner",
+    copyright: "© 2026 Ian Ma"
   }
 };
 
@@ -1465,4 +1535,3 @@ const SITE_DATA = {
 if (typeof window !== 'undefined') {
   window.SITE_DATA = SITE_DATA;
 }
-
