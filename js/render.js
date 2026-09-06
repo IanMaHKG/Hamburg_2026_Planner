@@ -1400,6 +1400,11 @@ function renderWeather() {
       '<div class="weather-clothing-tip">' +
         renderBilingualText(w.clothingTip) +
       '</div>' +
+      '<div class="budget-attribution" id="weather-attribution" style="margin-top:12px;">' +
+        '<span class="lang-primary lang-en">Weather data sourced from <a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · Static forecast (live update pending…)</span>' +
+        '<span class="lang-secondary lang-zh">天氣資料來源：<a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · 靜態預報（即時更新待載入…）</span>' +
+        '<span class="lang-tertiary lang-zh-cn">天气数据来源：<a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · 静态预报（实时更新待载入…）</span>' +
+      '</div>' +
     '</div>';
 }
 
@@ -1486,6 +1491,16 @@ function fetchLiveWeather() {
         badge.className = 'weather-live-badge';
         badge.textContent = '🔴 LIVE · ' + data.weather._liveTimestamp;
         titleWrap.appendChild(badge);
+      }
+
+      // Update the weather attribution with live timestamp
+      var attrEl = document.getElementById('weather-attribution');
+      if (attrEl) {
+        var ts = data.weather._liveTimestamp;
+        attrEl.innerHTML =
+          '<span class="lang-primary lang-en">Weather data sourced from <a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · Last updated: ' + ts + '</span>' +
+          '<span class="lang-secondary lang-zh">天氣資料來源：<a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · 最後更新：' + ts + '</span>' +
+          '<span class="lang-tertiary lang-zh-cn">天气数据来源：<a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a> · 最后更新：' + ts + '</span>';
       }
     })
     .catch(function(err) {
@@ -1581,6 +1596,11 @@ function renderEssentials() {
         '</div>' +
         '<div class="phrase-tabs-row">' + phraseTabsHtml + '</div>' +
         '<div class="phrase-panels-container">' + phrasePanelsHtml + '</div>' +
+        '<div class="budget-attribution" style="margin-top:12px;">' +
+          '<span class="lang-primary lang-en">🔊 Audio pronunciation powered by the browser\'s built-in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API" target="_blank" rel="noopener">Web Speech API</a> · de-DE voice</span>' +
+          '<span class="lang-secondary lang-zh">🔊 語音朗讀由瀏覽器內建 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API" target="_blank" rel="noopener">Web Speech API</a> 提供 · 德語 de-DE 語音</span>' +
+          '<span class="lang-tertiary lang-zh-cn">🔊 语音朗读由浏览器内置 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API" target="_blank" rel="noopener">Web Speech API</a> 提供 · 德语 de-DE 语音</span>' +
+        '</div>' +
       '</div>' +
     '</div>';
 
