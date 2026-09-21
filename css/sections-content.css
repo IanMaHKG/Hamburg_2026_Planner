@@ -1,4 +1,4 @@
-﻿/* sections-content.css - Flights, food, BA branding, weather widget, essentials, photo tips, print styles
+/* sections-content.css - Flights, food, BA branding, weather widget, essentials, photo tips, print styles
    Split from sections.css. All values must use CSS custom properties from palette.css.
    @see css/palette.css, css/components.css, css/responsive.css, AGENTS.md
    ======================================================= */
@@ -366,6 +366,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -1443,7 +1444,7 @@
   }
 
   #hero {
-    min-height: auto !important;
+    min-height: 0 !important; /* 'auto' unsupported by Firefox in this context; 0 is equivalent */
     padding: 40px 20px !important;
     background: none !important;
     color: #0F172A !important;

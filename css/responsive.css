@@ -42,8 +42,8 @@
     left: 0;
     right: 0;
     background: var(--bg-nav);
-    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     flex-direction: column;
     padding: 16px 24px 24px;
     gap: 8px;
@@ -564,7 +564,6 @@
     max-width: 100% !important;
     width: 100% !important;
     min-width: 0 !important;
-    -webkit-overflow-scrolling: touch;
     padding-bottom: 8px !important;
     scrollbar-width: none !important;
   }
@@ -632,7 +631,6 @@
     max-width: 100% !important;
     width: 100% !important;
     min-width: 0 !important;
-    -webkit-overflow-scrolling: touch;
     padding-bottom: 6px !important;
     scrollbar-width: none !important;
   }

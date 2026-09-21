@@ -26,6 +26,19 @@
    @see AGENTS.md        — Architecture rules.
    ======================================================= */
 
+/* ── Layout Utilities ── */
+/* Replaces inline style="margin-top: 36px" used by weather-widget & route-board-mount */
+.mt-section {
+  margin-top: 36px;
+}
+
+/* Replaces inline style on the budget section currency-switcher row */
+.currency-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
 /* ── Navigation Bar ── */
 .nav-bar {
   position: fixed;
@@ -43,8 +56,8 @@
 
 .nav-bar.scrolled {
   box-shadow: var(--shadow-nav);
-  backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
 }
 
 .nav-container,
@@ -257,6 +270,7 @@
   font-weight: 600;
   background: rgba(255, 255, 255, 0.15);
   color: var(--text-on-dark);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 
@@ -332,6 +346,7 @@
   border-radius: var(--radius-md);
   margin-bottom: 8px;
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   transition: background var(--transition-fast), border-color var(--transition-fast);
 }
@@ -431,8 +446,8 @@
     box-sizing: border-box;
     height: 64px;
     background: rgba(15, 23, 42, 0.92);
-    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     border-top: 1px solid var(--border-light, rgba(255, 255, 255, 0.1));
     z-index: 990;
     align-items: center;
@@ -554,10 +569,10 @@
    GERMAN TAXI & DESTINATION FLASHCARD MODAL
    ═══════════════════════════════════════════════════ */
 .taxi-modal {
+  display: none; /* shown via openTaxiModal() which sets display:flex */
   position: fixed;
   inset: 0;
   z-index: 2000;
-  display: flex;
   align-items: center;
   justify-content: center;
   padding: 16px;
@@ -573,8 +588,8 @@
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.78);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
 .taxi-modal-dialog {

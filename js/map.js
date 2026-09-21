@@ -383,9 +383,11 @@ function initDayMiniMap(dayId) {
     style: getMapStyle(),
     bounds: bounds,
     fitBoundsOptions: { padding: { top: 40, bottom: 40, left: 40, right: 40 }, maxZoom: 14 },
-    scrollZoom: false,
+    scrollZoom: true,
     attributionControl: false
   });
+
+  map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
 
   _dayMaps[dayId] = map;
   _dayMarkers[dayId] = [];

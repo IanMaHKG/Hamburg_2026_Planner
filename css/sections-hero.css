@@ -1,4 +1,4 @@
-﻿/* sections-hero.css - Hero section & countdown timer
+/* sections-hero.css - Hero section & countdown timer
    Split from sections.css. All values must use CSS custom properties from palette.css.
    @see css/palette.css, css/components.css, css/responsive.css, AGENTS.md
    ======================================================= */
@@ -46,26 +46,12 @@
   justify-content: center;
   text-align: center;
   padding: 120px 24px 80px;
-  /* WebP with JPEG fallback via image-set() — WebP ~65% smaller */
-  background-image:
-    linear-gradient(180deg, rgba(15, 23, 42, 0.72) 0%, rgba(15, 23, 42, 0.88) 100%),
-    image-set(
-      url('../assets/hero-bg.webp') type('image/webp'),
-      url('../assets/hero-bg.jpg')  type('image/jpeg')
-    );
-  /* Vendor-prefixed fallback for older WebKit */
+  /* -webkit-image-set: universal fallback (Chrome 21+, Safari 14+, Firefox 90+) */
   background-image:
     linear-gradient(180deg, rgba(15, 23, 42, 0.72) 0%, rgba(15, 23, 42, 0.88) 100%),
     -webkit-image-set(
       url('../assets/hero-bg.webp') 1x,
       url('../assets/hero-bg.jpg')  1x
-    );
-  /* Final standard syntax — overrides if supported */
-  background-image:
-    linear-gradient(180deg, rgba(15, 23, 42, 0.72) 0%, rgba(15, 23, 42, 0.88) 100%),
-    image-set(
-      url('../assets/hero-bg.webp') type('image/webp'),
-      url('../assets/hero-bg.jpg')  type('image/jpeg')
     );
   background-size: cover;
   background-position: center center;
@@ -75,27 +61,38 @@
 }
 
 [data-theme="light"] #hero {
-  background-image:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(248, 250, 252, 0.82) 100%),
-    image-set(
-      url('../assets/hero-bg-light.webp') type('image/webp'),
-      url('../assets/hero-bg-light.jpg')  type('image/jpeg')
-    );
+  /* -webkit-image-set: universal fallback */
   background-image:
     linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(248, 250, 252, 0.82) 100%),
     -webkit-image-set(
       url('../assets/hero-bg-light.webp') 1x,
       url('../assets/hero-bg-light.jpg')  1x
     );
-  background-image:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(248, 250, 252, 0.82) 100%),
-    image-set(
-      url('../assets/hero-bg-light.webp') type('image/webp'),
-      url('../assets/hero-bg-light.jpg')  type('image/jpeg')
-    );
   background-size: cover;
   background-position: center center;
   color: var(--text-primary);
+}
+
+/* Upgrade to type()-aware image-set() in browsers that support it (Chrome 113+, Firefox, Safari 17+).
+   @supports guards prevent the linter from flagging the property as unsupported. */
+@supports (background-image: image-set(url('') type('image/webp'))) {
+  #hero {
+    background-image:
+      linear-gradient(180deg, rgba(15, 23, 42, 0.72) 0%, rgba(15, 23, 42, 0.88) 100%),
+      image-set(
+        url('../assets/hero-bg.webp') type('image/webp'),
+        url('../assets/hero-bg.jpg')  type('image/jpeg')
+      );
+  }
+
+  [data-theme="light"] #hero {
+    background-image:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(248, 250, 252, 0.82) 100%),
+      image-set(
+        url('../assets/hero-bg-light.webp') type('image/webp'),
+        url('../assets/hero-bg-light.jpg')  type('image/jpeg')
+      );
+  }
 }
 
 [data-theme="light"] .hero-overlay {
@@ -115,6 +112,7 @@
 [data-theme="light"] .hero-title .accent {
   background: linear-gradient(135deg, #0A2540 10%, #0054A6 60%, #BA0C2F 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.6));
 }
@@ -135,6 +133,7 @@
   border: 1px solid rgba(15, 23, 42, 0.12);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   font-weight: 700;
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
 }
 
@@ -169,6 +168,7 @@
   top: -2em;
   color: rgba(255, 255, 255, 0.9);
   pointer-events: none;
+  -webkit-user-select: none;
   user-select: none;
   animation: snowfall linear infinite;
   will-change: transform;
@@ -223,6 +223,7 @@
 .hero-title .accent {
   background: linear-gradient(135deg, #FFFFFF 30%, var(--brand-gold-light) 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -313,8 +314,8 @@
 
 .countdown-card {
   background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--radius-xl, 20px);
   padding: 16px 28px;

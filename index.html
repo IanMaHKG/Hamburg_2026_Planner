@@ -12,6 +12,7 @@
 
   <!-- Favicon & PWA Manifest -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="manifest" href="manifest.json">
 
   <!-- Modern Typography (Google Fonts: Inter) -->
@@ -115,8 +116,8 @@
           </p>
         </div>
         <div class="overview-grid" id="overview-cards-container"></div>
-        <div id="weather-widget" class="weather-widget-container" style="margin-top: 36px;"></div>
-        <div id="route-board-mount" style="margin-top: 36px;"></div>
+        <div id="weather-widget" class="weather-widget-container mt-section"></div>
+        <div id="route-board-mount" class="mt-section"></div>
       </div>
     </section>
 
@@ -295,7 +296,7 @@
              <span class="lang-tertiary lang-zh-cn">清晰的各项开支预算分布，支持实时汇率动态转换。</span>
           </p>
         </div>
-        <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
+        <div class="currency-row">
           <div class="currency-switcher"></div>
         </div>
         <div id="budget-summary-mount" class="budget-summary-container"></div>
@@ -412,7 +413,7 @@
     </nav>
 
     <!-- German Taxi & Destination Flashcard Modal -->
-    <div class="taxi-modal" id="taxi-modal" role="dialog" aria-modal="true" aria-labelledby="taxi-modal-title" style="display: none;">
+    <div class="taxi-modal" id="taxi-modal" role="dialog" aria-modal="true" aria-labelledby="taxi-modal-title">
       <div class="taxi-modal-backdrop" onclick="closeTaxiModal()"></div>
       <div class="taxi-modal-dialog">
         <button class="taxi-modal-close" onclick="closeTaxiModal()" aria-label="Close modal">✕</button>

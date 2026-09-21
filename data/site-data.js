@@ -95,9 +95,9 @@ const SITE_DATA = {
         "zh-cn": "汉堡冬日城市线 · 2026降临节"
       },
       direction: {
-        en: "Bound for Speicherstadt",
-        zh: "往 倉庫城 方向",
-        "zh-cn": "往 仓库城 方向"
+        en: "Bound for Jungfernstieg",
+        zh: "往 少女大道 方向",
+        "zh-cn": "往 少女大道 方向"
       }
     },
 
@@ -146,48 +146,6 @@ const SITE_DATA = {
       },
       {
         code: "02",
-        label: "SPK",
-        nameNative: "Speicherstadt",
-        nameRomaji: "Warehouse District",
-        dotClass: "speicherstadt",
-        name: {
-          en: "Speicherstadt & Miniatur Wunderland",
-          zh: "倉庫城與微型奇蹟世界 (Speicherstadt & Miniatur Wunderland)",
-          "zh-cn": "仓库城与微型奇迹世界 (Speicherstadt & Miniatur Wunderland)"
-        },
-        days: { en: "Day 1–2", zh: "第1–2天", "zh-cn": "第1–2天" },
-        desc: {
-          en: "UNESCO-listed red-brick canal district and Europe's largest model railway.",
-          zh: "聯合國教科文組織世界遺產紅磚運河區及歐洲最大模型鐵路展覽館。",
-          "zh-cn": "联合国教科文组织世界遗产红砖运河区及欧洲最大模型铁路展览馆。"
-        },
-        lat: 53.5435,
-        lng: 9.9938,
-        color: "#B45309"
-      },
-      {
-        code: "03",
-        label: "HFC",
-        nameNative: "HafenCity",
-        nameRomaji: "Harbour City",
-        dotClass: "hafencity",
-        name: {
-          en: "HafenCity & Elbphilharmonie",
-          zh: "港城與易北愛樂廳 (HafenCity & Elbphilharmonie)",
-          "zh-cn": "港城与易北爱乐厅 (HafenCity & Elbphilharmonie)"
-        },
-        days: { en: "Day 1–2", zh: "第1–2天", "zh-cn": "第1–2天" },
-        desc: {
-          en: "Europe's largest inner-city urban development project and iconic concert hall plaza.",
-          zh: "歐洲最大內城都市重建項目及標誌性音樂廳廣場。",
-          "zh-cn": "欧洲最大内城都市重建项目及标志性音乐厅广场。"
-        },
-        lat: 53.5413,
-        lng: 9.9842,
-        color: "#0369A1"
-      },
-      {
-        code: "04",
         label: "JFS",
         nameNative: "Jungfernstieg",
         nameRomaji: "Inner Alster",
@@ -197,7 +155,7 @@ const SITE_DATA = {
           zh: "少女大道與內阿爾斯特湖 (Jungfernstieg & Binnenalster)",
           "zh-cn": "少女大道与内阿尔斯特湖 (Jungfernstieg & Binnenalster)"
         },
-        days: { en: "Day 2", zh: "第2天", "zh-cn": "第2天" },
+        days: { en: "Day 1", zh: "第1天", "zh-cn": "第1天" },
         desc: {
           en: "Hamburg's premier shopping boulevard and atmospheric lakeside promenade.",
           zh: "漢堡最著名購物大道與迷人湖畔長廊。",
@@ -208,7 +166,7 @@ const SITE_DATA = {
         color: "#7C3AED"
       },
       {
-        code: "05",
+        code: "03",
         label: "XMS",
         nameNative: "Weihnachtsmärkte",
         nameRomaji: "Christmas Markets",
@@ -218,7 +176,7 @@ const SITE_DATA = {
           zh: "漢堡聖誕市集 (Hamburger Weihnachtsmärkte)",
           "zh-cn": "汉堡圣诞市集 (Hamburger Weihnachtsmärkte)"
         },
-        days: { en: "Day 2–3", zh: "第2–3天", "zh-cn": "第2–3天" },
+        days: { en: "Day 1", zh: "第1天", "zh-cn": "第1天" },
         desc: {
           en: "Rathausmarkt, Binnenalster & Fleetinsel markets — Glühwein, roasted almonds, festive artisan crafts.",
           zh: "市政廳廣場、內阿爾斯特及弗萊廷島市集 — 熱紅酒、烤杏仁、節日手工藝品。",
@@ -227,6 +185,48 @@ const SITE_DATA = {
         lat: 53.5503,
         lng: 9.9998,
         color: "#DC2626"
+      },
+      {
+        code: "04",
+        label: "SPK",
+        nameNative: "Speicherstadt",
+        nameRomaji: "Warehouse District",
+        dotClass: "speicherstadt",
+        name: {
+          en: "Speicherstadt & Miniatur Wunderland",
+          zh: "倉庫城與微型奇蹟世界 (Speicherstadt & Miniatur Wunderland)",
+          "zh-cn": "仓库城与微型奇迹世界 (Speicherstadt & Miniatur Wunderland)"
+        },
+        days: { en: "Day 2", zh: "第2天", "zh-cn": "第2天" },
+        desc: {
+          en: "UNESCO-listed red-brick canal district and Europe's largest model railway.",
+          zh: "聯合國教科文組織广界遣産紅磚運河區及歐洲最大模型鐵路展覽館。",
+          "zh-cn": "联合国教科文组织广界遗产红砖运河区及欧洲最大模型铁路展览馆。"
+        },
+        lat: 53.5435,
+        lng: 9.9938,
+        color: "#B45309"
+      },
+      {
+        code: "05",
+        label: "HFC",
+        nameNative: "HafenCity",
+        nameRomaji: "Harbour City",
+        dotClass: "hafencity",
+        name: {
+          en: "HafenCity & Elbphilharmonie",
+          zh: "港城與易北愛樂廳 (HafenCity & Elbphilharmonie)",
+          "zh-cn": "港城与易北爱乐厅 (HafenCity & Elbphilharmonie)"
+        },
+        days: { en: "Day 2", zh: "第2天", "zh-cn": "第2天" },
+        desc: {
+          en: "Europe's largest inner-city urban development project and iconic concert hall plaza.",
+          zh: "歐洲最大內城都市重建項目及標誌性音樂廳廣場。",
+          "zh-cn": "欧洲最大内城都市重建项目及标志性音乐厅广场。"
+        },
+        lat: 53.5413,
+        lng: 9.9842,
+        color: "#0369A1"
       },
       {
         code: "06",
@@ -239,7 +239,7 @@ const SITE_DATA = {
           zh: "聖保利區與輪船碼頭 (St. Pauli & Landungsbrücken)",
           "zh-cn": "圣保利区与轮船码头 (St. Pauli & Landungsbrücken)"
         },
-        days: { en: "Day 3", zh: "第3天", "zh-cn": "第3天" },
+        days: { en: "Day 2", zh: "第2天", "zh-cn": "第2天" },
         desc: {
           en: "Historic harbour piers, Fischmarkt, and iconic Elbe waterfront views.",
           zh: "歷史悠久的港口碼頭、魚市場及標誌性易北河海濱景觀。",
