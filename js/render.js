@@ -547,7 +547,8 @@ function renderItinerary() {
       var locationPills = '';
       if (block.activity && block.activity.locations && block.activity.locations.length > 0) {
         locationPills = block.activity.locations.map(function(loc) {
-          var mapUrl = 'https://maps.google.com/?q=' + loc.lat + ',' + loc.lng;
+          var labelText = (loc.label && typeof loc.label === 'object') ? loc.label.en : (loc.label || (loc.lat + ',' + loc.lng));
+          var mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(labelText);
           return '<a href="' + mapUrl + '" target="_blank" rel="noopener noreferrer" class="badge location-badge" title="Open in Google Maps">' +
                    '📍 ' + renderBilingualText(loc.label) + ' <span class="ext-icon">↗</span>' +
                  '</a>';
@@ -967,7 +968,7 @@ function renderHotels() {
           '<span class="hotel-time-chip checkout">🔓 ' + renderBilingualText({ en: 'Check-out: ' + checkoutTime, zh: '退房時間：' + checkoutTime, 'zh-cn': '退房时间：' + checkoutTime }) + '</span>' +
         '</div>';
 
-      var gmapUrl = 'https://maps.google.com/?q=' + encodeURIComponent(leg.address || leg.dest || '');
+      var gmapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(leg.address || leg.dest || '');
       var addressHtml = leg.address
         ? '<div class="hotel-address-tag">' +
             '<span>📍 ' + leg.address + '</span>' +
@@ -1260,7 +1261,7 @@ function renderFood() {
                   '<button class="food-action-btn" type="button" onclick="event.stopPropagation(); if (typeof focusFoodSpot === \'function\') focusFoodSpot(\'' + spot.id + '\');">' +
                     mapActionText +
                   '</button>' +
-                  '<a class="food-maps-btn" href="' + (spot.url || ('https://maps.google.com/?q=' + spot.lat + ',' + spot.lng)) + '" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">' +
+                  '<a class="food-maps-btn" href="' + (spot.url || ('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent((spot.name && spot.name.en) ? spot.name.en : (spot.lat + ',' + spot.lng)))) + '" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">' +
                     '🗺️ Maps ↗' +
                   '</a>' +
                 '</div>' +

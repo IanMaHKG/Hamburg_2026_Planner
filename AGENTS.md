@@ -166,8 +166,8 @@ Hamburg_2026_Planner/
 
 - **Mandatory Cache Version Bump:** Whenever **ANY** file in `css/`, `js/`, `data/`, or `index.html` is modified, the agent **MUST** increment the cache version constant in `sw.js`:
   ```javascript
-  // Example: increment version on every release (current: v25)
-  const CACHE_NAME = 'trip-planner-v25';
+  // Example: increment version on every release (current: v28)
+  const CACHE_NAME = 'trip-planner-v28';
   //                                          ^^^ increment this integer on EVERY edit
   ```
 - **Anti-Drift Rule for Cache Version**: After bumping the version in `sw.js`, immediately check that:
