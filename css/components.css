@@ -478,7 +478,7 @@
     cursor: pointer;
     font-family: inherit;
     flex: 1;
-    max-width: 72px;
+    max-width: 90px;
   }
 
   .mobile-nav-tab:hover,
@@ -504,15 +504,6 @@
     white-space: nowrap;
   }
 
-  .mobile-nav-taxi-btn {
-    color: #F59E0B;
-  }
-
-  .mobile-nav-taxi-btn:hover,
-  .mobile-nav-taxi-btn.active {
-    color: #D97706;
-    background: rgba(245, 158, 11, 0.12);
-  }
 }
 
 /* ═══════════════════════════════════════════════════
@@ -546,6 +537,14 @@
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
+}
+
+/* On mobile, lift above the fixed bottom nav bar */
+@media (max-width: 768px) {
+  .back-to-top-btn {
+    bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+    right: 16px;
+  }
 }
 
 .back-to-top-btn:hover {

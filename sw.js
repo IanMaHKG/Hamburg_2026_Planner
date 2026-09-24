@@ -14,12 +14,13 @@
  * @see AGENTS.md — Service Worker & PWA Rules section.
  */
 
-const CACHE_NAME = 'trip-planner-v24';
+const CACHE_NAME = 'trip-planner-v27';
 const STATIC_ASSETS = [
   './',
   './index.html',
   './manifest.json',
   './assets/favicon.svg',
+  './assets/apple-touch-icon.png',
   './assets/ba-logo.svg',
   './assets/hero-bg.jpg',
   './assets/hero-bg.webp',
@@ -74,8 +75,11 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // Allow live API and CDN requests to go to network
-  if (url.origin !== location.origin || url.pathname.includes('open.er-api.com') || url.pathname.includes('openfreemap.org') || url.pathname.includes('unpkg.com')) {
+  // All cross-origin requests (live APIs, CDN tiles, MapLibre bundle) go
+  // network-first with a cache fallback for offline resilience.
+  // Note: pathname.includes checks for origins are intentionally removed —
+  // url.origin !== location.origin already catches all external requests.
+  if (url.origin !== location.origin) {
     event.respondWith(
       fetch(event.request).catch(() => caches.match(event.request))
     );

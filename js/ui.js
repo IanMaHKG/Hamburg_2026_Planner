@@ -376,6 +376,17 @@ function initNavigation() {
         toggle.setAttribute('aria-expanded', 'false');
       });
     });
+
+    // Close hamburger menu when clicking anywhere outside the drawer
+    document.addEventListener('click', (e) => {
+      if (links.classList.contains('open')) {
+        if (!links.contains(e.target) && !toggle.contains(e.target)) {
+          links.classList.remove('open');
+          toggle.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      }
+    }, { passive: true });
   }
 
   // Scroll Reveal Observer
@@ -410,7 +421,7 @@ function initNavigation() {
         });
       }
     });
-  }, { rootMargin: '-20% 0px -55% 0px' });
+  }, { rootMargin: '-10% 0px -45% 0px' });
 
   sections.forEach(sec => spyObserver.observe(sec));
 }
@@ -713,6 +724,59 @@ function initHotelSearch() {
     });
   }
 }
+
+/* ═══════════════════════════════════════════════════
+   6B. BUDGET NOTES COLUMN — MOBILE TAP-TO-EXPAND
+   ═══════════════════════════════════════════════════ */
+/**
+ * Budget Notes toggle — two-layer approach for reliable Android Chrome support:
+ *
+ *  Layer 1 (document delegation, self-executes immediately):
+ *    Attached to document so it works regardless of SW cache state or
+ *    script init order. Catches clicks on any [data-budget-toggle] button
+ *    anywhere on the page, even before renderAll() runs.
+ *
+ *  Layer 2 (direct per-button listeners, called from script.js):
+ *    initBudgetNotes() attaches a direct click handler to every rendered
+ *    button for belt-and-suspenders reliability on Android Chrome where
+ *    event bubbling through scrollable table wrappers can stall.
+ *
+ * AGENTS: Do NOT revert to inline onclick strings — escaped single quotes
+ * inside innerHTML-injected attributes behave inconsistently on mobile
+ * browsers. This delegation pattern is the canonical approach.
+ */
+
+// Layer 1: document-level delegation — self-executes when ui.js loads.
+// No dependency on script.js or renderAll() order.
+(function () {
+  function _budgetToggleHandler(e) {
+    const btn = e.target.closest ? e.target.closest('[data-budget-toggle]')
+                                 : null;
+    if (!btn) return;
+    // Walk up: button → td → tr
+    const row = btn.closest ? btn.closest('tr') : btn.parentNode && btn.parentNode.parentNode;
+    if (row) row.classList.toggle('notes-open');
+  }
+  document.addEventListener('click', _budgetToggleHandler);
+  // Expose for Layer 2 to reuse
+  window._budgetToggleHandler = _budgetToggleHandler;
+}());
+
+/**
+ * Layer 2: called by script.js after renderAll() to attach direct
+ * listeners on every rendered button — bypasses any bubbling issues
+ * caused by overflow:auto table wrappers on Android Chrome.
+ */
+function initBudgetNotes() {
+  const buttons = document.querySelectorAll('#budget-tbody [data-budget-toggle]');
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const row = this.closest ? this.closest('tr') : this.parentNode && this.parentNode.parentNode;
+      if (row) row.classList.toggle('notes-open');
+    });
+  });
+}
+window.initBudgetNotes = initBudgetNotes;
 
 /* ═══════════════════════════════════════════════════
    7. ITINERARY ACTIONS: EXPAND ALL & .ICS CALENDAR

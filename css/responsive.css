@@ -97,7 +97,7 @@
 /* ── Mobile Breakpoint (< 768px) ── */
 @media (max-width: 768px) {
   body {
-    padding-bottom: 74px;
+    padding-bottom: calc(74px + env(safe-area-inset-bottom, 0px));
   }
 
   .container {
@@ -298,6 +298,9 @@
 /* ── Print Stylesheet ── */
 @media print {
   .nav-bar,
+  .mobile-bottom-nav,
+  .reading-progress-bar,
+  .back-to-top-btn,
   .hero-cta,
   .scroll-indicator,
   .day-filters,
@@ -706,5 +709,51 @@
 
   .progress-tracker-fill {
     transition: none !important;
+  }
+}
+
+/* ── Safe-Area Insets: notch / Dynamic Island (iPhone 17 Pro) & gesture bar (Pixel 10 Pro XL) ── */
+/* viewport-fit=cover is set in index.html; these rules ensure UI elements clear system chrome. */
+.nav-bar {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    /* Already has env(safe-area-inset-bottom) in its padding via components.css;
+       this reinforces the height calc so content above clears the bar correctly. */
+    height: calc(64px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ── CJK Typography: prevent orphaned characters in subtitles ── */
+body.lang-zh .section-subtitle,
+body.lang-secondary .section-subtitle,
+body.lang-zh-cn .section-subtitle,
+body.lang-tertiary .section-subtitle {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* ── Food Filter Pills: right-edge fade to hint horizontal scroll ── */
+@media (max-width: 768px) {
+  .food-filter-container {
+    position: relative;
+  }
+
+  .food-filter-container::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 36px;
+    background: linear-gradient(to left, var(--bg-primary, #0F172A), transparent);
+    pointer-events: none;
+    border-radius: 0 var(--radius-pill, 9999px) var(--radius-pill, 9999px) 0;
+  }
+
+  [data-theme="light"] .food-filter-container::after {
+    background: linear-gradient(to left, var(--bg-primary, #FFFFFF), transparent);
   }
 }

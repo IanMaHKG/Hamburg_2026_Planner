@@ -874,12 +874,16 @@ function renderBudget() {
   var tbody = document.getElementById('budget-tbody');
   if (tbody && Array.isArray(data.budget.items)) {
     tbody.innerHTML = data.budget.items.map(function(item) {
-      return '<tr>' +
-               '<td><strong>' + renderBilingualText(item.category) + '</strong></td>' +
+      var notesToggleBtn = '<button class="budget-note-toggle" type="button" data-budget-toggle aria-label="Toggle notes">' +
+        '<span class="toggle-arrow">&#9654;</span>' +
+        renderBilingualText({ en: 'Notes', zh: '備註', 'zh-cn': '备注' }) +
+        '</button>';
+      return '<tr class="budget-notes-row">' +
+               '<td><strong>' + renderBilingualText(item.category) + '</strong>' + notesToggleBtn + '</td>' +
                '<td>' + (item.baseAmount || '—') + '</td>' +
                '<!-- data-min/data-max: raw base-currency values for currency.js conversion -->' +
                '<td class="converted-val" data-min="' + (item.min || 0) + '" data-max="' + (item.max || 0) + '">—</td>' +
-               '<td>' + renderBilingualText(item.notes) + '</td>' +
+               '<td class="budget-notes-cell">' + renderBilingualText(item.notes) + '</td>' +
              '</tr>';
     }).join('');
 
@@ -890,7 +894,7 @@ function renderBudget() {
           '<td><strong>' + renderBilingualText(tot.category) + '</strong></td>' +
           '<td><strong>' + (tot.baseAmount || '—') + '</strong></td>' +
           '<td class="converted-val budget-total-val" data-min="' + (tot.min || 0) + '" data-max="' + (tot.max || 0) + '"><strong>—</strong></td>' +
-          '<td><em>' + renderBilingualText(tot.notes) + '</em></td>' +
+          '<td class="budget-notes-cell"><em>' + renderBilingualText(tot.notes) + '</em></td>' +
         '</tr>';
     }
   }
